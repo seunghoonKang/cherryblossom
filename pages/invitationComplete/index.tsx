@@ -1,34 +1,49 @@
+import InterActionCard from '@/src/components/InterActionCard';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
 export default function InviTationComplete() {
-  const [isPullOut, setIsPullOut] = useState(false);
+  const [isAnimationOver, setIsAnimationOver] = useState(false);
 
-  setTimeout(() => {
-    setIsPullOut(true);
-  }, 1000);
+  useEffect(() => {
+    const animation = setTimeout(() => {
+      setIsAnimationOver(true);
+    }, 2000);
+    return () => clearTimeout(animation);
+  }, [isAnimationOver]);
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <div className="w-[360px] h-[640px]">
-        <div className="w-[450px] mt-[250px] h-[400px] absolute  bg-red-500"></div>
-        <div className="mt-[-200px] absolute w-0 h-0 border-solid border-t-transparent border-r-transparent border-l-transparent border-b-red-600 border-b-[225px] border-t-[225px] border-r-[225px] border-l-[225px] z-1 animate-[envelope_500ms_linear] origin-bottom"></div>
-
-        {isPullOut && (
-          <div
-            className={`absolute w-full max-w-[450px] flex justify-center items-center bg-blue-500 animate-[pull-out_500ms_linear]
-                }`}
-          >
-            <div>
-              <Image src="/성택미모티콘.png" alt="image" width="300" height="300" />
-            </div>
-            <div className="absolute top-0 left-0 w-full h-full bg-black opacity-0 hover:opacity-50 transition duration-500"></div>
-            <div className="absolute bottom-0 left-0 w-full p-4 text-white flex justify-center">
-              <h2 className="text-2xl font-bold mb-2">Invited!</h2>
-            </div>
+    <div className="w-full h-full flex justify-center items-center relative">
+      {isAnimationOver ? (
+        <div className="w-full h-full">
+          <div className="px-5 pt-[44px]">
+            <section id="card">
+              <div className="relative w-[320px] h-[300px] mt-[66px] flex justify-center items-center border border-solid border-pink-200 bg-white z-20 rounded-[10px]">
+                <div className="absolute top-[-20px] bg-[#FEEFF4] w-[240px] h-[40px] flex justify-center items-center rounded-[10px] border border-solid border-[#FFC9D4]">
+                  벚꽃 초대장
+                </div>
+                <Image src="/성택미모티콘.png" alt="image" width="300" height="300" />
+              </div>
+            </section>
+            <section id="shareBtn" className="w-full flex justify-between mt-4">
+              <button className="bg-btn-yellow h-[50px] grow-0 w-full rounded-[10px] border border-solid border-white cursor-pointer">
+                <p>편지 보내기</p>
+              </button>
+              <button className="bg-btn-yellow ml-[15px] w-full grow-0 h-[50px] rounded-[10px] border border-solid border-white cursor-pointer">
+                <p>다시 작성하기</p>
+              </button>
+            </section>
           </div>
-        )}
-      </div>
+          <section
+            id="footerBtn"
+            className="absolute bottom-0 w-full h-[48px] bg-[#AFE6AD] flex justify-center cursor-pointer"
+          >
+            <button>내 앨범에 담기</button>
+          </section>
+        </div>
+      ) : (
+        <InterActionCard needOpenBtn={false} />
+      )}
     </div>
   );
 }
