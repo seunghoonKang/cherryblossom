@@ -1,6 +1,6 @@
 import InterActionCard from '@/src/components/InterActionCard';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function InviTationComplete() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
