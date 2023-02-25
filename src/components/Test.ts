@@ -1,5 +1,5 @@
-const Test = ( ) => {
+const Test = () => {
+  return 'd';
+};
 
-}
-
-export {Test}
+export { Test };
