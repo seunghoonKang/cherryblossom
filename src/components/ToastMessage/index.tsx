@@ -1,12 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import Image from 'next/image';
-
-type StaticImageData = {
-  src: string;
-  height: number;
-  width: number;
-  blurDataURL?: string;
-};
+import { StaticImageData } from "next/image"
 
 function ToastMessage(props: {
   image: StaticImageData;
