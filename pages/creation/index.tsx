@@ -45,7 +45,7 @@ const Creation = () => {
         <button
           // onClick={}
           disabled
-          className="w-[360px] h-12 bg-blossom-gray"
+          className="w-[360px] font-pretendard font-bold h-12 bg-blossom-gray"
         >
           초대장 완성하기
         </button>

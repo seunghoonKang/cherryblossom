@@ -1,3 +1,5 @@
+const { fontFamily } = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
@@ -38,7 +40,15 @@ module.exports = {
           '100%': { transform: 'rotateX(0)' },
         },
       },
+      fontFamily: {
+        sans: ['var(--font-jamjaFlower)', ...fontFamily.sans],
+        title: ['var(--font-jejudoldam)'],
+        pretendard: ['var(--font-pretendard)'],
+      },
+    },
+    plugins: [],
+    corePlugins: {
+      fontFamily: true,
     },
   },
-  plugins: [],
 };
