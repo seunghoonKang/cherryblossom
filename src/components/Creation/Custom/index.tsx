@@ -77,60 +77,34 @@ export default function Custom(props: CustomProps) {
     <div className="w-[360px] h-96 bg-blossom-lightBlue flex-col space-y-2">
       <div className="grid grid-cols-3 gap-4 pl-5 pr-3 mx-1">
         {CUSTOM_ITEMS.map(custom => {
-          if (selectedItem === custom.value) {
-            return (
-              <button
-                key={custom.value}
-                className="w-24 h-9 text-sm rounded bg-blossom-green border-blossom-white border-2"
-                onClick={() => setSelectedItem(custom.value)}
-              >
-                {custom.name}
-              </button>
-            );
-          }
-          if (selectedItem !== custom.value) {
-            return (
-              <button
-                key={custom.value}
-                className="w-24 h-9 text-sm rounded bg-blossom-yellow border-blossom-white border-2"
-                onClick={() => setSelectedItem(custom.value)}
-              >
-                {custom.name}
-              </button>
-            );
-          }
+          return (
+            <button
+              key={custom.value}
+              className={`w-24 h-9 text-sm rounded border-blossom-white border-2 
+  ${selectedItem === custom.value ? 'bg-blossom-green' : 'bg-blossom-yellow'}`}
+              onClick={() => setSelectedItem(custom.value)}
+            >
+              {custom.name}
+            </button>
+          );
         })}
       </div>
       <div className="border-t border-solid border-1 border-blossom-darkGray mx-5"></div>
 
-      {selectedItem === 'background' && (
-        <div className="grid grid-cols-3 gap-4 pl-5 pr-3 mx-1">
-          {MOCK_IMAGES.map(img => {
-            return (
-              <div
-                key={img.id}
-                className="w-24 h-28 bg-blossom-gray border-solid border-2 border-blossom-white rounded-md"
-                // style={{ backgroundImage: `url(${img.value})` }}
-                onClick={() => handleItemClick(img.id)}
-              ></div>
-            );
-          })}
-        </div>
-      )}
-      {selectedItem !== 'background' && (
-        <div className="grid grid-cols-3 gap-4 pl-5 pr-3 mx-1">
-          {MOCK_IMAGES.map(img => {
-            return (
-              <div
-                key={img.id}
-                className="w-24 h-14 bg-blossom-gray border-solid border-2 border-blossom-white rounded-md"
-                style={{ backgroundImage: `url(${img.value})` }}
-                onClick={() => handleItemClick(img.id)}
-              ></div>
-            );
-          })}
-        </div>
-      )}
+      <div className="grid grid-cols-3 gap-4 pl-5 pr-3 mx-1">
+        {MOCK_IMAGES.map(img => {
+          return (
+            <div
+              key={img.id}
+              className={`w-24 ${
+                selectedItem === 'background' ? 'h-28' : 'h-14'
+              }  bg-blossom-gray border-solid border-2 border-blossom-white rounded-md`}
+              // style={{ backgroundImage: `url(${img.value})` }}
+              onClick={() => handleItemClick(img.id)}
+            ></div>
+          );
+        })}
+      </div>
     </div>
   );
 }
