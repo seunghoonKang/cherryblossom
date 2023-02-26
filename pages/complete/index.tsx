@@ -1,13 +1,9 @@
 import CompleteLayout from '@/src/components/CompleteLayout';
 import InterActionCard from '@/src/components/InterActionCard';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { copyLink } from '../api/share';
 
 export default function InviTationComplete() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
-  const [needOpenBtn, setNeedOpenBtn] = useState(false);
 
   const imageName = '/성택미모티콘.png';
 
