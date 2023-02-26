@@ -22,6 +22,7 @@ const Creation = () => {
   const [isTextEmpty, setIsTextEmpty] = useState(true);
 
   const handleClickCreation = () => {
+    console.log(isTextEmpty);
     const filename = uuidv4();
     saveImg('temp', filename);
     router.push('/invitationComplete', {
@@ -34,7 +35,14 @@ const Creation = () => {
   return (
     <div id="temp">
       <PageTitle />
-      <Display />
+      <Display
+        selectedItem={selectedItem}
+        selectedBackground={selectedBackground}
+        selectedCharacter={selectedCharacter}
+        selectedSticker={selectedSticker}
+        isTextEmpty={isTextEmpty}
+        setIsTextEmpty={(flag: boolean) => setIsTextEmpty(flag)}
+      />
       <Custom
         setSelectedBackground={(item: number | null) => setSelectedBackground(item)}
         setSelectedCharacter={(item: number | null) => setSelectedCharacter(item)}
