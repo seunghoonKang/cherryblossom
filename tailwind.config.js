@@ -28,6 +28,7 @@ module.exports = {
           darkGray: '#868686',
           lightBlue: '#CCE7F8',
           white: '#ffffff',
+          black: '#131210',
         },
       },
       animation: {
