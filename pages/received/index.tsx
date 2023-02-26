@@ -33,12 +33,14 @@ function Received() {
               내 앨범에 담기
             </button>
           </div>
+          {popToastMsg &&
           <ToastMessage
-            image={TestImage}
-            popToastMsg={popToastMsg}
-            setPopToastMsg={setPopToastMsg}
-            message="초대장이 앨범에 담겼습니다."
-            />
+          image={TestImage}
+          popToastMsg={popToastMsg}
+          setPopToastMsg={setPopToastMsg}
+          message="초대장이 앨범에 담겼습니다."
+          />
+          }
         </>)
       : (
         <div onClick={() => setIsAnimationOver(true)}>
