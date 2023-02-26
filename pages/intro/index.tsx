@@ -30,7 +30,7 @@ function Intro() {
         <Image src={BigFlower} alt="flower" className='absolute z-10 right-0 top-0 animate-fall-flower' />
         <Image src={MiddleFlower} alt="flower" className='absolute z-10 right-0 top-1/3 animate-fall-flower'  />
         <Image src={SmallFlower} alt="flower" className='absolute z-10 right-1/2 top-0 animate-fall-flower' />
-        <Image src={BigFlower} alt="flower" className='absolute z-10 right-1/3 top-0 animate-fall-flower' />
+        <Image src={MiddleFlower} alt="flower" className='absolute z-10 right-1/3 top-0 animate-fall-flower' />
         <Image src={MiddleFlower} alt="flower" className='absolute z-10 right-0 top-2/3 animate-fall-flower'  />
         <Image src={SmallFlower} alt="flower" className='absolute z-10 right-2/3 top-0 animate-fall-flower' />
         <Image src={SmallFlower} alt="flower" className='absolute z-10 right-0 top-1/3 animate-fall-flower' />
