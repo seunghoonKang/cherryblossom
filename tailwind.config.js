@@ -28,7 +28,7 @@ module.exports = {
         'btn-yellow': '#FAF1A2',
       },
       animation: {
-        'fade-in': 'fadeIn 2s ease-out'
+        'fade-in': 'fadeIn 1s ease-out'
     },
       keyframes: {
         'pull-out': {
