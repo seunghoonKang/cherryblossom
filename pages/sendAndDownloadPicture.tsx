@@ -53,7 +53,7 @@ export default function SendDownloadPicture() {
               className="my-1"
             >
               {' '}
-              Click or Drop here
+              Click or Drop here!
             </button>
             &nbsp;
             {imageList.map((image, index) => (
