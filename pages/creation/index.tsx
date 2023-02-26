@@ -25,7 +25,7 @@ const Creation = () => {
     console.log(isTextEmpty);
     const filename = uuidv4();
     saveImg('temp', filename);
-    router.push('/complete', {
+    router.push('/invitationComplete', {
       query: {
         imgURL: filename,
       },
@@ -33,7 +33,7 @@ const Creation = () => {
   };
 
   return (
-    <div id="temp">
+    <>
       <PageTitle />
       <Display
         selectedItem={selectedItem}
@@ -44,6 +44,9 @@ const Creation = () => {
         setIsTextEmpty={(flag: boolean) => setIsTextEmpty(flag)}
       />
       <Custom
+        selectedBackground={selectedBackground}
+        selectedCharacter={selectedCharacter}
+        selectedSticker={selectedSticker}
         setSelectedBackground={(item: number | null) => setSelectedBackground(item)}
         setSelectedCharacter={(item: number | null) => setSelectedCharacter(item)}
         setSelectedSticker={(item: number | null) => setSelectedSticker(item)}
@@ -55,11 +58,11 @@ const Creation = () => {
         onClick={handleClickCreation}
         className={`w-[360px] font-pretendard font-bold h-12 ${
           isTextEmpty ? 'bg-blossom-gray' : ' bg-blossom-green'
-        } bg-blossom-gray`}
+        } bg-blossom-gray fixed bottom-0 left-0 right-0`}
       >
         초대장 완성하기
       </button>
-    </div>
+    </>
   );
 };
 
