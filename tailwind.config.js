@@ -10,11 +10,26 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    colors: {
+      blossom: {
+        yellow: '#FAF1A2',
+        green: '#AFE6AD',
+        lightPink: '#FEEFF4',
+        pink: '#FFC9D4',
+        gray: '#D9D9D9',
+        darkGray: '#868686',
+        lightBlue: '#CCE7F8',
+        white: '#ffffff',
+      },
+    },
     extend: {
       colors: {
         skyBlue: '#CCE7F8',
         'btn-yellow': '#FAF1A2',
       },
+      animation: {
+        'fade-in': 'fadeIn 2s ease-out'
+    },
       keyframes: {
         'pull-out': {
           '0%': { transform: 'translateY(20px) scale(0.9)', 'z-index': 10 },
@@ -25,6 +40,17 @@ module.exports = {
           '0%': { transform: 'rotateX(-180deg)' },
           '100%': { transform: 'rotateX(0)' },
         },
+        fadeIn: {
+          '0%': {
+              opacity: '0',
+              transform: 'translateX(-50%) translateY(-40%)'
+              
+          },
+          '100%': {
+              opacity: '1',
+              transform: 'translateX(-50%) translateY(-50%)'
+          },
+      }
       },
     },
   },
