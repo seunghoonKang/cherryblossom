@@ -15,19 +15,20 @@ function Intro() {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="mt-20 relative">
-        <div className='min-w-[320px] min-h-[420px]  flex justify-center items-center'>
-          <Image src={Bg} alt="testBg" fill className='rounded-xl' />
+        <div className="min-w-[320px] min-h-[420px]  flex justify-center items-center">
+          <Image src={Bg} alt="testBg" fill className="rounded-xl" />
         </div>
         <Image
           src={Logo}
           alt="testLogo"
           className="absolute z-20 left-1/2 top-1/2 translate-y-[-50%] translate-x-[-50%] animate-fade-in"
-          width={300}
-          height={0}
+          width={246}
+          height={145}
         />
       </div>
       <button
-        className="w-80 h-12 bg-blossom-green border-[3px] border-blossom-white border-solid rounded-xl  mt-4 z-20"
+        style={{ borderBottomWidth: '6px', borderRightWidth: '2px', borderLeftWidth: '2px' }}
+        className="w-[310px] h-12 bg-blossom-green border-[3px] border-blossom-white border-solid rounded-xl mt-4 z-20 box-content text-2xl text-blossom-black"
         onClick={movePage}
       >
         초대장 만들러 가기
