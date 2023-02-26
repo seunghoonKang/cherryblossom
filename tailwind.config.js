@@ -12,22 +12,20 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    colors: {
-      blossom: {
-        yellow: '#FAF1A2',
-        green: '#AFE6AD',
-        lightPink: '#FEEFF4',
-        pink: '#FFC9D4',
-        gray: '#D9D9D9',
-        darkGray: '#868686',
-        lightBlue: '#CCE7F8',
-        white: '#ffffff',
-      },
-    },
     extend: {
       colors: {
         skyBlue: '#CCE7F8',
         'btn-yellow': '#FAF1A2',
+        blossom: {
+          yellow: '#FAF1A2',
+          green: '#AFE6AD',
+          lightPink: '#FEEFF4',
+          pink: '#FFC9D4',
+          gray: '#D9D9D9',
+          darkGray: '#868686',
+          lightBlue: '#CCE7F8',
+          white: '#ffffff',
+        },
       },
       keyframes: {
         'pull-out': {
