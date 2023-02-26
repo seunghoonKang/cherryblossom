@@ -55,10 +55,6 @@ export default function Custom(props: CustomProps) {
     setSelectedItem,
   } = props;
 
-  const handleCustomTypeClick = (value: CustomTypes) => {
-    setSelectedItem(value);
-  };
-
   const handleItemClick = (id: number) => {
     if (selectedItem === 'background') {
       setSelectedBackground(id);
@@ -86,7 +82,7 @@ export default function Custom(props: CustomProps) {
               <button
                 key={custom.value}
                 className="w-24 h-9 text-sm rounded bg-blossom-green border-blossom-white border-2"
-                onClick={() => handleCustomTypeClick(custom.value)}
+                onClick={() => setSelectedItem(custom.value)}
               >
                 {custom.name}
               </button>
@@ -97,7 +93,7 @@ export default function Custom(props: CustomProps) {
               <button
                 key={custom.value}
                 className="w-24 h-9 text-sm rounded bg-blossom-yellow border-blossom-white border-2"
-                onClick={() => handleCustomTypeClick(custom.value)}
+                onClick={() => setSelectedItem(custom.value)}
               >
                 {custom.name}
               </button>
