@@ -54,7 +54,7 @@ export default function Display(props: DisplayProps) {
     const displayLeft = displayRect?.left; // display의 시작 left, top 좌표 값은 기기마다 달라짐
     const displayTop = displayRect?.top;
     const offsetX = e.clientX - displayLeft; // offset은 display 내에서의 클릭 좌표 값이기 때문에 항상 같음
-    const offsetY = e.clientY - displayTop;
+    const offsetY = e.clientY - displayTop;    
     
     // const selectedItemPath = `/images/background/0.jpeg`;
     const selectedItemPath = `/images/${selectedItem}/${(selectedBackground || selectedCharacter || selectedSticker)}`;  // 확장자까지 명시해줘야함
@@ -78,7 +78,7 @@ export default function Display(props: DisplayProps) {
       sessionStorage.setItem(selectedItem, JSON.stringify([itemObject]));
     }
 
-    paintItemInDisplay(displayLeft + offsetX, displayTop + offsetY, selectedItemPath, id);
+    paintItemInDisplay(offsetX, offsetY, selectedItemPath, id);
   }
 
   const handlerChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {    
@@ -96,6 +96,9 @@ export default function Display(props: DisplayProps) {
 
     cancelBtn.innerText = 'X';
     cancelBtn.addEventListener('click', e => handlerDeleteItem(e));
+
+    console.log(x, y);
+    
     
     item.id = `item${id}`;
     item.setAttribute('style', 'position:absolute;');
@@ -139,12 +142,9 @@ export default function Display(props: DisplayProps) {
 
   return (
   <div className="w-full flex flex-col items-center">
-    <div id="display" ref={displayRef} className="w-[320px] h-[300px] border border-solid rounded-lg border-fuchsia-300 flex justify-center items-center" onClick={(e) => handlerClickDisplay(e)}>
-      <div className="absolute overflow-hidden">
+    <div id="display" ref={displayRef} className="w-[320px] h-[300px] border border-solid overflow-hidden relative rounded-lg border-fuchsia-300 flex justify-center items-center" onClick={(e) => handlerClickDisplay(e)}>
       <textarea ref={textareaRef} className="w-[220px] h-[140px] p-1 resize-none focus:outline-none overflow-hidden" onChange={e => handlerChangeTextarea(e)} placeholder="초대장 문구를 작성해주세요">
       </textarea>
-
-      </div>
     </div>
   </div>
   );
