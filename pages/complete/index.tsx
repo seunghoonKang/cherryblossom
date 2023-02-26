@@ -1,10 +1,11 @@
 import InterActionCard from '@/src/components/InterActionCard';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 export default function InviTationComplete() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     const animation = setTimeout(() => {
       setIsAnimationOver(true);
@@ -12,6 +13,9 @@ export default function InviTationComplete() {
     return () => clearTimeout(animation);
   }, [isAnimationOver]);
 
+  const handleReWrite = () => {
+    router.push('/creation');
+  };
   return (
     <div className="w-full h-full flex justify-center items-center relative">
       {isAnimationOver ? (
@@ -29,7 +33,10 @@ export default function InviTationComplete() {
               <button className="bg-btn-yellow h-[50px] grow-0 w-full rounded-[10px] border border-solid border-white cursor-pointer">
                 <p>편지 보내기</p>
               </button>
-              <button className="bg-btn-yellow ml-[15px] w-full grow-0 h-[50px] rounded-[10px] border border-solid border-white cursor-pointer">
+              <button
+                onClick={handleReWrite}
+                className="bg-btn-yellow ml-[15px] w-full grow-0 h-[50px] rounded-[10px] border border-solid border-white cursor-pointer"
+              >
                 <p>다시 작성하기</p>
               </button>
             </section>
