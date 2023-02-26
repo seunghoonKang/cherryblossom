@@ -9,7 +9,7 @@ import BigFlower from '@/public/intro_flower_lg.svg'
 function Intro() {
   const router = useRouter();
   const movePage = () => {
-    router.push('/');
+    router.push('/creation');
   };
 
   return (
