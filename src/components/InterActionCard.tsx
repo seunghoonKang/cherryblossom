@@ -1,9 +1,15 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-export default function InterActionCard({ needOpenBtn }: { needOpenBtn: boolean }) {
+export default function InterActionCard({
+  needOpenBtn,
+  imageName,
+}: {
+  needOpenBtn: boolean;
+  imageName: string;
+}) {
   const [isPullOut, setIsPullOut] = useState(false);
-  const imageUrl = '/성택미모티콘.png';
+
   useEffect(() => {
     if (!needOpenBtn) {
       const pullOut = setTimeout(() => {
@@ -24,7 +30,7 @@ export default function InterActionCard({ needOpenBtn }: { needOpenBtn: boolean 
             className={`w-[280px] h-[260px] mt-[120px] flex justify-center items-center border border-solid border-[#FDC7D4] bg-white animate-[pull-out_1000ms_linear] z-20 rounded-[10px]
                 }`}
           >
-            <Image src={imageUrl} alt="image" width="300" height="300" />
+            <Image src={imageName} alt="image" width="300" height="300" />
           </div>
         )}
       </div>
