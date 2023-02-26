@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import Image from 'next/image';
 
 type StaticImageData = {
@@ -11,7 +11,7 @@ type StaticImageData = {
 function ToastMessage(props: {
   image: StaticImageData;
   popToastMsg: boolean;
-  setPopToastMsg: any;
+  setPopToastMsg: Dispatch<SetStateAction<boolean>>;
   message: string;
 }) {
   const { image, popToastMsg, setPopToastMsg, message } = props;
