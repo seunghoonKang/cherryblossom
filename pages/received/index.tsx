@@ -1,9 +1,8 @@
 import InterActionCard from '@/src/components/InterActionCard';
-import RecievedEnvelope from '@/src/components/Recieved/Envelope/RecievedEnvelope';
 import ToastMessage from '@/src/components/ToastMessage';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import TestImage from '../../public/testImage.jpg';
 
 function Received() {
@@ -15,18 +14,11 @@ function Received() {
   const [popToastMsg, setPopToastMsg] = useState(false);
   const [isAnimationOver, setIsAnimationOver] = useState(false);
 
-  useEffect(() => {
-    const animation = setTimeout(() => {
-      setIsAnimationOver(true);
-    }, 2000);
-    return () => clearTimeout(animation);
-  }, [isAnimationOver]);
-
   return (
     
     <div className="flex flex-col justify-between items-center w-full h-full">
       {isAnimationOver ? (
-         <>
+        <>
           <div className=" mt-32 flex flex-col justify-center items-center">
             <Image src="/testImage.jpg" alt="test" width={290} height={230} />
             <button
@@ -49,8 +41,9 @@ function Received() {
             />
         </>)
       : (
-          <InterActionCard needOpenBtn={false} />
-          // <RecievedEnvelope/>
+        <div onClick={() => setIsAnimationOver(true)}>
+          <InterActionCard needOpenBtn={true} />
+        </div>
         )}
     </div>
   );
