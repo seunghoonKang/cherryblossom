@@ -37,7 +37,7 @@ const Creation = () => {
       {isTextEmpty ? (
         <button
           // onClick={}
-          className="w-96 h-12 bg-blossom-green"
+          className="w-[360px] h-12 bg-blossom-green"
         >
           초대장 완성하기
         </button>
@@ -45,7 +45,7 @@ const Creation = () => {
         <button
           // onClick={}
           disabled
-          className="w-96 h-12 bg-blossom-gray"
+          className="w-[360px] h-12 bg-blossom-gray"
         >
           초대장 완성하기
         </button>

@@ -78,7 +78,7 @@ export default function Custom(props: CustomProps) {
   };
 
   return (
-    <div className="w-96 h-96 bg-blossom-lightBlue flex-col space-y-2">
+    <div className="w-[360px] h-96 bg-blossom-lightBlue flex-col space-y-2">
       <div className="grid grid-cols-3 gap-4 pl-5 pr-3 mx-1">
         {CUSTOM_ITEMS.map(custom => {
           if (selectedItem === custom.value) {
