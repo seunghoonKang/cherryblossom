@@ -19,11 +19,16 @@ const Creation = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
   const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
 
-  const [isTextEmpty, setIsTextEmpty] = useState(false);
+  const [isTextEmpty, setIsTextEmpty] = useState(true);
 
   const handleClickCreation = () => {
     const filename = uuidv4();
     saveImg('temp', filename);
+    router.push('/invitationComplete', {
+      query: {
+        imgURL: filename,
+      },
+    });
   };
 
   return (
