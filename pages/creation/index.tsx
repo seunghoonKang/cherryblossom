@@ -1,15 +1,21 @@
 import Custom from '@/src/components/Creation/Custom';
 import Display from '@/src/components/Creation/Display';
 import PageTitle from '@/src/components/Creation/PageTitle';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 /**
  * 초대장 생성 페이지
  */
+type CustomTypes = 'background' | 'character' | 'sticker';
+
 const Creation = () => {
-  const [selectedBackgroud, setSelectedBackgroud] = useState(0);
-  const [selectedCharactor, setSelectedCharactor] = useState(0);
-  const [selectedSticker, setSelectedSticker] = useState(0);
+  const router = useRouter();
+
+  const [selectedItem, setSelectedItem] = useState<CustomTypes>('background');
+  const [selectedBackground, setSelectedBackground] = useState<number | null>(null);
+  const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
+  const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
 
   const [isTextEmpty, setIsTextEmpty] = useState(false);
 
@@ -19,16 +25,31 @@ const Creation = () => {
 
   return (
     <>
-      <div>
-        <PageTitle />
-        <Display />
-        <Custom />
+      <PageTitle />
+      <Display />
+      <Custom
+        setSelectedBackground={(item: number | null) => setSelectedBackground(item)}
+        setSelectedCharacter={(item: number | null) => setSelectedCharacter(item)}
+        setSelectedSticker={(item: number | null) => setSelectedSticker(item)}
+        selectedItem={selectedItem}
+        setSelectedItem={(item: CustomTypes) => setSelectedItem(item)}
+      />
+      {isTextEmpty ? (
         <button
-        // onClick={}
+          // onClick={}
+          className="w-[360px] h-12 bg-blossom-green"
         >
-          for test
+          초대장 완성하기
         </button>
-      </div>
+      ) : (
+        <button
+          // onClick={}
+          disabled
+          className="w-[360px] h-12 bg-blossom-gray"
+        >
+          초대장 완성하기
+        </button>
+      )}
     </>
   );
 };
