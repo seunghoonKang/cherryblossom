@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import PhotoIcon from '@/public/photo_icon.svg'
+import Test from '@/public/introBg.svg'
 
 function Received() {
   const router = useRouter();
@@ -19,13 +20,15 @@ function Received() {
     <div className="flex flex-col justify-between items-center w-full h-full">
       {isAnimationOver ? (
         <>
-          <div className=" mt-32 flex flex-col justify-center items-center">
-            <p>
-              벚꽃 초대장
-            </p>
-            <Image src={PhotoIcon} alt="test" width={290} height={230} />
+          <div className="mt-[108px] flex flex-col justify-center items-center">
+            <div style={{borderBottomWidth : '6px',borderRightWidth : '4px',borderLeftWidth : '4px' }} className='absolute top-[88px] w-[240px] h-[40px] shadow-2xl flex justify-center items-center rounded-[10px] border-solid border-[3px] bg-blossom-lightPink border-blossom-pink z-20'>
+              <p className='text-xl'>벚꽃 초대장</p>
+            </div>
+            <div className='w-[320px] h-[300px] min-w-[320px] min-h-[300px]'>
+              <Image width={320} height={300} src={Test} alt="test" />  
+            </div>
             <button
-              className="bg-btn-yellow rounded-[10px] border border-solid border-white cursor-pointe mt-4 w-80 h-12"
+              className="bg-btn-yellow rounded-[10px] border border-solid border-white cursor-pointe mt-4 w-80 h-12 z-20"
               onClick={moveIntroPage}
               >
               나도 초대장 만들어 보기

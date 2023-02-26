@@ -15,7 +15,6 @@ function Intro() {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="mt-20 relative">
-        {/* 테스트 이미지들입니다 */}
         <div className='min-w-[320px] min-h-[420px]  flex justify-center items-center'>
           <Image src={Bg} alt="testBg" fill className='rounded-xl' />
         </div>
