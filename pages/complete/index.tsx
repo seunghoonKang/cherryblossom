@@ -1,30 +1,30 @@
 import CompleteLayout from '@/src/components/CompleteLayout';
 import InterActionCard from '@/src/components/InterActionCard';
-import ToastMessage from '@/src/components/ToastMessage';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import TestImage from '../../public/testImage.jpg';
+import { copyLink } from '../api/share';
 
-function Received() {
+export default function InviTationComplete() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
-  const [needOpenBtn, setNeedOpenBtn] = useState(true);
+  const [needOpenBtn, setNeedOpenBtn] = useState(false);
 
   const imageName = '/성택미모티콘.png';
+
+  useEffect(() => {
+    const animation = setTimeout(() => {
+      setIsAnimationOver(true);
+    }, 2200);
+    return () => clearTimeout(animation);
+  }, [isAnimationOver]);
 
   return (
     <div className="w-full h-full flex justify-center items-center relative">
       {isAnimationOver ? (
-        <CompleteLayout imageName={imageName} type="receive" />
+        <CompleteLayout imageName={imageName} type="complete" />
       ) : (
-        <InterActionCard
-          needOpenBtn={needOpenBtn}
-          imageName={imageName}
-          setIsAnimationOver={setIsAnimationOver}
-        />
+        <InterActionCard needOpenBtn={false} imageName={imageName} />
       )}
     </div>
   );
 }
-
-export default Received;
