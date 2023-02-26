@@ -3,7 +3,7 @@ import ToastMessage from '@/src/components/ToastMessage';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import TestImage from '../../public/testImage.jpg';
+import PhotoIcon from '@/public/photo_icon.svg'
 
 function Received() {
   const router = useRouter();
@@ -20,7 +20,10 @@ function Received() {
       {isAnimationOver ? (
         <>
           <div className=" mt-32 flex flex-col justify-center items-center">
-            <Image src="/testImage.jpg" alt="test" width={290} height={230} />
+            <p>
+              벚꽃 초대장
+            </p>
+            <Image src={PhotoIcon} alt="test" width={290} height={230} />
             <button
               className="bg-btn-yellow rounded-[10px] border border-solid border-white cursor-pointe mt-4 w-80 h-12"
               onClick={moveIntroPage}
@@ -35,7 +38,7 @@ function Received() {
           </div>
           {popToastMsg &&
           <ToastMessage
-          image={TestImage}
+          image={PhotoIcon}
           popToastMsg={popToastMsg}
           setPopToastMsg={setPopToastMsg}
           message="초대장이 앨범에 담겼습니다."
