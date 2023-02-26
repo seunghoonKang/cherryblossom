@@ -1,8 +1,11 @@
 import CompleteLayout from '@/src/components/CompleteLayout';
 import InterActionCard from '@/src/components/InterActionCard';
-import { imageDownload } from '@/src/utils';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import ToastMessage from '@/src/components/ToastMessage';
+import Image from 'next/image';
+import TestImage from '../../public/testImage.jpg';
+import PhotoIcon from '@/public/photo_icon.svg';
 
 export default function Received() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
