@@ -27,24 +27,80 @@ const CUSTOM_ITEMS: CustomItem[] = [
 const BACKGROUND_IMAGE = [
   {
     id: 0,
-    preview: 'bg_preview_flower_way.svg',
-    value: 'bg_flower_way.svg',
+    preview: 'pre_0.svg',
+    value: '0.svg',
   },
   {
     id: 1,
-    preview: 'bg_preview_yellow_flower_garden.svg',
-    value: 'bg_yellow_flower_garden.svg',
+    preview: 'pre_1.svg',
+    value: '1.svg',
+  },
+  {
+    id: 2,
+    preview: 'pre_2.svg',
+    value: '2.svg',
+  },
+  {
+    id: 3,
+    preview: 'pre_3.svg',
+    value: '3.svg',
+  },
+  {
+    id: 4,
+    preview: 'pre_4.svg',
+    value: '4.svg',
+  },
+  {
+    id: 5,
+    preview: 'pre_5.svg',
+    value: '5.svg',
+  },
+  {
+    id: 6,
+    preview: 'pre_6.svg',
+    value: '6.svg',
+  },
+  {
+    id: 7,
+    preview: 'pre_7.svg',
+    value: '7.svg',
+  },
+  {
+    id: 8,
+    preview: 'pre_8.svg',
+    value: '8.svg',
+  },
+  {
+    id: 9,
+    preview: 'pre_9.svg',
+    value: '9.svg',
   },
 ];
 
 const STICKER_IMAGE = [
-  { id: 0, preview: 'st_preview_cherry_blossom.svg', value: 'st_cherry_blossom.png' },
-  { id: 1, preview: 'st_preview_flower.svg', value: 'st_flower.png' },
+  {
+    id: 0,
+    preview: 'pre_0.svg',
+    value: '0.svg',
+  },
+  {
+    id: 1,
+    preview: 'pre_1.svg',
+    value: '1.svg',
+  },
 ];
 
 const CHARACTER_IMAGE = [
-  { id: 0, preview: 'st_preview_cherry_blossom.svg', value: 'st_cherry_blossom.png' },
-  { id: 1, preview: 'st_preview_flower.svg', value: 'st_flower.png' },
+  {
+    id: 0,
+    preview: 'pre_0.svg',
+    value: '0.svg',
+  },
+  {
+    id: 1,
+    preview: 'pre_1.svg',
+    value: '1.svg',
+  },
 ];
 
 export default function Custom(props: CustomProps) {
@@ -95,18 +151,21 @@ export default function Custom(props: CustomProps) {
       </div>
       <div className="border-t border-solid border-1 border-blossom-darkGray my-[8px]"></div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="h-[230px] grid grid-cols-3 gap-4 overflow-scroll ">
         {selectedItem === 'background' &&
           BACKGROUND_IMAGE.map(img => {
             return (
               <div
                 key={img.id}
-                className={`w-[96px] h-[112px] bg-blossom-white border-solid border-2  ${
+                className={`w-[96px] h-[112px] ${
+                  selectedBackground === img.id ? ' bg-blossom-green' : 'bg-blossom-white'
+                }   border-solid border-[2px]  ${
                   selectedBackground === img.id ? ' border-blossom-green' : 'border-blossom-white'
                 }  rounded-[14px] overflow-hidden`}
                 onClick={() => handleItemClick(img.id)}
               >
                 <Image
+                  className={`rounded-[14px]`}
                   src={`/backgrounds/${img.preview}`}
                   alt={img.preview}
                   width={96}
@@ -120,7 +179,7 @@ export default function Custom(props: CustomProps) {
             return (
               <div
                 key={img.id}
-                className={`w-[96px] 'h-[56px]' bg-blossom-white border-solid border-2 ${
+                className={`w-[96px] h-[56px] bg-blossom-white border-solid border-2 ${
                   selectedCharacter === img.id ? ' border-blossom-green' : 'border-blossom-white'
                 }   rounded-[14px] overflow-hidden`}
                 onClick={() => handleItemClick(img.id)}
@@ -134,7 +193,7 @@ export default function Custom(props: CustomProps) {
             return (
               <div
                 key={img.id}
-                className={`w-[96px] 'h-[56px]' bg-blossom-white border-solid border-2 ${
+                className={`w-[96px] h-[56px] bg-blossom-white border-solid border-2 ${
                   selectedSticker === img.id ? ' border-blossom-green' : 'border-blossom-white'
                 }   rounded-[14px] overflow-hidden`}
                 onClick={() => handleItemClick(img.id)}
