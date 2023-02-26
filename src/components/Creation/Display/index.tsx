@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useRef } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useRef } from "react";
 
 type CustomTypes = 'background' | 'character' | 'sticker';
 type ItemObjectType = {
@@ -12,6 +12,7 @@ type DisplayProps = {
   selectedCharacter: number | null;
   selectedSticker: number | null;
   isTextEmpty: boolean;
+  setIsTextEmpty: (flag: boolean) => void;
 }
 
 const customTypeArr = ['background', 'character', 'sticker'];
@@ -22,7 +23,8 @@ export default function Display(props: DisplayProps) {
     selectedBackground,
     selectedCharacter,
     selectedSticker,
-    isTextEmpty
+    isTextEmpty,
+    setIsTextEmpty
   } = props;
   
   const ref = useRef();
@@ -59,6 +61,14 @@ export default function Display(props: DisplayProps) {
       sessionStorage.setItem(selectedItem, JSON.stringify([itemObject]));
     }
   }
+
+  const handlerChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {    
+    if (!e.target.value.trim().length) {  // textarea에 입력이 사라졌을때
+      setIsTextEmpty(true);
+    } else  {  // textarea에 입력이 됐는데 isTextEmpty가 아직 false이면
+      setIsTextEmpty(false);
+    }
+  }
   
   const paintItemInDisplay = (x: number, y: number, path: string) => {
     const item = document.createElement('div');
@@ -86,6 +96,7 @@ export default function Display(props: DisplayProps) {
 
   useEffect(() => {
     const displayRect = ref.current?.getBoundingClientRect();
+    
     customTypeArr.forEach(customType => {  // session에 저장되어 있는 customType 배열들을 순회
       if (sessionStorage.getItem(customType)) {
         const items: ItemObjectType[] = JSON.parse(sessionStorage.getItem(customType));
@@ -100,7 +111,7 @@ export default function Display(props: DisplayProps) {
   return (
   <div className="w-full flex flex-col items-center">
     <div id="display" ref={ref} className="w-[320px] h-[300px] border border-solid rounded-lg border-fuchsia-300 flex justify-center items-center" onClick={(e) => handlerClickDisplay(e)}>
-      <textarea className="w-[220px] h-[140px] p-1 resize-none overflow-hidden" placeholder="초대장 문구를 작성해주세요">
+      <textarea className="w-[220px] h-[140px] p-1 resize-none overflow-hidden" onChange={e => handlerChangeTextarea(e)} placeholder="초대장 문구를 작성해주세요">
       </textarea>
     </div>
   </div>
