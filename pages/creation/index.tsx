@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import Custom from '@/src/components/Creation/Custom';
 import Display from '@/src/components/Creation/Display';
 import PageTitle from '@/src/components/Creation/PageTitle';
 import { saveImg } from '@/src/utils';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
@@ -22,7 +22,8 @@ const Creation = () => {
   const [isTextEmpty, setIsTextEmpty] = useState(false);
 
   const handleClickCreation = () => {
-    // 버튼 클릭 로직
+    const filename = uuidv4();
+    saveImg('temp', filename);
   };
 
   return (
@@ -38,7 +39,7 @@ const Creation = () => {
       />
       <button
         disabled={isTextEmpty}
-        onClick={() => saveImg('temp', uuidv4())}
+        onClick={handleClickCreation}
         className={`w-[360px] font-pretendard font-bold h-12 ${
           isTextEmpty ? 'bg-blossom-gray' : ' bg-blossom-green'
         } bg-blossom-gray`}
