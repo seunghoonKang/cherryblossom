@@ -33,7 +33,7 @@ export default function SendDownloadPicture() {
   const imageDownload = async () => {
     const storage = getStorage();
     try {
-      const url = await getDownloadURL(ref(storage, 'invitation.jpg'));
+      const url = await getDownloadURL(ref(storage, 'Celtic_FC.png'));
       console.log('downloaded image url', url);
     } catch (error) {
       console.log(error);
@@ -68,7 +68,7 @@ export default function SendDownloadPicture() {
           </div>
         )}
       </ReactImageUploading>
-      <button onClick={uploadImage} className="text-3xl font-bold underline w-40 h-20">
+      <button onClick={uploadImage} className="bg-slate-300 text-3xl font-bold underline w-40 h-20">
         사진 보내기
       </button>
 

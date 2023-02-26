@@ -22,19 +22,20 @@ const Creation = () => {
   const handleClickCreation = () => {
     // 버튼 클릭 로직
     console.log(isTextEmpty);
-    
+    router.push('/complete');
   };
 
   return (
     <>
       <PageTitle />
       <Display
-      selectedItem={selectedItem}
-      selectedBackground={selectedBackground}
-      selectedCharacter={selectedCharacter}
-      selectedSticker={selectedSticker}
-      isTextEmpty={isTextEmpty}
-      setIsTextEmpty={(flag: boolean) => setIsTextEmpty(flag)} />
+        selectedItem={selectedItem}
+        selectedBackground={selectedBackground}
+        selectedCharacter={selectedCharacter}
+        selectedSticker={selectedSticker}
+        isTextEmpty={isTextEmpty}
+        setIsTextEmpty={(flag: boolean) => setIsTextEmpty(flag)}
+      />
       <Custom
         setSelectedBackground={(item: number | null) => setSelectedBackground(item)}
         setSelectedCharacter={(item: number | null) => setSelectedCharacter(item)}
@@ -42,14 +43,15 @@ const Creation = () => {
         selectedItem={selectedItem}
         setSelectedItem={(item: CustomTypes) => setSelectedItem(item)}
       />
-      
-        <button
-          onClick={handleClickCreation}
-          className={`w-[360px] font-pretendard h-12 ${isTextEmpty ? 'bg-blossom-gray' : 'bg-blossom-green'}`}
-        >
-          초대장 완성하기
-        </button>
-      
+
+      <button
+        onClick={handleClickCreation}
+        className={`w-[360px] font-pretendard h-12 ${
+          isTextEmpty ? 'bg-blossom-gray' : 'bg-blossom-green'
+        }`}
+      >
+        초대장 완성하기
+      </button>
     </>
   );
 };
