@@ -5,6 +5,7 @@ type ItemObjectType = {
   offsetX: number;
   offsetY: number;
   path: string;
+  id: number;
 }
 type DisplayProps = {
   selectedItem: CustomTypes;
@@ -17,6 +18,10 @@ type DisplayProps = {
 
 const customTypeArr = ['background', 'character', 'sticker'];
 
+/**
+ * 초대장 생성 페이지의 Display 부분이다.
+ * 캐릭터나 스티커를 클릭한 상태로 컴포넌트 안의 영역을 클릭하면 동적으로 해당 아이템이 생성된다.
+ */
 export default function Display(props: DisplayProps) {
   const {
     selectedItem,
@@ -31,7 +36,12 @@ export default function Display(props: DisplayProps) {
 
   const handlerDeleteItem = (e: MouseEvent) => {
     e.stopPropagation();  // click event가 버블링 되어 handlerClickDisplay가 호출되는 것을 방지
-    e.target.parentNode.remove();
+    
+    const items: ItemObjectType[] = JSON.parse(sessionStorage.getItem(selectedItem)); // 지울 게 있을때만 이 함수가 호출되기 때문에 null일 수 없음
+    const modifiedItems = items.filter(({id}) => `item${id}` !== e.target.parentNode.id);
+    sessionStorage.setItem(selectedItem, JSON.stringify(modifiedItems));
+
+    e.target.parentNode.remove();  // DOM 트리에서 노드 삭제
   }
   
   const handlerClickDisplay = (e: MouseEvent) => {
@@ -45,32 +55,37 @@ export default function Display(props: DisplayProps) {
     // const selectedItemPath = `/images/background/0.jpeg`;
     const selectedItemPath = `/images/${selectedItem}/${(selectedBackground || selectedCharacter || selectedSticker)}`;  // 확장자까지 명시해줘야함
     
-    paintItemInDisplay(displayLeft + offsetX, displayTop + offsetY, selectedItemPath);
+    let id = 0;
     
     const itemObject: ItemObjectType = {  // session에 저장할 객체
       offsetX,
       offsetY,
-      path: selectedItemPath
+      path: selectedItemPath,
+      id
     }
     
     const selectedItems = sessionStorage.getItem(selectedItem);
     if (selectedItems) {
-      sessionStorage.setItem(selectedItem, JSON.stringify([...JSON.parse(selectedItems), itemObject]));
+      const items = JSON.parse(selectedItems);
+      
+      id = items.length;
+      sessionStorage.setItem(selectedItem, JSON.stringify([...items, {...itemObject, id}]));
     } else {
-      // sessionStorage.setItem(selectedItem, JSON.stringify([currCoord]));
       sessionStorage.setItem(selectedItem, JSON.stringify([itemObject]));
     }
+
+    paintItemInDisplay(displayLeft + offsetX, displayTop + offsetY, selectedItemPath, id);
   }
 
   const handlerChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {    
     if (!e.target.value.trim().length) {  // textarea에 입력이 사라졌을때
       setIsTextEmpty(true);
-    } else  {  // textarea에 입력이 됐는데 isTextEmpty가 아직 false이면
+    } else if (isTextEmpty) {  // textarea에 입력이 됐는데 isTextEmpty가 아직 true면
       setIsTextEmpty(false);
     }
   }
   
-  const paintItemInDisplay = (x: number, y: number, path: string) => {
+  const paintItemInDisplay = (x: number, y: number, path: string, id: number) => {
     const item = document.createElement('div');
     const cancelBtn = document.createElement('span');
     const img = document.createElement('img');
@@ -78,6 +93,7 @@ export default function Display(props: DisplayProps) {
     cancelBtn.innerText = 'X';
     cancelBtn.addEventListener('click', e => handlerDeleteItem(e));
     
+    item.id = `item${id}`;
     item.setAttribute('style', 'position:absolute;');
     item.classList.add('flex');
     item.classList.add('flex-col');
@@ -95,14 +111,16 @@ export default function Display(props: DisplayProps) {
   }
 
   useEffect(() => {
+    console.log('?');
+    
     const displayRect = ref.current?.getBoundingClientRect();
     
     customTypeArr.forEach(customType => {  // session에 저장되어 있는 customType 배열들을 순회
       if (sessionStorage.getItem(customType)) {
         const items: ItemObjectType[] = JSON.parse(sessionStorage.getItem(customType));
         
-        items.forEach(({offsetX, offsetY, path}) => {  // 배열을 순회하며 저장된 좌표, path에 맞게 paint 호출
-          paintItemInDisplay(displayRect?.left + offsetX, displayRect?.top + offsetY, path);
+        items.forEach(({offsetX, offsetY, path, id}) => {  // 배열을 순회하며 저장된 좌표, path에 맞게 paint 호출
+          paintItemInDisplay(displayRect?.left + offsetX, displayRect?.top + offsetY, path, id);
         });
       }
     });
