@@ -34,13 +34,16 @@ export default function Display(props: DisplayProps) {
     const selectedItemPath = `/images/background/0.jpeg`;
     // const selectedItemPath = `/images/${selectedItem}/${(selectedBackground || selectedCharacter || selectedSticker)}`;  // 확장자까지 명시해줘야함
     const item = document.createElement('div');
-    const cancelBtn = document.createElement('div');
+    const cancelBtn = document.createElement('span');
     const img = document.createElement('img');
 
     cancelBtn.innerText = 'X';
     cancelBtn.addEventListener('click', e => handlerDeleteItem(e));
     
     item.setAttribute('style', 'position:absolute;');
+    item.classList.add('flex');
+    item.classList.add('flex-col');
+    item.classList.add('items-end');
     item.style.left = displayLeft + offsetX + 'px';
     item.style.top = displayTop + offsetY + 'px';
     item.style.transform = 'translate(-50%,-50%)';
@@ -52,8 +55,10 @@ export default function Display(props: DisplayProps) {
     item.appendChild(img);
     document.querySelector('#display')?.appendChild(item);
 
-    // session에 좌표, selectedItem 저장 로직
+    // 1. session에 좌표, selectedItem 저장 로직
+
   }
+  // 2. useEffect에 session에서 가져와서 item 추가하는 로직
   return <div className="w-full flex flex-col items-center">
     <div>dsfs</div>
     <div>dsfs</div>
