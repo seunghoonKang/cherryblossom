@@ -1,8 +1,8 @@
-type CustomTypes = 'background' | 'charactor' | 'sticker';
+type CustomTypes = 'background' | 'character' | 'sticker';
 
 type CustomProps = {
   setSelectedBackground: (item: number | null) => void;
-  setSelectedCharactor: (item: number | null) => void;
+  setSelectedCharacter: (item: number | null) => void;
   setSelectedSticker: (item: number | null) => void;
   selectedItem: CustomTypes;
   setSelectedItem: (item: CustomTypes) => void;
@@ -15,7 +15,7 @@ type CustomItem = {
 
 const CUSTOM_ITEMS: CustomItem[] = [
   { name: '배경', value: 'background' },
-  { name: '캐릭터', value: 'charactor' },
+  { name: '캐릭터', value: 'character' },
   { name: '스티커', value: 'sticker' },
 ];
 
@@ -45,10 +45,11 @@ const MOCK_IMAGES = [
     value: 'url3',
   },
 ];
+
 export default function Custom(props: CustomProps) {
   const {
     setSelectedBackground,
-    setSelectedCharactor,
+    setSelectedCharacter,
     setSelectedSticker,
     selectedItem,
     setSelectedItem,
@@ -59,21 +60,26 @@ export default function Custom(props: CustomProps) {
   };
 
   const handleItemClick = (id: number) => {
-    if (selectedItem === 'charactor') {
-      setSelectedCharactor(id);
+    if (selectedItem === 'background') {
+      setSelectedBackground(id);
+      setSelectedCharacter(null);
+      setSelectedSticker(null);
+    }
+    if (selectedItem === 'character') {
+      setSelectedCharacter(id);
       setSelectedBackground(null);
       setSelectedSticker(null);
     }
     if (selectedItem === 'sticker') {
       setSelectedSticker(id);
-      setSelectedCharactor(null);
+      setSelectedCharacter(null);
       setSelectedBackground(null);
     }
   };
 
   return (
     <div className="w-96 h-96 bg-blossom-lightBlue flex-col space-y-2">
-      <div className="grid grid-cols-3 gap-4 px-5">
+      <div className="grid grid-cols-3 gap-4 pl-5 pr-3 mx-1">
         {CUSTOM_ITEMS.map(custom => {
           if (selectedItem === custom.value) {
             return (
@@ -102,27 +108,27 @@ export default function Custom(props: CustomProps) {
       <div className="border-t border-solid border-1 border-blossom-darkGray mx-5"></div>
 
       {selectedItem === 'background' && (
-        <div className="grid grid-cols-3 gap-4 px-5">
+        <div className="grid grid-cols-3 gap-4 pl-5 pr-3 mx-1">
           {MOCK_IMAGES.map(img => {
             return (
               <div
                 key={img.id}
                 className="w-24 h-28 bg-blossom-gray border-solid border-2 border-blossom-white rounded-md"
                 // style={{ backgroundImage: `url(${img.value})` }}
-                onClick={() => setSelectedBackground(img.id)}
+                onClick={() => handleItemClick(img.id)}
               ></div>
             );
           })}
         </div>
       )}
       {selectedItem !== 'background' && (
-        <div className="grid grid-cols-3 gap-4 px-5">
+        <div className="grid grid-cols-3 gap-4 pl-5 pr-3 mx-1">
           {MOCK_IMAGES.map(img => {
             return (
               <div
                 key={img.id}
                 className="w-24 h-14 bg-blossom-gray border-solid border-2 border-blossom-white rounded-md"
-                // style={{ backgroundImage: `url(${img.value})` }}
+                style={{ backgroundImage: `url(${img.value})` }}
                 onClick={() => handleItemClick(img.id)}
               ></div>
             );
