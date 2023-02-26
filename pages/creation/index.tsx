@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import Custom from '@/src/components/Creation/Custom';
 import Display from '@/src/components/Creation/Display';
 import PageTitle from '@/src/components/Creation/PageTitle';
+import { saveImg } from '@/src/utils';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * 초대장 생성 페이지
@@ -20,21 +22,27 @@ const Creation = () => {
   const [isTextEmpty, setIsTextEmpty] = useState(true);
 
   const handleClickCreation = () => {
-    // 버튼 클릭 로직
     console.log(isTextEmpty);
-    
+    const filename = uuidv4();
+    saveImg('temp', filename);
+    router.push('/invitationComplete', {
+      query: {
+        imgURL: filename,
+      },
+    });
   };
 
   return (
-    <>
+    <div id="temp">
       <PageTitle />
       <Display
-      selectedItem={selectedItem}
-      selectedBackground={selectedBackground}
-      selectedCharacter={selectedCharacter}
-      selectedSticker={selectedSticker}
-      isTextEmpty={isTextEmpty}
-      setIsTextEmpty={(flag: boolean) => setIsTextEmpty(flag)} />
+        selectedItem={selectedItem}
+        selectedBackground={selectedBackground}
+        selectedCharacter={selectedCharacter}
+        selectedSticker={selectedSticker}
+        isTextEmpty={isTextEmpty}
+        setIsTextEmpty={(flag: boolean) => setIsTextEmpty(flag)}
+      />
       <Custom
         setSelectedBackground={(item: number | null) => setSelectedBackground(item)}
         setSelectedCharacter={(item: number | null) => setSelectedCharacter(item)}
@@ -42,15 +50,16 @@ const Creation = () => {
         selectedItem={selectedItem}
         setSelectedItem={(item: CustomTypes) => setSelectedItem(item)}
       />
-      
-        <button
-          onClick={handleClickCreation}
-          className={`w-[360px] font-pretendard h-12 ${isTextEmpty ? 'bg-blossom-gray' : 'bg-blossom-green'}`}
-        >
-          초대장 완성하기
-        </button>
-      
-    </>
+      <button
+        disabled={isTextEmpty}
+        onClick={handleClickCreation}
+        className={`w-[360px] font-pretendard font-bold h-12 ${
+          isTextEmpty ? 'bg-blossom-gray' : ' bg-blossom-green'
+        } bg-blossom-gray`}
+      >
+        초대장 완성하기
+      </button>
+    </div>
   );
 };
 

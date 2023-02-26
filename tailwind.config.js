@@ -28,7 +28,8 @@ module.exports = {
         },
       },
       animation: {
-        'fade-in': 'fadeIn 1s ease-out'
+        'fade-in': 'fadeIn 1s ease-out',
+        'fall-flower' : 'fallFlower 10s infinite',
     },
       keyframes: {
         'pull-out': {
@@ -50,7 +51,12 @@ module.exports = {
               opacity: '1',
               transform: 'translateX(-50%) translateY(-50%)'
           },
-      }
+        },
+        fallFlower: {
+          '0%': { transform: 'translateX(0%) translateY(0%) rotateY(0deg)'  },
+          '100%': { transform: 'translateX(-400px) translateY(1400px) rotateZ(-359deg)' },
+        },
+  
       },
       fontFamily: {
         sans: ['var(--font-jamjaFlower)', ...fontFamily.sans],
