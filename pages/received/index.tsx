@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import TestImage from '../../public/testImage.jpg';
+import PhotoIcon from '@/public/photo_icon.svg'
 
 function Received() {
   const router = useRouter();
@@ -35,7 +36,7 @@ function Received() {
           </div>
           {popToastMsg &&
           <ToastMessage
-          image={TestImage}
+          image={PhotoIcon}
           popToastMsg={popToastMsg}
           setPopToastMsg={setPopToastMsg}
           message="초대장이 앨범에 담겼습니다."
