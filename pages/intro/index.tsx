@@ -22,7 +22,7 @@ function Intro() {
         <Image src={Logo} alt="testLogo" className='absolute z-20 left-1/2 top-1/2 translate-y-[-50%] translate-x-[-50%] animate-fade-in' width={300} height={0}/>
 
       </div>
-      <button className="w-80 h-12 bg-blossom-green border-[3px] border-blossom-white border-solid rounded-xl  mt-4 " onClick={movePage}>
+      <button className="w-80 h-12 bg-blossom-green border-[3px] border-blossom-white border-solid rounded-xl  mt-4 z-20" onClick={movePage}>
         초대장 만들러 가기
       </button>
       <div className='absolute overflow-hidden w-[360px] h-[640px]' >
