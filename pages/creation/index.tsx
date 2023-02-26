@@ -25,7 +25,7 @@ const Creation = () => {
     console.log(isTextEmpty);
     const filename = uuidv4();
     saveImg('temp', filename);
-    router.push('/invitationComplete', {
+    router.push('/complete', {
       query: {
         imgURL: filename,
       },
