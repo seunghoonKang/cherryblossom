@@ -27,6 +27,9 @@ module.exports = {
           white: '#ffffff',
         },
       },
+      animation: {
+        'fade-in': 'fadeIn 1s ease-out'
+    },
       keyframes: {
         'pull-out': {
           '0%': { transform: 'translateY(20px) scale(0.9)', 'z-index': 10 },
@@ -37,6 +40,17 @@ module.exports = {
           '0%': { transform: 'rotateX(-180deg)' },
           '100%': { transform: 'rotateX(0)' },
         },
+        fadeIn: {
+          '0%': {
+              opacity: '0',
+              transform: 'translateX(-50%) translateY(-40%)'
+              
+          },
+          '100%': {
+              opacity: '1',
+              transform: 'translateX(-50%) translateY(-50%)'
+          },
+      }
       },
       fontFamily: {
         sans: ['var(--font-jamjaFlower)', ...fontFamily.sans],
