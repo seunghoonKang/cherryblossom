@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useEffect, useRef } from "react";
+import { ChangeEvent, MouseEvent, MutableRefObject, useEffect, useRef } from "react";
 
 type CustomTypes = 'background' | 'character' | 'sticker';
 type ItemObjectType = {
@@ -32,7 +32,8 @@ export default function Display(props: DisplayProps) {
     setIsTextEmpty
   } = props;
   
-  const ref = useRef();
+  const displayRef: MutableRefObject<HTMLDivElement|null> = useRef(null);
+  const textareaRef: MutableRefObject<HTMLTextAreaElement|null> = useRef(null);
 
   const handlerDeleteItem = (e: MouseEvent) => {
     e.stopPropagation();  // click event가 버블링 되어 handlerClickDisplay가 호출되는 것을 방지
@@ -45,7 +46,10 @@ export default function Display(props: DisplayProps) {
   }
   
   const handlerClickDisplay = (e: MouseEvent) => {
-    const displayRect = ref.current?.getBoundingClientRect();
+    if (!(selectedCharacter || selectedSticker)) {  // 캐릭터나 스티커 둘 중 어느 것도 선택하지 않았으면 함수 종료
+      return;
+    }
+    const displayRect = displayRef.current?.getBoundingClientRect();
     
     const displayLeft = displayRect?.left; // display의 시작 left, top 좌표 값은 기기마다 달라짐
     const displayTop = displayRect?.top;
@@ -107,13 +111,11 @@ export default function Display(props: DisplayProps) {
 
     item.appendChild(cancelBtn);
     item.appendChild(img);
-    ref.current?.appendChild(item);
+    displayRef.current?.appendChild(item);
   }
 
   useEffect(() => {
-    console.log('?');
-    
-    const displayRect = ref.current?.getBoundingClientRect();
+    const displayRect = displayRef.current?.getBoundingClientRect();
     
     customTypeArr.forEach(customType => {  // session에 저장되어 있는 customType 배열들을 순회
       if (sessionStorage.getItem(customType)) {
@@ -124,13 +126,25 @@ export default function Display(props: DisplayProps) {
         });
       }
     });
-  }, []);
+
+    if (selectedCharacter || selectedSticker) {  // 캐릭터, 스티커 둘 중 하나를 선택했을 때
+      if (textareaRef.current)
+        textareaRef.current.readOnly = true;  // textarea 편집 불가
+    } else {  // 캐릭터, 스티커 둘 중 어느것도 선택하지 않았을 때
+      if (textareaRef.current) {
+        textareaRef.current.readOnly = false;  // textarea 편집 가능
+      }
+    }
+  }, [selectedBackground, selectedCharacter, selectedSticker]);
 
   return (
   <div className="w-full flex flex-col items-center">
-    <div id="display" ref={ref} className="w-[320px] h-[300px] border border-solid rounded-lg border-fuchsia-300 flex justify-center items-center" onClick={(e) => handlerClickDisplay(e)}>
-      <textarea className="w-[220px] h-[140px] p-1 resize-none overflow-hidden" onChange={e => handlerChangeTextarea(e)} placeholder="초대장 문구를 작성해주세요">
+    <div id="display" ref={displayRef} className="w-[320px] h-[300px] border border-solid rounded-lg border-fuchsia-300 flex justify-center items-center" onClick={(e) => handlerClickDisplay(e)}>
+      <div className="absolute overflow-hidden">
+      <textarea ref={textareaRef} className="w-[220px] h-[140px] p-1 resize-none focus:outline-none overflow-hidden" onChange={e => handlerChangeTextarea(e)} placeholder="초대장 문구를 작성해주세요">
       </textarea>
+
+      </div>
     </div>
   </div>
   );
