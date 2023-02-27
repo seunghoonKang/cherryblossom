@@ -19,6 +19,15 @@ type DisplayProps = {
 
 const customTypeArr = ['character', 'sticker'];
 
+export const removeCancelBtnFromDisplay = () => {
+  const display = document.querySelector('#display');
+  display?.childNodes.forEach((child) => {
+    if (child.childNodes.length === 1) return;
+
+    child.childNodes[0]?.remove();
+  });
+}
+
 /**
  * 초대장 생성 페이지의 Display 부분이다.
  * 캐릭터나 스티커를 클릭한 상태로 컴포넌트 안의 영역을 클릭하면 동적으로 해당 아이템이 생성된다.
@@ -64,10 +73,7 @@ export default function Display(props: DisplayProps) {
 
     const selectedItemPath = `/${selectedItem}s/${
       selectedCharacter === null? selectedSticker : selectedCharacter
-    }.png`;
-
-    console.log(selectedBackground , selectedCharacter , selectedSticker, selectedItemPath);
-    
+    }.png`;    
 
     let id = sessionStorage.getItem('itemId') ? parseInt(sessionStorage.getItem('itemId')) + 1 : 0;
     sessionStorage.setItem('itemId', id);
