@@ -22,11 +22,7 @@ const Creation = () => {
     console.log(isTextEmpty);
     const filename = uuidv4();
     saveImg('temp', filename);
-    router.push('/invitationComplete', {
-      query: {
-        imgURL: filename,
-      },
-    });
+    router.push(`/complete/${filename}`);
   };
 
   return (
