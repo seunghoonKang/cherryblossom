@@ -57,12 +57,21 @@ Vercel을 활용하여 배포하였습니다.
 
 ## ⌨️ 실행 방법
 
+- 모듈 설치
 ```tsx
 npm install
-
+```
+- 실행
+```tsx
 npm run dev
+```
+- 배포 환경
+```tsx
+npm bulid
+npm start
+```
 
-```    
+    
   
 </br>
 
