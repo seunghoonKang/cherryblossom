@@ -11,6 +11,7 @@ export default function InviTationComplete() {
 
   const router = useRouter();
   const imageName = router.query.img as string;
+console.log('imageName',imageName);
 
   useEffect(() => {
     const getUrlString = async () => {
