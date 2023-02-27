@@ -133,12 +133,8 @@ export default function Display(props: DisplayProps) {
       if (textareaRef.current) textareaRef.current.readOnly = true; // textarea 편집 불가
     }
 
-    if (selectedBackground !== null) {
-      const img = document.createElement('img');
-      img.src = `/backgrounds/${selectedBackground}.svg`;
-      // displayRef.current.appendChild(img);
-      
-      displayRef.current.style = `background-image:url(/backgrounds/${selectedBackground}.svg)`;
+    if (selectedBackground !== null) {  // selectedBackground에 맞게 배경 설정
+      displayRef.current.style = `background-image:url(/backgrounds/${selectedBackground}.svg); background-size:cover`;
     }
 
     if (displayRef.current?.children.length === 1) {  // children이 1이면 textarea만 존재하기 때문에 session에 저장된 items 렌더링
