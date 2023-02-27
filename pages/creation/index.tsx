@@ -5,6 +5,8 @@ import PageTitle from '@/src/components/Creation/PageTitle';
 import { saveImg } from '@/src/utils';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
+import Head from 'next/head';
+
 /**
  * 초대장 생성 페이지
  */
@@ -29,6 +31,9 @@ const Creation = () => {
 
   return (
     <>
+      <Head>
+        <title>초대장을 만들어보아요</title>
+      </Head>
       <PageTitle />
       <Display
         selectedItem={selectedItem}

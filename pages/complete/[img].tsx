@@ -1,6 +1,7 @@
 import CompleteLayout from '@/src/components/CompleteLayout';
 import InterActionCard from '@/src/components/InterActionCard';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
 export default function InviTationComplete() {
@@ -18,12 +19,17 @@ export default function InviTationComplete() {
   }, [isAnimationOver]);
 
   return (
-    <div className="w-full h-full flex justify-center items-center relative">
-      {isAnimationOver ? (
-        <CompleteLayout type="complete" imageUrl={imageUrl} imageName={imageName} />
-      ) : (
-        <InterActionCard needOpenBtn={false} imageUrl={imageUrl} />
-      )}
-    </div>
+    <>
+      <Head>
+        <title>초대장이 완성되었어요!</title>
+      </Head>
+      <div className="w-full h-full flex justify-center items-center relative">
+        {isAnimationOver ? (
+          <CompleteLayout type="complete" imageUrl={imageUrl} imageName={imageName} />
+        ) : (
+          <InterActionCard needOpenBtn={false} imageUrl={imageUrl} />
+        )}
+      </div>
+    </>
   );
 }
