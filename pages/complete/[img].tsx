@@ -3,6 +3,7 @@ import InterActionCard from '@/src/components/InterActionCard';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { getImageUrlFromFireBase } from '@/src/utils';
 
 export default function InviTationComplete() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
@@ -11,6 +12,14 @@ export default function InviTationComplete() {
   const router = useRouter();
   const imageName = router.query.img as string;
 console.log('imageName',imageName);
+
+  useEffect(() => {
+    const getUrlString = async () => {
+      const getImageUrl = await getImageUrlFromFireBase(imageName);
+      setImageUrl(getImageUrl);
+    };
+    getUrlString();
+  }, [imageName]);
 
   useEffect(() => {
     const animation = setTimeout(() => {

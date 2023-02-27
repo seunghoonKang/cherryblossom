@@ -1,20 +1,26 @@
 import CompleteLayout from '@/src/components/CompleteLayout';
 import InterActionCard from '@/src/components/InterActionCard';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import ToastMessage from '@/src/components/ToastMessage';
-import Image from 'next/image';
-import TestImage from '../../public/testImage.jpg';
-import PhotoIcon from '@/public/photo_icon.svg';
-import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 
-function Received() {
+import Head from 'next/head';
+import { getImageUrlFromFireBase } from '@/src/utils';
+
+export default function Received() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
   const [needOpenBtn, setNeedOpenBtn] = useState(true);
   const [imageUrl, setImageUrl] = useState<string>();
 
   const router = useRouter();
   const imageName = router.query.img as string;
+
+  useEffect(() => {
+    const getUrlString = async () => {
+      const getImageUrl = await getImageUrlFromFireBase(imageName);
+      setImageUrl(getImageUrl);
+    };
+    getUrlString();
+  }, [imageName]);
 
   return (
     <>
