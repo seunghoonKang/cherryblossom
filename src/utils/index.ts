@@ -33,10 +33,11 @@ export const saveImgToUser = (uri: string, filename: string) => {
   }
 };
 
-export const imageDownload = async (imageName: string): Promise<string> => {
+export const getImageUrlFromFireBase = async (imageName: string): Promise<string> => {
   const storage = getStorage();
   try {
-    return await getDownloadURL(ref(storage, `${imageName}.png`));
+    const urlstring = await getDownloadURL(ref(storage, imageName));
+    return urlstring;
   } catch (error) {
     console.log(error);
     throw error;
