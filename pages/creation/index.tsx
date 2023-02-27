@@ -23,7 +23,6 @@ const Creation = () => {
   const [isTextEmpty, setIsTextEmpty] = useState(true);
 
   const handleClickCreation = () => {
-    console.log(isTextEmpty);
     const filename = uuidv4();
     saveImg('temp', filename);
     router.push('/invitationComplete', {
@@ -62,7 +61,7 @@ const Creation = () => {
         onClick={handleClickCreation}
         className={`w-[360px] font-pretendard font-bold h-12 ${
           isTextEmpty ? 'bg-blossom-gray' : ' bg-blossom-green'
-        } bg-blossom-gray fixed bottom-0 left-0 right-0`}
+        } bg-blossom-gray fixe left-0 right-0 text-gray-400`}
       >
         초대장 완성하기
       </button>
