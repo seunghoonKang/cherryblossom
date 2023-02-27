@@ -25,7 +25,6 @@ const Creation = () => {
       pathname: '/complete/[img]',
       query: { img: filename}},
     )
-    
   };
 
   return (
