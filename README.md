@@ -31,10 +31,12 @@
 
 ### 📚&nbsp;&nbsp;Frameworkes & Libraries
 
-- NEXT JS
-- tailwind
-- firebase
-- vercel
+<img alt="NextJS" src ="https://img.shields.io/badge/Next.js-000000?&style=flat&logo=Next.js&logoColor=white"/> <img alt="TypeScript" src ="https://img.shields.io/badge/TypeScript-3178C6?&style=flat&logo=TypeScript&logoColor=white"/><img alt="Vercel" src ="https://img.shields.io/badge/Vercel-000000?&style=flat&logo=Vercel&logoColor=white"/>
+<img alt="Firebase" src ="https://img.shields.io/badge/Firebase-FFCA28?&style=flat&logo=Firebase&logoColor=white"/>
+</br>
+<img alt="Git" src ="https://img.shields.io/badge/Git-F05032?&style=flat&logo=Git&logoColor=white"/> <img alt="GitHub" src ="https://img.shields.io/badge/GitHub-181717?&style=flat&logo=GitHub&logoColor=white"/> 
+</br>
+
 
 ## [🔗 배포 URL](https://cherryblossom-ten.vercel.app/)
 Vercel을 활용하여 배포하였습니다.
@@ -89,14 +91,6 @@ npm run dev
 </details>
 
 
-</br>
-
-## 🔨 사용 기술
-
-<img alt="NextJS" src ="https://img.shields.io/badge/Next.js-000000?&style=flat&logo=Next.js&logoColor=white"/>
-
-
-<img alt="Git" src ="https://img.shields.io/badge/Git-F05032?&style=flat&logo=Git&logoColor=white"/> <img alt="GitHub" src ="https://img.shields.io/badge/GitHub-181717?&style=flat&logo=GitHub&logoColor=white"/> 
 </br>
 
 
