@@ -51,9 +51,10 @@ Vercel을 활용하여 배포하였습니다.
 
 
 
+
 |   Intro    |   초대장 작성 - 배경 선택     |  초대장 작성 - 캐릭터, 스티커 선택 및 위치 지정 |
 | :-------------------------: |  :-------------------------: | :-------------------------: | 
-| ![intro_blossom](https://user-images.githubusercontent.com/59612529/221515585-7a65be88-74d0-40ba-9c75-06bffda1f187.gif)| ![creation-bg](https://user-images.githubusercontent.com/59612529/221548354-7b96f68d-2b77-4e64-ac6a-760834d44776.gif) | ![creation-sticker](https://user-images.githubusercontent.com/59612529/221548696-0188bf9f-763a-4cd0-af82-5bba9d03b6ce.gif) |
+| ![intro_blossom](https://user-images.githubusercontent.com/59612529/221550346-ec4650fe-4e3c-4df5-a5bf-27d9a636d4cd.gif)| ![creation-bg](https://user-images.githubusercontent.com/59612529/221548354-7b96f68d-2b77-4e64-ac6a-760834d44776.gif) | ![creation-sticker](https://user-images.githubusercontent.com/59612529/221548696-0188bf9f-763a-4cd0-af82-5bba9d03b6ce.gif) |
 
 |   초대장 완성     |   초대장 완성 -  다시 보내기     |  초대장 열기 |
 | :-------------------------: |  :-------------------------: | :-------------------------: | 
