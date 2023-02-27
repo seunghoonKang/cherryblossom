@@ -11,17 +11,13 @@ import Head from 'next/head';
  * 초대장 생성 페이지
  */
 type CustomTypes = 'background' | 'character' | 'sticker';
-
 const Creation = () => {
   const router = useRouter();
-
   const [selectedItem, setSelectedItem] = useState<CustomTypes>('background');
   const [selectedBackground, setSelectedBackground] = useState<number | null>(null);
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
   const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
-
   const [isTextEmpty, setIsTextEmpty] = useState(true);
-
   const handleClickCreation = () => {
     console.log(isTextEmpty);
     const filename = uuidv4();

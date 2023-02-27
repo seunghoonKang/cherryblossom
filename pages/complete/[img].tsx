@@ -1,12 +1,15 @@
 import CompleteLayout from '@/src/components/CompleteLayout';
 import InterActionCard from '@/src/components/InterActionCard';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
 export default function InviTationComplete() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>();
 
-  const imageName = '/성택미모티콘.png';
+  const router = useRouter();
+  const imageName = router.query.img as string;
 
   useEffect(() => {
     const animation = setTimeout(() => {
@@ -22,9 +25,9 @@ export default function InviTationComplete() {
       </Head>
       <div className="w-full h-full flex justify-center items-center relative">
         {isAnimationOver ? (
-          <CompleteLayout imageName={imageName} type="complete" />
+          <CompleteLayout type="complete" imageUrl={imageUrl} imageName={imageName} />
         ) : (
-          <InterActionCard needOpenBtn={false} imageName={imageName} />
+          <InterActionCard needOpenBtn={false} imageUrl={imageUrl} />
         )}
       </div>
     </>

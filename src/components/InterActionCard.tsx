@@ -3,11 +3,11 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export default function InterActionCard({
   needOpenBtn,
-  imageName,
   setIsAnimationOver,
+  imageUrl,
 }: {
   needOpenBtn: boolean;
-  imageName: string;
+  imageUrl: string | undefined;
   setIsAnimationOver?: Dispatch<SetStateAction<boolean>>;
 }) {
   const [isPullOut, setIsPullOut] = useState(false);
@@ -68,7 +68,9 @@ export default function InterActionCard({
             className={`w-[280px] h-[260px] mt-[120px] flex justify-center items-center border border-solid border-[#FDC7D4] bg-white animate-[pull-out_1500ms] ease-in-out z-20 rounded-[10px]
                 }`}
           >
-            <Image src={imageName} alt="image" width="300" height="300" />
+            {imageUrl !== undefined && (
+              <Image src={imageUrl} alt="image" width="300" height="300" />
+            )}
           </div>
         )}
       </div>
