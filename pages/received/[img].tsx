@@ -1,10 +1,9 @@
 import CompleteLayout from '@/src/components/CompleteLayout';
 import InterActionCard from '@/src/components/InterActionCard';
-
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import ToastMessage from '@/src/components/ToastMessage';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 import TestImage from '../../public/testImage.jpg';
 import PhotoIcon from '@/public/photo_icon.svg';
 import Head from 'next/head';
@@ -12,8 +11,10 @@ import Head from 'next/head';
 function Received() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
   const [needOpenBtn, setNeedOpenBtn] = useState(true);
+  const [imageUrl, setImageUrl] = useState<string>();
 
-  const imageName = '/성택미모티콘.png';
+  const router = useRouter();
+  const imageName = router.query.img as string;
 
   return (
     <>
@@ -22,11 +23,11 @@ function Received() {
       </Head>
       <div className="w-full h-full flex justify-center items-center relative">
         {isAnimationOver ? (
-          <CompleteLayout imageName={imageName} type="receive" />
+          <CompleteLayout type="receive" imageUrl={imageUrl} imageName={imageName} />
         ) : (
           <InterActionCard
             needOpenBtn={needOpenBtn}
-            imageName={imageName}
+            imageUrl={imageUrl}
             setIsAnimationOver={setIsAnimationOver}
           />
         )}
@@ -34,5 +35,3 @@ function Received() {
     </>
   );
 }
-
-export default Received;

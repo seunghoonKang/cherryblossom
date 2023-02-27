@@ -2,20 +2,20 @@ import { copyLink } from '@/pages/api/share';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { imageDownload } from '../utils';
 
 type propsType = {
-  imageName: string;
   type: 'complete' | 'receive';
-  handleClickShareBtn?: () => void;
-  handleClickRewriteBtn?: () => void;
+  imageUrl: string | undefined;
+  imageName: string;
 };
 
-export default function CompleteLayout({ imageName, type }: propsType) {
+export default function CompleteLayout({ type, imageUrl, imageName }: propsType) {
   const [popToastMsg, setPopToastMsg] = useState(false);
   const router = useRouter();
 
   const handleClickShareBtn = () => {
-    copyLink(imageName);
+    if (imageName) copyLink(imageName);
   };
 
   const handleClickRewriteBtn = () => {
@@ -34,7 +34,9 @@ export default function CompleteLayout({ imageName, type }: propsType) {
             <div className="absolute top-[-20px] bg-[#FEEFF4] w-[240px] h-[40px] flex justify-center items-center rounded-[10px] border border-solid border-[#FFC9D4]">
               벚꽃 초대장
             </div>
-            <Image src={imageName} alt="image" width="300" height="300" />
+            {imageUrl !== undefined && (
+              <Image src={imageUrl} alt="image" width="300" height="300" />
+            )}
           </div>
         </section>
 
@@ -55,7 +57,6 @@ export default function CompleteLayout({ imageName, type }: propsType) {
           </section>
         ) : (
           <section id="middleBtn" className="w-full flex justify-between mt-4">
-            {' '}
             <button
               onClick={handleClickRewriteBtn}
               className="bg-btn-yellow w-full grow-0 h-[50px] rounded-[10px] border border-solid border-white cursor-pointer"
