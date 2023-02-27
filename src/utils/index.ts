@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas';
 
 export const saveImg = (id: string, filename: string) => {
   const capture: HTMLElement | null = document.querySelector(`#${id}`);
-    
+
   if (capture !== null) {
     html2canvas(capture)
       .then(canvas => canvas.toDataURL(filename))
@@ -33,10 +33,11 @@ export const saveImgToUser = (uri: string, filename: string) => {
   }
 };
 
-export const getImageUrlFromFireBase = async (imageName: string): Promise<string> => {
+export const getImageUrlFromFirebase = async (imageName: string): Promise<string> => {
   const storage = getStorage();
+  const imageRef = ref(storage, imageName);
   try {
-    const urlstring = await getDownloadURL(ref(storage, imageName));
+    const urlstring = await getDownloadURL(imageRef);
     return urlstring;
   } catch (error) {
     console.log(error);

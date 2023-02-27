@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import Head from 'next/head';
-import { getImageUrlFromFireBase } from '@/src/utils';
+import { getImageUrlFromFirebase } from '@/src/utils';
 
 export default function Received() {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
@@ -16,7 +16,7 @@ export default function Received() {
 
   useEffect(() => {
     const getUrlString = async () => {
-      const getImageUrl = await getImageUrlFromFireBase(imageName);
+      const getImageUrl = await getImageUrlFromFirebase(imageName);
       setImageUrl(getImageUrl);
     };
     getUrlString();

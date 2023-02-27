@@ -18,13 +18,15 @@ const Creation = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
   const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
   const [isTextEmpty, setIsTextEmpty] = useState(true);
-  const handleClickCreation = () => {
+  const handleClickCreation = async () => {
     const filename = uuidv4();
-    saveImg('display', filename);
-    router.push({
-      pathname: '/complete/[img]',
-      query: { img: filename}},
-    )
+    await saveImg('display', filename);
+    const move = () =>
+      router.push({
+        pathname: '/complete/[img]',
+        query: { img: filename },
+      });
+    setTimeout(move, 2000);
   };
 
   return (
