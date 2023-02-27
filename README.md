@@ -23,7 +23,7 @@
 - 아이디어 도출 및 팀 선정
 - 개인별 자기소개 시간 및 팀 빌딩
 - 프로젝트 목적과 대상을 명확히 하기 위한 지도그리기 
-- 개인별 아이디어 스케치 토론 및 PL(Project Leader), UX 결정권자 선정
+- 개인별 아이디어 스케치 토론 및 PL(Project Leader), UI/UX 결정권자 선정
 - BDD & SDD 를 통한 설계 및 태스크 분배 (MVP)
 - 페어 프로그래밍 짝 지정 
 - 페어 프로그래밍을 활용한 개발 진행
@@ -159,7 +159,7 @@ npm start
 
 
 
-|   찰리(PL)   |   애나(UX Leader)   |   세인트   |   아메   |   울버린   |   조조   |   셀   |
+|   찰리(PL)   |   애나(UI/UX Leader)   |   세인트   |   아메   |   울버린   |   조조   |   셀   |
 |:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
 |[@YeonghunKO](https://github.com/YeonghunKO)|[@애나](https://github.com/) | [@Seongtaek-H](https://github.com/Seongtaek-H)  | [@Lee-Yeseul](https://github.com/Lee-Yeseul) | [@seunghoonKang](https://github.com/seunghoonKang) | [@seonghun0828](https://github.com/seonghun0828) | [@devysi0827](https://github.com/devysi0827)|
 |<img src="https://avatars.githubusercontent.com/YeonghunKO" width="100">|<div width="100" alt="애나" />|<img src="https://avatars.githubusercontent.com/Seongtaek-H" width="100">|<img src="https://avatars.githubusercontent.com/Lee-Yeseul" width="100">|<img src="https://avatars.githubusercontent.com/seunghoonKang" width="100">|<img src="https://avatars.githubusercontent.com/seonghun0828" width="100">|<img src="https://avatars.githubusercontent.com/devysi0827" width="100">|
