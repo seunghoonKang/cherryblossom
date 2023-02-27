@@ -1,6 +1,7 @@
 # 🌸나랑 벚꽃보러 가지 않을래?
 
 ![share_link_image](https://user-images.githubusercontent.com/65995664/221506826-234c3499-3d48-459a-a0f0-9c63b705a005.png)
+![received](https://user-images.githubusercontent.com/65995664/221545781-3e2ac60d-9493-447e-8c03-54bdac8a4c53.png)
 
 <br/>
 <br/>
