@@ -17,7 +17,7 @@ type DisplayProps = {
   setIsTextEmpty: (flag: boolean) => void;
 };
 
-const customTypeArr = ['background', 'character', 'sticker'];
+const customTypeArr = ['character', 'sticker'];
 
 /**
  * 초대장 생성 페이지의 Display 부분이다.
@@ -39,7 +39,7 @@ export default function Display(props: DisplayProps) {
   const handlerDeleteItem = (e: MouseEvent) => {
     e.stopPropagation(); // click event가 버블링 되어 handlerClickDisplay가 호출되는 것을 방지
 
-    customTypeArr.forEach((customType) => {  // session items 3개 순회하며 id에 해당하는 요소 삭제
+    customTypeArr.forEach((customType) => {  // 캐릭터/스티커 session 순회하며 id에 해당하는 요소 삭제
       const items: ItemObjectType[] = JSON.parse(sessionStorage.getItem(customType));
       if (!items) return;
       
@@ -126,6 +126,18 @@ export default function Display(props: DisplayProps) {
     displayRef.current?.appendChild(item);
   }, []);
 
+  const paintBackground = useCallback(() => {
+    const sessionBackground = sessionStorage.getItem('background');
+    let backgroundNumber: number;
+    if (selectedBackground === null) {  // 아직 선택된 배경이 없으면
+      backgroundNumber = parseInt(sessionBackground) || 0;  // backgroundNumber에 session 배경 값 or 0 설정
+    } else {  // 선택한 배경이 있으면
+      backgroundNumber = selectedBackground;  // backgroundNumber에 선택한 배경을 설정
+      sessionStorage.setItem('background', backgroundNumber);  // session에 선택한 배경 설정
+    }
+    displayRef.current.style = `background-image:url(/backgrounds/${backgroundNumber}.svg); background-size:cover`;  // background 이미지 그리기
+  }, [selectedBackground]);
+
   useEffect(() => {    
     if (selectedCharacter === null && selectedSticker === null) {  // 캐릭터, 스티커 둘 중 어느것도 선택하지 않았을 때
       if (textareaRef.current) textareaRef.current.readOnly = false; // textarea 편집 가능
@@ -133,13 +145,7 @@ export default function Display(props: DisplayProps) {
       if (textareaRef.current) textareaRef.current.readOnly = true; // textarea 편집 불가
     }
 
-    if (selectedBackground !== null) {
-      const img = document.createElement('img');
-      img.src = `/backgrounds/${selectedBackground}.svg`;
-      // displayRef.current.appendChild(img);
-      
-      displayRef.current.style = `background-image:url(/backgrounds/${selectedBackground}.svg)`;
-    }
+    paintBackground();
 
     if (displayRef.current?.children.length === 1) {  // children이 1이면 textarea만 존재하기 때문에 session에 저장된 items 렌더링
       customTypeArr.forEach(customType => {
@@ -154,7 +160,7 @@ export default function Display(props: DisplayProps) {
         }
       });
     }
-  }, [paintItemInDisplay, selectedBackground, selectedCharacter, selectedSticker]);
+  }, [paintItemInDisplay, paintBackground, selectedBackground, selectedCharacter, selectedSticker]);
 
   return (
     <div className="w-full flex flex-col items-center">
