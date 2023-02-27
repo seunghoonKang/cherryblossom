@@ -133,9 +133,15 @@ export default function Display(props: DisplayProps) {
       if (textareaRef.current) textareaRef.current.readOnly = true; // textarea 편집 불가
     }
 
-    if (displayRef.current?.children.length === 1) {  // children이 1이면 textarea만 존재하기 때문에 session에 저장된 items 렌더링
-      const displayRect = displayRef.current?.getBoundingClientRect();
+    if (selectedBackground !== null) {
+      const img = document.createElement('img');
+      img.src = `/backgrounds/${selectedBackground}.svg`;
+      // displayRef.current.appendChild(img);
+      
+      displayRef.current.style = `background-image:url(/backgrounds/${selectedBackground}.svg)`;
+    }
 
+    if (displayRef.current?.children.length === 1) {  // children이 1이면 textarea만 존재하기 때문에 session에 저장된 items 렌더링
       customTypeArr.forEach(customType => {
         // session에 저장되어 있는 customType 배열들을 순회
         if (sessionStorage.getItem(customType)) {
@@ -148,8 +154,6 @@ export default function Display(props: DisplayProps) {
         }
       });
     }
-
-
   }, [paintItemInDisplay, selectedBackground, selectedCharacter, selectedSticker]);
 
   return (

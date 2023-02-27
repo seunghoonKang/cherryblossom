@@ -20,12 +20,12 @@ const Creation = () => {
   const [isTextEmpty, setIsTextEmpty] = useState(true);
   const handleClickCreation = () => {
     const filename = uuidv4();
-    saveImg('temp', filename);
-    router.push('/invitationComplete', {
-      query: {
-        imgURL: filename,
-      },
-    });
+    saveImg('display', filename);
+    router.push({
+      pathname: '/complete/[img]',
+      query: { img: filename}},
+    )
+    
   };
 
   return (
@@ -56,8 +56,8 @@ const Creation = () => {
         disabled={isTextEmpty}
         onClick={handleClickCreation}
         className={`w-[360px] font-pretendard font-bold h-12 ${
-          isTextEmpty ? 'bg-blossom-gray' : ' bg-blossom-green'
-        } bg-blossom-gray fixe left-0 right-0 text-gray-400`}
+          isTextEmpty ? 'bg-blossom-gray text-gray-400' : ' bg-blossom-green'
+        } bg-blossom-gray fixe left-0 right-0`}
       >
         초대장 완성하기
       </button>

@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas';
 
 export const saveImg = (id: string, filename: string) => {
   const capture: HTMLElement | null = document.querySelector(`#${id}`);
-
+    
   if (capture !== null) {
     html2canvas(capture)
       .then(canvas => canvas.toDataURL(filename))
