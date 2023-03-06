@@ -144,29 +144,31 @@ export default function Display(props: DisplayProps) {
     displayRef.current.style = `background-image:url(/backgrounds/${backgroundNumber}.svg); background-size:cover`;  // background 이미지 그리기
   }, [selectedBackground]);
 
-  useEffect(() => {    
+  useEffect(() => {  // textarea readOnly 설정
     if (selectedCharacter === null && selectedSticker === null) {  // 캐릭터, 스티커 둘 중 어느것도 선택하지 않았을 때
       if (textareaRef.current) textareaRef.current.readOnly = false; // textarea 편집 가능
     } else {  // 캐릭터, 스티커 둘 중 하나를 선택했을 때
       if (textareaRef.current) textareaRef.current.readOnly = true; // textarea 편집 불가
     }
+  }, [selectedBackground, selectedCharacter, selectedSticker]);
 
+  useEffect(() => {  // background 렌더링
     paintBackground();
+  }, [paintBackground]);
 
-    if (displayRef.current?.children.length === 1) {  // children이 1이면 textarea만 존재하기 때문에 session에 저장된 items 렌더링
+  useEffect(() => {  // 초기 렌더링 시 session 저장된 캐릭터/스티커 렌더링
+    if (displayRef.current?.children.length === 1) {  // children이 1이면 textarea만 존재 === 초기 렌더링일 때
       customTypeArr.forEach(customType => {
         // session에 저장되어 있는 customType 배열들을 순회
         if (sessionStorage.getItem(customType)) {
           const items: ItemObjectType[] = JSON.parse(sessionStorage.getItem(customType));
-  
-          items.forEach(({ offsetX, offsetY, path, id }) => {
-            // 배열을 순회하며 저장된 좌표, path에 맞게 paint 호출
+          items.forEach(({ offsetX, offsetY, path, id }) => {  // items 순회하며 저장된 좌표, path에 맞게 paint 호출
             paintItemInDisplay(offsetX, offsetY, path, id);
           });
         }
       });
     }
-  }, [paintItemInDisplay, paintBackground, selectedBackground, selectedCharacter, selectedSticker]);
+  }, [paintItemInDisplay]);
 
   return (
     <div className="w-full flex flex-col items-center">
