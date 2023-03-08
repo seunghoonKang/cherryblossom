@@ -16,18 +16,10 @@ type DisplayProps = {
   selectedSticker: number | null;
   textValue: string;
   setTextValue: (input: string) => void;
+  visibleCancelBtn: string;
 };
 
 const customTypeArr = ['character', 'sticker'];
-
-export const removeCancelBtnFromDisplay = () => {
-  const display = document.querySelector('#display');
-  display?.childNodes.forEach(child => {
-    if (child.childNodes.length === 1) return;
-
-    child.childNodes[0]?.remove();
-  });
-};
 
 /**
  * 초대장 생성 페이지의 Display 부분이다.
@@ -41,6 +33,7 @@ export default function Display(props: DisplayProps) {
     selectedSticker,
     textValue,
     setTextValue,
+    visibleCancelBtn
   } = props;
 
   const [characters, setCharacters] = useState<ItemObjectType[]>([]);
@@ -174,8 +167,11 @@ export default function Display(props: DisplayProps) {
               style={{left:`${offsetX}px`, top:`${offsetY}px`, transform:'translate(-50%,-50%)'}}
               key={id}
             >
-              <span onClick={(e) => handlerDeleteItem(e, id, 'character')}>X</span>
-              <Image
+              <span
+                onClick={(e) => handlerDeleteItem(e, id, 'character')}
+                style={{visibility: `${visibleCancelBtn}`}}
+              >X</span>
+              <img
                 src={path}
                 alt={'character'}
                 width={30}
@@ -192,8 +188,11 @@ export default function Display(props: DisplayProps) {
               style={{left:`${offsetX}px`, top:`${offsetY}px`, transform:'translate(-50%,-50%)'}}
               key={id}
             >
-              <span onClick={(e) => handlerDeleteItem(e, id, 'sticker')}>X</span>
-              <Image
+              <span
+                onClick={(e) => handlerDeleteItem(e, id, 'sticker')}
+                style={{visibility: `${visibleCancelBtn}`}}  
+              >X</span>
+              <img
                 src={path}
                 alt={'sticker'}
                 width={30}
