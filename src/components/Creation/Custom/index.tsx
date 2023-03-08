@@ -163,8 +163,6 @@ export default function Custom(props: CustomProps) {
   const handleItemClick = (id: number) => {
     if (selectedItem === 'background') {
       setSelectedBackground(id);
-      setSelectedCharacter(null);
-      setSelectedSticker(null);
     }
     if (selectedItem === 'character') {
       if (selectedCharacter === id) {
@@ -173,7 +171,6 @@ export default function Custom(props: CustomProps) {
         return;
       }
       setSelectedCharacter(id);
-      setSelectedSticker(null);
     }
     if (selectedItem === 'sticker') {
       if (selectedSticker === id) {
@@ -182,9 +179,15 @@ export default function Custom(props: CustomProps) {
         return;
       }
       setSelectedSticker(id);
-      setSelectedCharacter(null);
     }
   };
+
+  const handlerCustomTypeClick = (customType: CustomTypes) => {
+    setSelectedItem(customType);
+    setSelectedBackground(null);
+    setSelectedCharacter(null);
+    setSelectedSticker(null);
+  }
 
   return (
     <div className="mt-[8px] h-96 w-[360px] flex-col space-y-[8px] bg-blossom-lightBlue px-[20px]">
@@ -195,7 +198,7 @@ export default function Custom(props: CustomProps) {
               key={custom.value}
               className={`h-[36px] w-[96px] rounded-[10px] border-2 border-blossom-white text-sm 
   ${selectedItem === custom.value ? 'bg-blossom-green' : 'bg-blossom-yellow'}`}
-              onClick={() => setSelectedItem(custom.value)}
+              onClick={() => handlerCustomTypeClick(custom.value)}
             >
               {custom.name}
             </button>
