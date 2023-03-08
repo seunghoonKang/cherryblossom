@@ -13,8 +13,8 @@ type DisplayProps = {
   selectedBackground: number | null;
   selectedCharacter: number | null;
   selectedSticker: number | null;
-  isTextEmpty: boolean;
-  setIsTextEmpty: (flag: boolean) => void;
+  textValue: string;
+  setTextValue: (input: string) => void;
 };
 
 const customTypeArr = ['character', 'sticker'];
@@ -38,8 +38,8 @@ export default function Display(props: DisplayProps) {
     selectedBackground,
     selectedCharacter,
     selectedSticker,
-    isTextEmpty,
-    setIsTextEmpty,
+    textValue,
+    setTextValue
   } = props;
 
   const displayRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
@@ -99,13 +99,7 @@ export default function Display(props: DisplayProps) {
   };
 
   const handlerChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (!e.target.value.trim().length) {
-      // textarea에 입력이 사라졌을때
-      setIsTextEmpty(true);
-    } else if (isTextEmpty) {
-      // textarea에 입력이 됐는데 isTextEmpty가 아직 true면
-      setIsTextEmpty(false);
-    }
+    setTextValue(e.target.value);
   };
 
   const paintItemInDisplay = useCallback((x: number, y: number, path: string, id: number) => {
@@ -191,9 +185,14 @@ export default function Display(props: DisplayProps) {
       >
         <textarea
           ref={textareaRef}
+<<<<<<< HEAD
           className="h-[140px] w-[220px] resize-none overflow-hidden rounded-[10px] p-1 focus:outline-none"
+=======
+          className="w-[220px] h-[140px] p-1 resize-none focus:outline-none overflow-hidden rounded-[10px] whitespace-pre-wrap break-words"
+>>>>>>> dev
           onChange={e => handlerChangeTextarea(e)}
           placeholder="초대장 문구를 작성해주세요"
+          value={textValue}
         ></textarea>
       </div>
     </div>
