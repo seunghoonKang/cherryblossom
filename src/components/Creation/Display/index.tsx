@@ -39,7 +39,7 @@ export default function Display(props: DisplayProps) {
     selectedCharacter,
     selectedSticker,
     textValue,
-    setTextValue
+    setTextValue,
   } = props;
 
   const displayRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
@@ -185,11 +185,7 @@ export default function Display(props: DisplayProps) {
       >
         <textarea
           ref={textareaRef}
-<<<<<<< HEAD
-          className="h-[140px] w-[220px] resize-none overflow-hidden rounded-[10px] p-1 focus:outline-none"
-=======
-          className="w-[220px] h-[140px] p-1 resize-none focus:outline-none overflow-hidden rounded-[10px] whitespace-pre-wrap break-words"
->>>>>>> dev
+          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] p-1 focus:outline-none"
           onChange={e => handlerChangeTextarea(e)}
           placeholder="초대장 문구를 작성해주세요"
           value={textValue}
