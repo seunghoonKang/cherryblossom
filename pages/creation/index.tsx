@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Custom from '@/src/components/Creation/Custom';
-import Display, { removeCancelBtnFromDisplay } from '@/src/components/Creation/Display';
+import Display from '@/src/components/Creation/Display';
 import PageTitle from '@/src/components/Creation/PageTitle';
 import { saveImg } from '@/src/utils';
 import { useRouter } from 'next/router';

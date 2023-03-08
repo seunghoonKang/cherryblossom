@@ -109,6 +109,16 @@ export default function Display(props: DisplayProps) {
     displayRef.current.style = `background-image:url(/backgrounds/${backgroundNumber}.svg); background-size:cover`; // background 이미지 그리기
   }, [selectedBackground]);
 
+  const clearAllItems = (e: MouseEvent) => {
+    e.stopPropagation();  // 이벤트 버블링 방지
+    if(!window.confirm('모든 캐릭터 / 스티커를 삭제하시겠습니까?'))
+      return;
+
+    setCharacters([]);
+    setStickers([]);
+    customTypeArr.forEach((customType) => sessionStorage.removeItem(customType));
+  }
+
   useEffect(() => {
     // textarea readOnly 설정
     if (selectedCharacter === null && selectedSticker === null) {
@@ -153,12 +163,6 @@ export default function Display(props: DisplayProps) {
           placeholder="초대장 문구를 작성해주세요"
           value={textValue}
         ></textarea>
-        {/* <Image
-          src={'/creation/eraser.png'}
-          alt={'eraserButton'}
-          width={24}
-          height={24}
-        /> */}
         {
           characters.map(({offsetX, offsetY, path, id}) => (
             <div
@@ -201,6 +205,16 @@ export default function Display(props: DisplayProps) {
             </div>
           ))
         }
+        <div onClick={e => clearAllItems(e)}>
+            <img
+              className='absolute'
+              src={'/creation/eraser.svg'}
+              alt={'eraserButton'}
+              width={24}
+              height={24}
+              style={{right: '10px', bottom: '10px', visibility: `${visibleCancelBtn}`}}
+            />
+        </div>
       </div>
     </div>
   );
