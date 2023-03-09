@@ -153,12 +153,12 @@ export default function Display(props: DisplayProps) {
       <div
         id="display"
         ref={displayRef}
-        className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-fuchsia-300"
+        className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
         onClick={e => handlerClickDisplay(e)}
       >
         <textarea
           ref={textareaRef}
-          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] p-1 focus:outline-none"
+          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] p-2.5 focus:outline-none "
           onChange={e => handlerChangeTextarea(e)}
           placeholder="초대장 문구를 작성해주세요"
           value={textValue}
