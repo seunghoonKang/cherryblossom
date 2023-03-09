@@ -177,7 +177,7 @@ export default function Display(props: DisplayProps) {
                 style={{visibility: `${visibleCancelBtn}`, transform: 'translateY(100%)'}}
               >
                 <img
-                  src='/creation/cancel.png'
+                  src='/creation/cancel.svg'
                   alt='cancelButton'
                   width={12}
                   height={12}
@@ -206,7 +206,7 @@ export default function Display(props: DisplayProps) {
                 style={{visibility: `${visibleCancelBtn}`}}  
               >
                 <img
-                  src='/creation/cancel.png'
+                  src='/creation/cancel.svg'
                   alt='cancelButton'
                   width={12}
                   height={12}
