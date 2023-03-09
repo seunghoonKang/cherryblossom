@@ -17,7 +17,7 @@ const pretendard = localFont({
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`flex h-screen w-screen items-center justify-center bg-gray-200 ${gamjaFlower.variable} ${jejudoldam.variable} ${pretendard.variable} font-sans`}
+      className={`flex h-screen w-screen items-center justify-center bg-totalBg bg-cover bg-no-repeat ${gamjaFlower.variable} ${jejudoldam.variable} ${pretendard.variable} font-sans`}
     >
       <div className="relative h-full max-h-[640px] w-full max-w-[360px] bg-skyBlue">
         {children}

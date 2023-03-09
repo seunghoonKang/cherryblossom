@@ -13,6 +13,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        totalBg: "url('../public/backgrounds/totalBg.svg')",
+      },
       dropShadow: {
         pageTitle: '0 4px 0px #FFC9D4',
       },
