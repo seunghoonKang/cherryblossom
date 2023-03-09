@@ -172,6 +172,7 @@ export default function Display(props: DisplayProps) {
               key={id}
             >
               <div
+                className='cursor-pointer'
                 onClick={(e) => handlerDeleteItem(e, id, 'character')}
                 style={{visibility: `${visibleCancelBtn}`, transform: 'translateY(100%)'}}
               >
@@ -200,6 +201,7 @@ export default function Display(props: DisplayProps) {
               key={id}
             >
               <div
+                className='cursor-pointer'
                 onClick={(e) => handlerDeleteItem(e, id, 'sticker')}
                 style={{visibility: `${visibleCancelBtn}`}}  
               >
@@ -221,7 +223,7 @@ export default function Display(props: DisplayProps) {
         }
         <div onClick={e => clearAllItems(e)}>
             <img
-              className='absolute'
+              className='absolute cursor-pointer'
               src={'/creation/eraser.svg'}
               alt={'eraserButton'}
               width={24}
