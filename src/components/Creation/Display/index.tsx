@@ -171,10 +171,18 @@ export default function Display(props: DisplayProps) {
               style={{left:`${offsetX}px`, top:`${offsetY}px`, transform:'translate(-50%,-50%)'}}
               key={id}
             >
-              <span
+              <div
+                className='cursor-pointer'
                 onClick={(e) => handlerDeleteItem(e, id, 'character')}
-                style={{visibility: `${visibleCancelBtn}`}}
-              >X</span>
+                style={{visibility: `${visibleCancelBtn}`, transform: 'translateY(100%)'}}
+              >
+                <img
+                  src='/creation/cancel.svg'
+                  alt='cancelButton'
+                  width={12}
+                  height={12}
+                />
+              </div>
               <img
                 src={path}
                 alt={'character'}
@@ -192,10 +200,18 @@ export default function Display(props: DisplayProps) {
               style={{left:`${offsetX}px`, top:`${offsetY}px`, transform:'translate(-50%,-50%)'}}
               key={id}
             >
-              <span
+              <div
+                className='cursor-pointer'
                 onClick={(e) => handlerDeleteItem(e, id, 'sticker')}
                 style={{visibility: `${visibleCancelBtn}`}}  
-              >X</span>
+              >
+                <img
+                  src='/creation/cancel.svg'
+                  alt='cancelButton'
+                  width={12}
+                  height={12}
+                />
+              </div>
               <img
                 src={path}
                 alt={'sticker'}
@@ -207,7 +223,7 @@ export default function Display(props: DisplayProps) {
         }
         <div onClick={e => clearAllItems(e)}>
             <img
-              className='absolute'
+              className='absolute cursor-pointer'
               src={'/creation/eraser.svg'}
               alt={'eraserButton'}
               width={24}
