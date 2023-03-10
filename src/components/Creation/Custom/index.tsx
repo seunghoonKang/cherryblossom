@@ -207,7 +207,7 @@ export default function Custom(props: CustomProps) {
       </div>
       <div className="border-1 my-[8px] border-t border-solid border-blossom-darkGray"></div>
 
-      <div className="scrollbar-hide grid h-[230px] grid-cols-3 gap-4 overflow-auto">
+      <div className="scrollbar-hide grid h-full grid-cols-3 gap-4 overflow-auto">
         {selectedItem === 'background' &&
           BACKGROUND_IMAGE.map(img => {
             return (
