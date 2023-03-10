@@ -14,8 +14,8 @@ import Head from 'next/head';
 /**
  * [아메 TODO]
  * 완성된 디자인 추가하기
- * 완성하기 버튼 아래 고정하기
- * 버튼 간격 조정
+ * 완성하기 버튼 아래 고정하기 ✅
+ * 버튼 간격 조정 ✅
  * 스크롤바 안보이게
  * 이미지 캡쳐 시 줄 바꿈 안되는 문제 확인하기
  */
@@ -28,11 +28,11 @@ const Creation = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
   const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
   const [textValue, setTextValue] = useState('');
-  const handleClickCreation = async () => {
+  const handleClickCreation = () => {
     removeCancelBtnFromDisplay(); // 캐릭터/스티커 위의 X 버튼 삭제
 
     const filename = uuidv4();
-    await saveImg('display', filename);
+    saveImg('display', filename);
     const move = () =>
       router.push({
         pathname: '/complete/[img]',
