@@ -158,7 +158,7 @@ export default function Display(props: DisplayProps) {
       >
         <textarea
           ref={textareaRef}
-          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] p-2.5 focus:outline-none "
+          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] p-2.5 focus:outline-none bg-brownBorder "
           onChange={e => handlerChangeTextarea(e)}
           placeholder="초대장 문구를 작성해주세요"
           value={textValue}
