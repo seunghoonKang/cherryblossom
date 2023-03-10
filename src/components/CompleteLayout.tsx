@@ -1,9 +1,11 @@
 import { copyLink } from '@/pages/api/share';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToastMessage from '@/src/components/ToastMessage';
 import { saveImgToUser } from '../utils';
+import Script from 'next/script';
+import Link from 'next/link';
 
 type propsType = {
   type: 'complete' | 'receive';
@@ -38,6 +40,26 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
     }
     setCheckClickedBtn(prev => {
       return { ...prev, save: true };
+    });
+  };
+
+  useEffect(() => {
+    try {
+      if (!window.Kakao.isInitialized(process.env.NEXT_PUBLIC_KAKAO_KEY)) {
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  const shareKakao = () => {
+    window.Kakao.Share.createCustomButton({
+      container: '#kakaotalk-sharing-btn',
+      templateId: 91057,
+      templateArgs: {
+        imageName: `${imageName}`,
+      },
     });
   };
 
@@ -102,6 +124,13 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
       >
         <button disabled={checkClickedBtn.save}>내 앨범에 담기</button>
       </section>
+
+      <button onClick={shareKakao} id="kakaotalk-sharing-btn">
+        <img
+          src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+          alt="카카오링크 보내기 버튼"
+        />
+      </button>
     </div>
   );
 }
