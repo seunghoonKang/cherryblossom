@@ -11,7 +11,17 @@ import { flushSync } from 'react-dom';
 /**
  * 초대장 생성 페이지
  */
+
+/**
+ * [아메 TODO]
+ * 완성된 디자인 추가하기
+ * 완성하기 버튼 아래 고정하기 ✅
+ * 버튼 간격 조정 ✅
+ * 스크롤바 안보이게
+ * 이미지 캡쳐 시 줄 바꿈 안되는 문제 확인하기
+ */
 type CustomTypes = 'background' | 'character' | 'sticker';
+
 const Creation = () => {
   const router = useRouter();
   const [selectedItem, setSelectedItem] = useState<CustomTypes>('background');
@@ -22,11 +32,11 @@ const Creation = () => {
   const [visibleCancelBtn, setVisibleCancelBtn] = useState('visible');
   const handleClickCreation = async () => {
     flushSync(() => {
-      setVisibleCancelBtn('hidden');  // X 버튼 hidden
+      setVisibleCancelBtn('hidden'); // X 버튼 hidden
     });
 
     const filename = uuidv4();
-    
+
     await saveImg('display', filename);
     const move = () =>
       router.push({
@@ -64,9 +74,9 @@ const Creation = () => {
       <button
         disabled={!textValue.length}
         onClick={handleClickCreation}
-        className={`w-[360px] font-pretendard font-bold h-12 ${
+        className={`fixed bottom-0 z-10 h-12 w-[360px] bg-blossom-gray font-pretendard font-bold ${
           !textValue.length ? 'bg-blossom-gray text-gray-400' : ' bg-blossom-green'
-        } bg-blossom-gray fixe left-0 right-0`}
+        }`}
       >
         초대장 완성하기
       </button>
