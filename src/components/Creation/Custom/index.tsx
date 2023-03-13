@@ -113,6 +113,21 @@ const STICKER_IMAGE = [
     preview: 'pre_6.svg',
     value: '6.svg',
   },
+  {
+    id: 7,
+    preview: 'pre_7.svg',
+    value: '7.svg',
+  },
+  {
+    id: 8,
+    preview: 'pre_8.svg',
+    value: '8.svg',
+  },
+  {
+    id: 9,
+    preview: 'pre_9.svg',
+    value: '9.svg',
+  },
 ];
 
 const CHARACTER_IMAGE = [
@@ -145,6 +160,26 @@ const CHARACTER_IMAGE = [
     id: 5,
     preview: 'pre_5.svg',
     value: '5.png',
+  },
+  {
+    id: 6,
+    preview: 'pre_6.svg',
+    value: '6.png',
+  },
+  {
+    id: 7,
+    preview: 'pre_7.svg',
+    value: '7.png',
+  },
+  {
+    id: 8,
+    preview: 'pre_8.svg',
+    value: '8.png',
+  },
+  {
+    id: 9,
+    preview: 'pre_9.svg',
+    value: '9.png',
   },
 ];
 
