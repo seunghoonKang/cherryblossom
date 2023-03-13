@@ -17,8 +17,9 @@ import { flushSync } from 'react-dom';
  * 완성된 디자인 추가하기
  * 완성하기 버튼 아래 고정하기 ✅
  * 버튼 간격 조정 ✅
- * 스크롤바 안보이게
+ * 스크롤바 안보이게 ✅
  * 이미지 캡쳐 시 줄 바꿈 안되는 문제 확인하기
+ * 글씨 크기 수정하기(title, button)
  */
 type CustomTypes = 'background' | 'character' | 'sticker';
 
@@ -51,35 +52,37 @@ const Creation = () => {
       <Head>
         <title>초대장을 만들어보아요</title>
       </Head>
-      <PageTitle />
-      <Display
-        selectedItem={selectedItem}
-        selectedBackground={selectedBackground}
-        selectedCharacter={selectedCharacter}
-        selectedSticker={selectedSticker}
-        textValue={textValue}
-        setTextValue={(input: string) => setTextValue(input)}
-        visibleCancelBtn={visibleCancelBtn}
-      />
-      <Custom
-        selectedBackground={selectedBackground}
-        selectedCharacter={selectedCharacter}
-        selectedSticker={selectedSticker}
-        setSelectedBackground={(item: number | null) => setSelectedBackground(item)}
-        setSelectedCharacter={(item: number | null) => setSelectedCharacter(item)}
-        setSelectedSticker={(item: number | null) => setSelectedSticker(item)}
-        selectedItem={selectedItem}
-        setSelectedItem={(item: CustomTypes) => setSelectedItem(item)}
-      />
-      <button
-        disabled={!textValue.length}
-        onClick={handleClickCreation}
-        className={`fixed bottom-0 z-10 h-12 w-[360px] bg-blossom-gray font-pretendard font-bold ${
-          !textValue.length ? 'bg-blossom-gray text-gray-400' : ' bg-blossom-green'
-        }`}
-      >
-        초대장 완성하기
-      </button>
+      <div className="h-full w-full">
+        <PageTitle />
+        <Display
+          selectedItem={selectedItem}
+          selectedBackground={selectedBackground}
+          selectedCharacter={selectedCharacter}
+          selectedSticker={selectedSticker}
+          textValue={textValue}
+          setTextValue={(input: string) => setTextValue(input)}
+          visibleCancelBtn={visibleCancelBtn}
+        />
+        <Custom
+          selectedBackground={selectedBackground}
+          selectedCharacter={selectedCharacter}
+          selectedSticker={selectedSticker}
+          setSelectedBackground={(item: number | null) => setSelectedBackground(item)}
+          setSelectedCharacter={(item: number | null) => setSelectedCharacter(item)}
+          setSelectedSticker={(item: number | null) => setSelectedSticker(item)}
+          selectedItem={selectedItem}
+          setSelectedItem={(item: CustomTypes) => setSelectedItem(item)}
+        />
+        <button
+          disabled={!textValue.length}
+          onClick={handleClickCreation}
+          className={`fixed bottom-0 z-10 h-12 w-full bg-blossom-gray font-pretendard font-bold ${
+            !textValue.length ? 'bg-blossom-gray text-gray-400' : ' bg-blossom-green'
+          }`}
+        >
+          초대장 완성하기
+        </button>
+      </div>
     </>
   );
 };
