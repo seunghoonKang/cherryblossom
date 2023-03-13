@@ -1,11 +1,8 @@
-import { copyLink } from '@/pages/api/share';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { copyLink } from '@/pages/api/share';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 import ToastMessage from '@/src/components/ToastMessage';
-import { saveImgToUser } from '../utils';
-import Script from 'next/script';
-import Link from 'next/link';
 
 type propsType = {
   type: 'complete' | 'receive';
@@ -30,17 +27,6 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
     } else {
       router.push('/intro');
     }
-  };
-
-  const handleClickSaveImgBtn = () => {
-    setToastType('save');
-    if (imageUrl !== undefined) {
-      saveImgToUser(imageUrl, imageName);
-      setPopToastMsg(true);
-    }
-    setCheckClickedBtn(prev => {
-      return { ...prev, save: true };
-    });
   };
 
   useEffect(() => {
@@ -117,20 +103,12 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
       </div>
       <section
         id="footerBtn"
-        onClick={handleClickSaveImgBtn}
-        className={`${
-          checkClickedBtn.save ? 'bg-[#E6ADAD]' : 'bg-[#AFE6AD]'
-        } absolute bottom-0 flex h-[48px] w-full cursor-pointer justify-center`}
+        className={`absolute bottom-0 flex h-[48px] w-full cursor-pointer justify-center bg-[#FDE300] font-inter text-lg font-semibold leading-5 text-[#131210]`}
       >
-        <button disabled={checkClickedBtn.save}>내 앨범에 담기</button>
+        <button onClick={shareKakao} id="kakaotalk-sharing-btn">
+          카카오톡 공유하기
+        </button>
       </section>
-
-      <button onClick={shareKakao} id="kakaotalk-sharing-btn">
-        <img
-          src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
-          alt="카카오링크 보내기 버튼"
-        />
-      </button>
     </div>
   );
 }
