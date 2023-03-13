@@ -225,13 +225,13 @@ export default function Custom(props: CustomProps) {
   };
 
   return (
-    <div className="mt-[8px] h-96 w-[360px] flex-col space-y-[8px] bg-blossom-lightBlue px-[20px]">
-      <div className="grid grid-cols-3 gap-4">
+    <div className="mt-[8px] flex h-full w-full flex-col  items-center justify-center space-y-[8px] bg-blossom-lightBlue px-[20px]">
+      <div className="grid  grid-cols-3 gap-4">
         {CUSTOM_ITEMS.map(custom => {
           return (
             <button
               key={custom.value}
-              className={`h-[36px] w-[96px] rounded-[10px] border-2 border-blossom-white text-sm 
+              className={`h-[36px] w-[96px] rounded-[10px] border-2 border-blossom-white text-lg 
   ${selectedItem === custom.value ? 'bg-blossom-green' : 'bg-blossom-yellow'}`}
               onClick={() => handlerCustomTypeClick(custom.value)}
             >
@@ -242,7 +242,7 @@ export default function Custom(props: CustomProps) {
       </div>
       <div className="border-1 my-[8px] border-t border-solid border-blossom-darkGray"></div>
 
-      <div className="scrollbar-hide h-full overflow-auto">
+      <div className="scrollbar-hide h-full  overflow-auto">
         <div className="grid grid-cols-3 gap-4">
           {selectedItem === 'background' &&
             BACKGROUND_IMAGE.map(img => {
