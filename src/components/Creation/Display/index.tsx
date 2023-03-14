@@ -1,6 +1,14 @@
 // @ts-nocheck
 import Image from 'next/image';
-import { ChangeEvent, MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 type CustomTypes = 'background' | 'character' | 'sticker';
 export type ItemObjectType = {
@@ -39,28 +47,27 @@ export default function Display(props: DisplayProps) {
     characters,
     stickers,
     setCharacters,
-    setStickers
+    setStickers,
   } = props;
 
   const displayRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const textareaRef: MutableRefObject<HTMLTextAreaElement | null> = useRef(null);
 
-  
   const handlerDeleteItem = (e: MouseEvent, targetId: number, selected: CustomTypes) => {
     e.stopPropagation(); // click event가 버블링 되어 handlerClickDisplay가 호출되는 것을 방지
-    
-    const filteredArr = selected === 'character' ?
-    characters.filter(item => item.id !== targetId) :
-    stickers.filter(item => item.id !== targetId);
-    
-    selected === 'character' ?
-    setCharacters(filteredArr) : setStickers(filteredArr);
-    
-    sessionStorage.setItem(selected, JSON.stringify(filteredArr))
+
+    const filteredArr =
+      selected === 'character'
+        ? characters.filter(item => item.id !== targetId)
+        : stickers.filter(item => item.id !== targetId);
+
+    selected === 'character' ? setCharacters(filteredArr) : setStickers(filteredArr);
+
+    sessionStorage.setItem(selected, JSON.stringify(filteredArr));
   };
 
   const handlerChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextValue(e.target.value);
+    setTextValue(textareaRef.current?.textContent);
   };
 
   const paintBackground = useCallback(() => {
@@ -78,14 +85,13 @@ export default function Display(props: DisplayProps) {
   }, [selectedBackground]);
 
   const clearAllItems = (e: MouseEvent) => {
-    e.stopPropagation();  // 이벤트 버블링 방지
-    if(!window.confirm('모든 캐릭터 / 스티커를 삭제하시겠습니까?'))
-      return;
+    e.stopPropagation(); // 이벤트 버블링 방지
+    if (!window.confirm('모든 캐릭터 / 스티커를 삭제하시겠습니까?')) return;
 
     setCharacters([]);
     setStickers([]);
-    customTypeArr.forEach((customType) => sessionStorage.removeItem(customType));
-  }
+    customTypeArr.forEach(customType => sessionStorage.removeItem(customType));
+  };
 
   useEffect(() => {
     // textarea readOnly 설정
@@ -104,13 +110,13 @@ export default function Display(props: DisplayProps) {
   }, [paintBackground]);
 
   useEffect(() => {
-    if (!characters.length && !stickers.length) { // 초기 렌더링 시
-      customTypeArr.forEach(customType => { // session에 저장된 캐릭터/스티커 가져와서 state 변경
+    if (!characters.length && !stickers.length) {
+      // 초기 렌더링 시
+      customTypeArr.forEach(customType => {
+        // session에 저장된 캐릭터/스티커 가져와서 state 변경
         if (sessionStorage.getItem(customType)) {
           const items: ItemObjectType[] = JSON.parse(sessionStorage.getItem(customType));
-          customType === 'character' ?
-            setCharacters(items) :
-            setStickers(items);
+          customType === 'character' ? setCharacters(items) : setStickers(items);
         }
       });
     }
@@ -123,80 +129,56 @@ export default function Display(props: DisplayProps) {
         ref={displayRef}
         className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
       >
-        <textarea
+        <pre
           ref={textareaRef}
-          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] p-2.5 focus:outline-none bg-brownBorder "
-          onChange={e => handlerChangeTextarea(e)}
-          placeholder="초대장 문구를 작성해주세요"
+          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] bg-white bg-brownBorder p-2.5 focus:outline-none "
+          onKeyDown={e => handlerChangeTextarea(e)}
+          contenteditable="true"
           value={textValue}
-        ></textarea>
-        {
-          characters.map(({offsetX, offsetY, path, id}) => (
+        ></pre>
+        {characters.map(({ offsetX, offsetY, path, id }) => (
+          <div
+            data-item-id={id}
+            className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px]`}
+            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
+            key={id}
+          >
             <div
-              data-item-id={id}
-              className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px]`}
-              style={{left:`${offsetX}px`, top:`${offsetY}px`, transform:'translate(-50%,-50%)'}}
-              key={id}
+              className="cursor-pointer"
+              onClick={e => handlerDeleteItem(e, id, 'character')}
+              style={{ visibility: `${visibleCancelBtn}`, transform: 'translateY(100%)' }}
             >
-              <div
-                className='cursor-pointer'
-                onClick={(e) => handlerDeleteItem(e, id, 'character')}
-                style={{visibility: `${visibleCancelBtn}`, transform: 'translateY(100%)'}}
-              >
-                <img
-                  src='/creation/cancel.svg'
-                  alt='cancelButton'
-                  width={12}
-                  height={12}
-                />
-              </div>
-              <img
-                src={path}
-                alt={'character'}
-                width={30}
-                height={30}
-              />
+              <img src="/creation/cancel.svg" alt="cancelButton" width={12} height={12} />
             </div>
-          ))
-        }
-        {
-          stickers.map(({offsetX, offsetY, path, id}) => (
+            <img src={path} alt={'character'} width={30} height={30} />
+          </div>
+        ))}
+        {stickers.map(({ offsetX, offsetY, path, id }) => (
+          <div
+            data-item-id={id}
+            className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px]`}
+            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
+            key={id}
+          >
             <div
-              data-item-id={id}
-              className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px]`}
-              style={{left:`${offsetX}px`, top:`${offsetY}px`, transform:'translate(-50%,-50%)'}}
-              key={id}
+              className="cursor-pointer"
+              onClick={e => handlerDeleteItem(e, id, 'sticker')}
+              style={{ visibility: `${visibleCancelBtn}` }}
             >
-              <div
-                className='cursor-pointer'
-                onClick={(e) => handlerDeleteItem(e, id, 'sticker')}
-                style={{visibility: `${visibleCancelBtn}`}}  
-              >
-                <img
-                  src='/creation/cancel.svg'
-                  alt='cancelButton'
-                  width={12}
-                  height={12}
-                />
-              </div>
-              <img
-                src={path}
-                alt={'sticker'}
-                width={30}
-                height={30}
-              />
+              <img src="/creation/cancel.svg" alt="cancelButton" width={12} height={12} />
             </div>
-          ))
-        }
+            <img src={path} alt={'sticker'} width={30} height={30} />
+          </div>
+        ))}
         <div onClick={e => clearAllItems(e)}>
-            <img
-              className='absolute cursor-pointer'
-              src={'/creation/eraser.svg'}
-              alt={'eraserButton'}
-              width={24}
-              height={24}
-              style={{right: '10px', bottom: '10px', visibility: `${visibleCancelBtn}`}}
-            />
+          <img
+            className="absolute cursor-pointer"
+            src={'/creation/eraser.svg'}
+            alt={'eraserButton'}
+            width={24}
+            height={24}
+            style={{ right: '10px', bottom: '10px', visibility: `${visibleCancelBtn}` }}
+          />
         </div>
       </div>
     </div>
