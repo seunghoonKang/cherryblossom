@@ -11,20 +11,23 @@ import {
 } from 'react';
 
 type CustomTypes = 'background' | 'character' | 'sticker';
-type ItemObjectType = {
+export type ItemObjectType = {
   offsetX: number;
   offsetY: number;
   path: string;
   id: number;
 };
 type DisplayProps = {
-  selectedItem: CustomTypes;
   selectedBackground: number | null;
   selectedCharacter: number | null;
   selectedSticker: number | null;
   textValue: string;
   setTextValue: (input: string) => void;
   visibleCancelBtn: string;
+  characters: ItemObjectType[];
+  stickers: ItemObjectType[];
+  setCharacters: (characters: ItemObjectType[]) => void;
+  setStickers: (stickers: ItemObjectType[]) => void;
 };
 
 const customTypeArr = ['character', 'sticker'];
@@ -35,17 +38,18 @@ const customTypeArr = ['character', 'sticker'];
  */
 export default function Display(props: DisplayProps) {
   const {
-    selectedItem,
     selectedBackground,
     selectedCharacter,
     selectedSticker,
     textValue,
     setTextValue,
     visibleCancelBtn,
+    characters,
+    stickers,
+    setCharacters,
+    setStickers,
   } = props;
 
-  const [characters, setCharacters] = useState<ItemObjectType[]>([]);
-  const [stickers, setStickers] = useState<ItemObjectType[]>([]);
   const displayRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const textareaRef: MutableRefObject<HTMLTextAreaElement | null> = useRef(null);
 
@@ -60,45 +64,6 @@ export default function Display(props: DisplayProps) {
     selected === 'character' ? setCharacters(filteredArr) : setStickers(filteredArr);
 
     sessionStorage.setItem(selected, JSON.stringify(filteredArr));
-  };
-
-  const handlerClickDisplay = (e: MouseEvent) => {
-    if (selectedCharacter === null && selectedSticker === null) {
-      // 캐릭터나 스티커 둘 중 어느 것도 선택하지 않았으면 함수 종료
-      return;
-    }
-    const displayRect = displayRef.current?.getBoundingClientRect();
-
-    const displayLeft = displayRect?.left; // display의 시작 left, top 좌표 값은 기기마다 달라짐
-    const displayTop = displayRect?.top;
-    const offsetX = e.clientX - displayLeft; // offset은 display 내에서의 클릭 좌표 값이기 때문에 항상 같음
-    const offsetY = e.clientY - displayTop;
-
-    const selectedItemPath = `/${selectedItem}s/${
-      selectedCharacter === null ? selectedSticker : selectedCharacter
-    }.png`;
-
-    let id = sessionStorage.getItem('itemId') ? parseInt(sessionStorage.getItem('itemId')) + 1 : 0;
-    sessionStorage.setItem('itemId', id);
-
-    const itemObject: ItemObjectType = {
-      // session에 저장할 객체
-      offsetX,
-      offsetY,
-      path: selectedItemPath,
-      id,
-    };
-
-    selectedItem === 'character'
-      ? setCharacters(prev => [...prev, itemObject])
-      : setStickers(prev => [...prev, itemObject]);
-
-    sessionStorage.setItem(
-      selectedItem,
-      JSON.stringify(
-        selectedItem === 'character' ? [...characters, itemObject] : [...stickers, itemObject]
-      )
-    );
   };
 
   const handlerChangeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -163,7 +128,6 @@ export default function Display(props: DisplayProps) {
         id="display"
         ref={displayRef}
         className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
-        onClick={e => handlerClickDisplay(e)}
       >
         <pre
           ref={textareaRef}
