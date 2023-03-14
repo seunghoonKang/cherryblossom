@@ -225,8 +225,8 @@ export default function Custom(props: CustomProps) {
   };
 
   return (
-    <div className="mt-[8px] flex h-full w-full flex-col  items-center justify-center space-y-[8px] bg-blossom-lightBlue px-[20px]">
-      <div className="grid  grid-cols-3 gap-4">
+    <div className="mt-[8px] flex w-full flex-col items-center justify-center space-y-[8px]  bg-blossom-lightBlue px-[20px]">
+      <div className="grid grid-cols-3 gap-4">
         {CUSTOM_ITEMS.map(custom => {
           return (
             <button
@@ -240,66 +240,59 @@ export default function Custom(props: CustomProps) {
           );
         })}
       </div>
-      <div className="border-1 my-[8px] border-t border-solid border-blossom-darkGray"></div>
+      <div className="border-1 my-[8px] w-[96%] border-t border-solid border-blossom-darkGray"></div>
 
-      <div className="scrollbar-hide h-full  overflow-auto">
-        <div className="grid grid-cols-3 gap-4">
-          {selectedItem === 'background' &&
-            BACKGROUND_IMAGE.map(img => {
-              return (
-                <div
-                  key={img.id}
-                  className={`h-[112px] w-[96px] ${
-                    selectedBackground === img.id ? ' bg-blossom-green' : 'bg-blossom-white'
-                  }   border-[2px] border-solid  ${
-                    selectedBackground === img.id ? ' border-blossom-green' : 'border-blossom-white'
-                  }  overflow-hidden rounded-[14px]`}
-                  onClick={() => handleItemClick(img.id)}
-                >
-                  <Image
-                    className={`rounded-[14px]`}
-                    src={`/backgrounds/${img.preview}`}
-                    alt={img.preview}
-                    width={96}
-                    height={112}
-                  />
-                </div>
-              );
-            })}
-          {selectedItem === 'character' &&
-            CHARACTER_IMAGE.map(img => {
-              return (
-                <div
-                  key={img.id}
-                  className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white ${
-                    selectedCharacter === img.id ? ' border-blossom-green' : 'border-blossom-white'
-                  }   overflow-hidden rounded-[14px]`}
-                  onClick={() => handleItemClick(img.id)}
-                >
-                  <Image
-                    src={`/characters/${img.preview}`}
-                    alt={img.value}
-                    width={96}
-                    height={56}
-                  />
-                </div>
-              );
-            })}
-          {selectedItem === 'sticker' &&
-            STICKER_IMAGE.map(img => {
-              return (
-                <div
-                  key={img.id}
-                  className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white ${
-                    selectedSticker === img.id ? ' border-blossom-green' : 'border-blossom-white'
-                  }   overflow-hidden rounded-[14px]`}
-                  onClick={() => handleItemClick(img.id)}
-                >
-                  <Image src={`/stickers/${img.preview}`} alt={img.value} width={96} height={56} />
-                </div>
-              );
-            })}
-        </div>
+      <div className="scrollbar-hide grid max-h-[48vh] grid-cols-3 gap-4 overflow-auto pb-12">
+        {selectedItem === 'background' &&
+          BACKGROUND_IMAGE.map(img => {
+            return (
+              <div
+                key={img.id}
+                className={`h-[112px] w-[96px] ${
+                  selectedBackground === img.id ? ' bg-blossom-green' : 'bg-blossom-white'
+                }   border-[2px] border-solid  ${
+                  selectedBackground === img.id ? ' border-blossom-green' : 'border-blossom-white'
+                } rounded-[14px]`}
+                onClick={() => handleItemClick(img.id)}
+              >
+                <Image
+                  className={`rounded-[14px]`}
+                  src={`/backgrounds/${img.preview}`}
+                  alt={img.preview}
+                  width={96}
+                  height={112}
+                />
+              </div>
+            );
+          })}
+        {selectedItem === 'character' &&
+          CHARACTER_IMAGE.map(img => {
+            return (
+              <div
+                key={img.id}
+                className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white ${
+                  selectedCharacter === img.id ? ' border-blossom-green' : 'border-blossom-white'
+                }   rounded-[14px]`}
+                onClick={() => handleItemClick(img.id)}
+              >
+                <Image src={`/characters/${img.preview}`} alt={img.value} width={96} height={56} />
+              </div>
+            );
+          })}
+        {selectedItem === 'sticker' &&
+          STICKER_IMAGE.map(img => {
+            return (
+              <div
+                key={img.id}
+                className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white ${
+                  selectedSticker === img.id ? ' border-blossom-green' : 'border-blossom-white'
+                }   rounded-[14px]`}
+                onClick={() => handleItemClick(img.id)}
+              >
+                <Image src={`/stickers/${img.preview}`} alt={img.value} width={96} height={56} />
+              </div>
+            );
+          })}
       </div>
     </div>
   );
