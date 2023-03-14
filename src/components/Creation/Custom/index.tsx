@@ -197,7 +197,7 @@ export default function Custom(props: CustomProps) {
     selectedItem,
     setSelectedItem,
     setItem,
-    handleMouseMove
+    handleMouseMove,
   } = props;
 
   const handleItemClick = (id: number) => {
@@ -237,29 +237,30 @@ export default function Custom(props: CustomProps) {
     const pageLeft = pageRect?.left; // 전체 브라우저 화면에서 현재 page 컴포넌트 기준으로 좌표 계산
     const pageTop = pageRect?.top;
 
-    document.addEventListener('mousemove', (ev) => handleMouseMove(ev));
-    
-    if (e.nativeEvent?.touches) {  // 모바일 터치 환경
+    document.addEventListener('mousemove', ev => handleMouseMove(ev));
+
+    if (e.nativeEvent?.touches) {
+      // 모바일 터치 환경
       setItem({
         offsetX: e.nativeEvent.touches?.[0].clientX,
         offsetY: e.nativeEvent.touches?.[0].clientY,
         path: selectedItem + 's/' + src,
-        id: -1
-      })
-    }
-    else {  // 브라우저 클릭 환경
+        id: -1,
+      });
+    } else {
+      // 브라우저 클릭 환경
       setItem({
         offsetX: e.clientX - pageLeft,
         offsetY: e.clientY - pageTop,
         path: selectedItem + 's/' + src,
-        id: -1
+        id: -1,
       });
-    }    
-  }
+    }
+  };
 
   return (
-    <div className="mt-[8px] flex h-full w-full flex-col  items-center justify-center space-y-[8px] bg-blossom-lightBlue px-[20px] relative">
-      <div className="grid  grid-cols-3 gap-4">
+    <div className="mt-[8px] flex w-full flex-col items-center justify-center space-y-[8px]  bg-blossom-lightBlue px-[20px]">
+      <div className="grid grid-cols-3 gap-4">
         {CUSTOM_ITEMS.map(custom => {
           return (
             <button
@@ -273,70 +274,63 @@ export default function Custom(props: CustomProps) {
           );
         })}
       </div>
-      <div className="border-1 my-[8px] border-t border-solid border-blossom-darkGray"></div>
+      <div className="border-1 my-[8px] w-[96%] border-t border-solid border-blossom-darkGray"></div>
 
-      <div className="scrollbar-hide h-full  overflow-auto">
-        <div className="grid grid-cols-3 gap-4">
-          {selectedItem === 'background' &&
-            BACKGROUND_IMAGE.map(img => {
-              return (
-                <div
-                  key={img.id}
-                  className={`h-[112px] w-[96px] cursor-pointer ${
-                    selectedBackground === img.id ? ' bg-blossom-green' : 'bg-blossom-white'
-                  }   border-[2px] border-solid  ${
-                    selectedBackground === img.id ? ' border-blossom-green' : 'border-blossom-white'
-                  }  overflow-hidden rounded-[14px]`}
-                  onClick={() => handleItemClick(img.id)}
-                >
-                  <Image
-                    className={`rounded-[14px]`}
-                    src={`/backgrounds/${img.preview}`}
-                    alt={img.preview}
-                    width={96}
-                    height={112}
-                  />
-                </div>
-              );
-            })}
-          {selectedItem === 'character' &&
-            CHARACTER_IMAGE.map(img => {
-              return (
-                <div
-                  key={img.id}
-                  className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white cursor-pointer ${
-                    selectedCharacter === img.id ? ' border-blossom-green' : 'border-blossom-white'
-                  }   overflow-hidden rounded-[14px]`}
-                  onMouseDown={(e) => handleMouseDown(e, img.value)}
-                  onTouchStart={(e) => handleMouseDown(e, img.value)}
-                  onTouchMove={(e) => handleMouseMove(e)}
-                >
-                  <Image
-                    src={`/characters/${img.preview}`}
-                    alt={img.value}
-                    width={96}
-                    height={56}
-                  />
-                </div>
-              );
-            })}
-          {selectedItem === 'sticker' &&
-            STICKER_IMAGE.map(img => {
-              return (
-                <div
-                  key={img.id}
-                  className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white cursor-pointer ${
-                    selectedSticker === img.id ? ' border-blossom-green' : 'border-blossom-white'
-                  }   overflow-hidden rounded-[14px]`}
-                  onMouseDown={(e) => handleMouseDown(e, img.value)}
-                  onTouchStart={(e) => handleMouseDown(e, img.value)}
-                  onTouchMove={(e) => handleMouseMove(e)}
-                >
-                  <Image src={`/stickers/${img.preview}`} alt={img.value} width={96} height={56} />
-                </div>
-              );
-            })}
-        </div>
+      <div className="scrollbar-hide grid max-h-[48vh] grid-cols-3 gap-4 overflow-auto pb-12">
+        {selectedItem === 'background' &&
+          BACKGROUND_IMAGE.map(img => {
+            return (
+              <div
+                key={img.id}
+                className={`h-[112px] w-[96px] cursor-pointer ${
+                  selectedBackground === img.id ? ' bg-blossom-green' : 'bg-blossom-white'
+                }   border-[2px] border-solid  ${
+                  selectedBackground === img.id ? ' border-blossom-green' : 'border-blossom-white'
+                }  overflow-hidden rounded-[14px]`}
+                onClick={() => handleItemClick(img.id)}
+              >
+                <Image
+                  className={`rounded-[14px]`}
+                  src={`/backgrounds/${img.preview}`}
+                  alt={img.preview}
+                  width={96}
+                  height={112}
+                />
+              </div>
+            );
+          })}
+        {selectedItem === 'character' &&
+          CHARACTER_IMAGE.map(img => {
+            return (
+              <div
+                key={img.id}
+                className={`h-[56px] w-[96px] cursor-pointer border-2 border-solid bg-blossom-white ${
+                  selectedCharacter === img.id ? ' border-blossom-green' : 'border-blossom-white'
+                }   overflow-hidden rounded-[14px]`}
+                onMouseDown={e => handleMouseDown(e, img.value)}
+                onTouchStart={e => handleMouseDown(e, img.value)}
+                onTouchMove={e => handleMouseMove(e)}
+              >
+                <Image src={`/characters/${img.preview}`} alt={img.value} width={96} height={56} />
+              </div>
+            );
+          })}
+        {selectedItem === 'sticker' &&
+          STICKER_IMAGE.map(img => {
+            return (
+              <div
+                key={img.id}
+                className={`h-[56px] w-[96px] cursor-pointer border-2 border-solid bg-blossom-white ${
+                  selectedSticker === img.id ? ' border-blossom-green' : 'border-blossom-white'
+                }   overflow-hidden rounded-[14px]`}
+                onMouseDown={e => handleMouseDown(e, img.value)}
+                onTouchStart={e => handleMouseDown(e, img.value)}
+                onTouchMove={e => handleMouseMove(e)}
+              >
+                <Image src={`/stickers/${img.preview}`} alt={img.value} width={96} height={56} />
+              </div>
+            );
+          })}
       </div>
     </div>
   );

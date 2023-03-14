@@ -15,12 +15,14 @@ import { ItemObjectType } from '../../src/components/Creation/Display';
 
 /**
  * [아메 TODO]
- * 완성된 디자인 추가하기
+ * 완성된 디자인 추가하기✅
  * 완성하기 버튼 아래 고정하기 ✅
  * 버튼 간격 조정 ✅
  * 스크롤바 안보이게 ✅
- * 이미지 캡쳐 시 줄 바꿈 안되는 문제 확인하기
- * 글씨 크기 수정하기(title, button)
+ * 이미지 캡쳐 시 줄 바꿈 안되는 문제 확인하기✅
+ * 글씨 크기 수정하기(title, button)✅
+ * 스타일링
+ * 로딩 스피너
  */
 type CustomTypes = 'background' | 'character' | 'sticker';
 
@@ -163,7 +165,7 @@ const Creation = () => {
         <button
           disabled={!textValue.length}
           onClick={handleClickCreation}
-          className={`fixed bottom-0 z-10 h-12 w-full bg-blossom-gray font-pretendard font-bold ${
+          className={`fixed bottom-0 z-10 h-12 w-full bg-blossom-gray  font-pretendard font-bold sm:max-w-[360px] ${
             !textValue.length ? 'bg-blossom-gray text-gray-400' : ' bg-blossom-green'
           }`}
         >
