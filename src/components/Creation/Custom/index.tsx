@@ -114,22 +114,22 @@ const STICKER_IMAGE = [
   {
     id: 6,
     preview: 'pre_6.svg',
-    value: '6.svg',
+    value: '6.png',
   },
   {
     id: 7,
     preview: 'pre_7.svg',
-    value: '7.svg',
+    value: '7.png',
   },
   {
     id: 8,
     preview: 'pre_8.svg',
-    value: '8.svg',
+    value: '8.png',
   },
   {
     id: 9,
     preview: 'pre_9.svg',
-    value: '9.svg',
+    value: '9.png',
   },
 ];
 
