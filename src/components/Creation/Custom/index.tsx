@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ItemObjectType } from '../Display';
 
 type CustomTypes = 'background' | 'character' | 'sticker';
 
@@ -11,6 +12,8 @@ type CustomProps = {
   setSelectedSticker: (item: number | null) => void;
   selectedItem: CustomTypes;
   setSelectedItem: (item: CustomTypes) => void;
+  setItem: (item: ItemObjectType) => void;
+  handleMouseMove: (e: MouseEvent | TouchEvent) => void;
 };
 
 type CustomItem = {
@@ -193,6 +196,8 @@ export default function Custom(props: CustomProps) {
     setSelectedSticker,
     selectedItem,
     setSelectedItem,
+    setItem,
+    handleMouseMove
   } = props;
 
   const handleItemClick = (id: number) => {
@@ -224,8 +229,36 @@ export default function Custom(props: CustomProps) {
     setSelectedSticker(null);
   };
 
+  const handleMouseDown = (e: MouseEvent | TouchEvent, src: string) => {
+    document.querySelector('#creation-page')?.classList.add('overflow-hidden');
+    document.querySelector('#creation-page')?.classList.add('cursor-pointer');
+
+    const pageRect = document.querySelector('#creation-page')?.getBoundingClientRect();
+    const pageLeft = pageRect?.left; // 전체 브라우저 화면에서 현재 page 컴포넌트 기준으로 좌표 계산
+    const pageTop = pageRect?.top;
+
+    document.addEventListener('mousemove', (ev) => handleMouseMove(ev));
+    
+    if (e.nativeEvent?.touches) {  // 모바일 터치 환경
+      setItem({
+        offsetX: e.nativeEvent.touches?.[0].clientX,
+        offsetY: e.nativeEvent.touches?.[0].clientY,
+        path: selectedItem + 's/' + src,
+        id: -1
+      })
+    }
+    else {  // 브라우저 클릭 환경
+      setItem({
+        offsetX: e.clientX - pageLeft,
+        offsetY: e.clientY - pageTop,
+        path: selectedItem + 's/' + src,
+        id: -1
+      });
+    }    
+  }
+
   return (
-    <div className="mt-[8px] flex h-full w-full flex-col  items-center justify-center space-y-[8px] bg-blossom-lightBlue px-[20px]">
+    <div className="mt-[8px] flex h-full w-full flex-col  items-center justify-center space-y-[8px] bg-blossom-lightBlue px-[20px] relative">
       <div className="grid  grid-cols-3 gap-4">
         {CUSTOM_ITEMS.map(custom => {
           return (
@@ -249,7 +282,7 @@ export default function Custom(props: CustomProps) {
               return (
                 <div
                   key={img.id}
-                  className={`h-[112px] w-[96px] ${
+                  className={`h-[112px] w-[96px] cursor-pointer ${
                     selectedBackground === img.id ? ' bg-blossom-green' : 'bg-blossom-white'
                   }   border-[2px] border-solid  ${
                     selectedBackground === img.id ? ' border-blossom-green' : 'border-blossom-white'
@@ -271,10 +304,12 @@ export default function Custom(props: CustomProps) {
               return (
                 <div
                   key={img.id}
-                  className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white ${
+                  className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white cursor-pointer ${
                     selectedCharacter === img.id ? ' border-blossom-green' : 'border-blossom-white'
                   }   overflow-hidden rounded-[14px]`}
-                  onClick={() => handleItemClick(img.id)}
+                  onMouseDown={(e) => handleMouseDown(e, img.value)}
+                  onTouchStart={(e) => handleMouseDown(e, img.value)}
+                  onTouchMove={(e) => handleMouseMove(e)}
                 >
                   <Image
                     src={`/characters/${img.preview}`}
@@ -290,10 +325,12 @@ export default function Custom(props: CustomProps) {
               return (
                 <div
                   key={img.id}
-                  className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white ${
+                  className={`h-[56px] w-[96px] border-2 border-solid bg-blossom-white cursor-pointer ${
                     selectedSticker === img.id ? ' border-blossom-green' : 'border-blossom-white'
                   }   overflow-hidden rounded-[14px]`}
-                  onClick={() => handleItemClick(img.id)}
+                  onMouseDown={(e) => handleMouseDown(e, img.value)}
+                  onTouchStart={(e) => handleMouseDown(e, img.value)}
+                  onTouchMove={(e) => handleMouseMove(e)}
                 >
                   <Image src={`/stickers/${img.preview}`} alt={img.value} width={96} height={56} />
                 </div>
