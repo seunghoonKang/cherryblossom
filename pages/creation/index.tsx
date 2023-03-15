@@ -45,14 +45,12 @@ const Creation = () => {
     });
 
     const filename = uuidv4();
-
-    await saveImg('display', filename);
-    const move = () =>
-      router.push({
-        pathname: '/complete/[img]',
-        query: { img: filename },
-      });
-    setTimeout(move, 2000);
+    
+    await saveImg('display', filename);    
+    router.push({
+      pathname: '/complete/[img]',
+      query: { img: filename },
+    });
   };
 
   const handleMouseMove = (e: MouseEvent | TouchEvent) => {
