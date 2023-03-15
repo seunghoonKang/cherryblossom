@@ -174,7 +174,7 @@ const Creation = () => {
         <button
           disabled={!textValue.length}
           onClick={handleClickCreation}
-          className={`fixed bottom-0 z-10 h-12 w-full bg-blossom-gray  font-pretendard font-bold sm:max-w-[360px] ${
+          className={`fixed bottom-0 z-10 h-12 w-full bg-blossom-gray font-pretendard font-bold md:w-[360px] ${
             !textValue.length ? 'bg-blossom-gray text-gray-400' : ' bg-blossom-green'
           }`}
         >
