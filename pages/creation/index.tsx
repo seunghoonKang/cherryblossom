@@ -161,13 +161,13 @@ const Creation = () => {
           <img
             src={item.path}
             alt={'dragedItem'}
-            width={48}
-            height={48}
+            width={30}
+            height={30}
             className="absolute"
             style={{
               left: `${item.offsetX}px`,
               top: `${item.offsetY}px`,
-              transform: 'translate(-50%,-50%)',
+              transform: 'translate(-100%,-100%)',
             }}
           />
         )}
