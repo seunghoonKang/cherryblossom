@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { copyLink } from '@/pages/api/share';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -40,8 +40,7 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
   }, []);
 
   const shareKakao = () => {
-    window.Kakao.Share.createCustomButton({
-      container: '#kakaotalk-sharing-btn',
+    window.Kakao.Share.sendCustom({
       templateId: 91057,
       templateArgs: {
         imageName: `${imageName}`,
@@ -101,14 +100,13 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           </section>
         )}
       </div>
-      <section
-        id="footerBtn"
-        className={`absolute bottom-0 flex h-[48px] w-full cursor-pointer justify-center bg-[#FDE300] font-inter text-lg font-semibold leading-5 text-[#131210]`}
+      <button
+        onClick={shareKakao}
+        id="kakaotalk-sharing-btn"
+        className={`absolute bottom-0 flex  h-[48px] w-full  cursor-pointer items-center justify-center bg-[#FDE300] font-inter text-lg font-semibold leading-5 text-[#131210]`}
       >
-        <button onClick={shareKakao} id="kakaotalk-sharing-btn">
-          카카오톡 공유하기
-        </button>
-      </section>
+        카카오톡 공유하기
+      </button>
     </div>
   );
 }
