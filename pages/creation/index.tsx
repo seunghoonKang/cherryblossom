@@ -107,6 +107,8 @@ const Creation = () => {
       id,
     };
 
+    selectedItem === 'character' ? setSelectedCharacter(null) : setSelectedSticker(null);
+
     selectedItem === 'character'
       ? setCharacters(prev => [...prev, itemObject])
       : setStickers(prev => [...prev, itemObject]);
