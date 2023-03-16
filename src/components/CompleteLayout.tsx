@@ -3,6 +3,7 @@ import { copyLink } from '@/pages/api/share';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import ToastMessage from '@/src/components/ToastMessage';
+import Script from 'next/script';
 
 type propsType = {
   type: 'complete' | 'receive';
@@ -29,15 +30,11 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
     }
   };
 
-  useEffect(() => {
-    try {
-      if (!window.Kakao.isInitialized(process.env.NEXT_PUBLIC_KAKAO_KEY)) {
-        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
-      }
-    } catch (e) {
-      console.error(e);
+  const kakaoInit = () => {
+    if (!window.Kakao.isInitialized(process.env.NEXT_PUBLIC_KAKAO_KEY)) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
     }
-  }, []);
+  };
 
   const shareKakao = () => {
     window.Kakao.Share.sendCustom({
@@ -51,6 +48,11 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
   return (
     <div className="h-full w-full">
       <div className="flex w-full justify-center">
+        <Script
+          strategy="afterInteractive"
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js "
+          onLoad={kakaoInit}
+        />
         <ToastMessage
           popToastMsg={popToastMsg}
           setPopToastMsg={setPopToastMsg}
