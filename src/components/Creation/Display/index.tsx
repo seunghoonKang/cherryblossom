@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-nocheck
 import Image from 'next/image';
 import {
   ChangeEvent,
@@ -7,7 +7,10 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useState,
 } from 'react';
+import ToastMessage from '../../ToastMessage';
+import { MESSAGE } from '@/src/constants/message';
 
 type CustomTypes = 'background' | 'character' | 'sticker';
 export type ItemObjectType = {
@@ -48,6 +51,9 @@ export default function Display(props: DisplayProps) {
     setCharacters,
     setStickers,
   } = props;
+
+  const [popToastMsg, setPopToastMsg] = useState(false);
+  const [toastType, setToastType] = useState<'copy' | 'save'>('copy');
 
   const displayRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const textareaRef: MutableRefObject<HTMLTextAreaElement | null> = useRef(null);
@@ -121,6 +127,11 @@ export default function Display(props: DisplayProps) {
     }
   }, []);
 
+  const handleQuestionClick = () => {
+    setPopToastMsg(true);
+    setToastType('save');
+  };
+
   return (
     <div className="flex w-full flex-col items-center">
       <div
@@ -128,9 +139,19 @@ export default function Display(props: DisplayProps) {
         ref={displayRef}
         className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
       >
+        <ToastMessage
+          popToastMsg={popToastMsg}
+          setPopToastMsg={setPopToastMsg}
+          image={toastType === 'copy' ? '/mail_icon.svg' : '/photo_icon.svg'}
+          message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
+        />
+
+        <div onClick={handleQuestionClick} className="absolute top-[20px] right-[20px]">
+          <Image src={'/question_mark.svg'} alt="question_mark" width={24} height={24} />
+        </div>
         <pre
           ref={textareaRef}
-          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] bg-white border border-solid border-[#FDC7D4] p-2.5 focus:outline-none "
+          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none "
           onKeyDown={e => handlerChangeTextarea(e)}
           contentEditable="true"
           value={textValue}
@@ -139,7 +160,11 @@ export default function Display(props: DisplayProps) {
           <div
             data-item-id={id}
             className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px]`}
-            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-100%,-100%)' }}
+            style={{
+              left: `${offsetX}px`,
+              top: `${offsetY}px`,
+              transform: 'translate(-100%,-100%)',
+            }}
             key={id}
           >
             <div
@@ -156,7 +181,11 @@ export default function Display(props: DisplayProps) {
           <div
             data-item-id={id}
             className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px]`}
-            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-100%,-100%)' }}
+            style={{
+              left: `${offsetX}px`,
+              top: `${offsetY}px`,
+              transform: 'translate(-100%,-100%)',
+            }}
             key={id}
           >
             <div

@@ -1,14 +1,19 @@
 // @ts-nocheck
+import Head from 'next/head';
+
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { flushSync } from 'react-dom';
+
+import { saveImg } from '@/src/utils';
+import { v4 as uuidv4 } from 'uuid';
+
+import { ItemObjectType } from '../../src/components/Creation/Display';
+
 import Custom from '@/src/components/Creation/Custom';
 import Display from '@/src/components/Creation/Display';
 import PageTitle from '@/src/components/Creation/PageTitle';
-import { saveImg } from '@/src/utils';
-import { useRouter } from 'next/router';
-import { v4 as uuidv4 } from 'uuid';
-import Head from 'next/head';
-import { flushSync } from 'react-dom';
-import { ItemObjectType } from '../../src/components/Creation/Display';
 
 /**
  * 초대장 생성 페이지
@@ -33,8 +38,10 @@ const Creation = () => {
   const [selectedBackground, setSelectedBackground] = useState<number | null>(null);
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
   const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
+
   const [textValue, setTextValue] = useState('');
   const [visibleCancelBtn, setVisibleCancelBtn] = useState('visible');
+
   const [item, setItem] = useState<ItemObjectType | null>();
   const [characters, setCharacters] = useState<ItemObjectType[]>([]);
   const [stickers, setStickers] = useState<ItemObjectType[]>([]);
