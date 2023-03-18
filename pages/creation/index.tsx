@@ -29,7 +29,7 @@ const Creation = () => {
   const [item, setItem] = useState<ItemObjectType | null>();
   const [characters, setCharacters] = useState<ItemObjectType[]>([]);
   const [stickers, setStickers] = useState<ItemObjectType[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const buttonActiveCondition = textValue === PLACEHODER_MESSAGE || !textValue.length;
 
