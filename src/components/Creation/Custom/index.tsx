@@ -16,6 +16,9 @@ type CustomProps = {
   setSelectedItem: (item: CustomTypes) => void;
   setItem: (item: ItemObjectType) => void;
   handleMouseMove: (e: MouseEvent | TouchEvent) => void;
+  setCharacters: (item: ItemObjectType) => void;
+  setStickers: (item: ItemObjectType) => void;
+  handleEditState: (id: number) => void;
 };
 
 type CustomItem = {
@@ -200,6 +203,9 @@ export default function Custom(props: CustomProps) {
     setSelectedItem,
     setItem,
     handleMouseMove,
+    setStickers,
+    setCharacters,
+    handleEditState
   } = props;
 
   const handleBackgroundClick = (id: number) => {
@@ -212,6 +218,23 @@ export default function Custom(props: CustomProps) {
     setSelectedCharacter(null);
     setSelectedSticker(null);
   };
+
+  const handleItemClick = (src: string, id: number) => {
+    const canvasRect = document.querySelector('#display')?.getBoundingClientRect();
+    const offsetX = canvasRect?.width / 2;
+    const offsetY = canvasRect?.height / 2;
+    
+    const newItem: ItemObjectType = {
+      offsetX,
+      offsetY,
+      path: selectedItem + 's/' + src,
+      id,
+      isEditable: false
+    }
+    
+    selectedItem === 'character' ? setCharacters(prev => [...prev, newItem]) : setStickers(prev => [...prev, newItem]);
+    handleEditState(id);
+  }
 
   const handleMouseDown = (e: MouseEvent | TouchEvent, src: string, id: number) => {
     document.querySelector('#creation-page')?.classList.add('overflow-hidden');
@@ -297,6 +320,7 @@ export default function Custom(props: CustomProps) {
                 className={`h-[56px] w-[96px] cursor-pointer border-2 border-solid bg-blossom-white ${
                   selectedCharacter === img.id ? ' border-blossom-green' : 'border-blossom-white'
                 }   overflow-hidden rounded-[14px]`}
+                onClick={() => handleItemClick(img.value, img.id)}
                 onMouseDown={e => handleMouseDown(e, img.value, img.id)}
                 onTouchStart={e => handleMouseDown(e, img.value, img.id)}
                 onTouchMove={e => handleMouseMove(e)}
@@ -313,6 +337,7 @@ export default function Custom(props: CustomProps) {
                 className={`h-[56px] w-[96px] cursor-pointer border-2 border-solid bg-blossom-white ${
                   selectedSticker === img.id ? ' border-blossom-green' : 'border-blossom-white'
                 }   overflow-hidden rounded-[14px]`}
+                onClick={() => handleItemClick(img.value, img.id)}
                 onMouseDown={e => handleMouseDown(e, img.value, img.id)}
                 onTouchStart={e => handleMouseDown(e, img.value, img.id)}
                 onTouchMove={e => handleMouseMove(e)}
