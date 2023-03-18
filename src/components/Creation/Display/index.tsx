@@ -15,6 +15,7 @@ export type ItemObjectType = {
   offsetY: number;
   path: string;
   id: number;
+  isEditable: boolean;
 };
 type DisplayProps = {
   selectedBackground: number | null;
@@ -27,6 +28,7 @@ type DisplayProps = {
   stickers: ItemObjectType[];
   setCharacters: (characters: ItemObjectType[]) => void;
   setStickers: (stickers: ItemObjectType[]) => void;
+  handleEditState: (id: number) => void;
 };
 
 const customTypeArr = ['character', 'sticker'];
@@ -47,6 +49,7 @@ export default function Display(props: DisplayProps) {
     stickers,
     setCharacters,
     setStickers,
+    handleEditState
   } = props;
 
   const displayRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
@@ -135,38 +138,44 @@ export default function Display(props: DisplayProps) {
           contentEditable="true"
           value={textValue}
         ></pre>
-        {characters.map(({ offsetX, offsetY, path, id }) => (
+        {characters.map(({ offsetX, offsetY, path, id, isEditable }: ItemObjectType) => (
           <div
             data-item-id={id}
-            className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px]`}
-            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-100%,-100%)' }}
+            className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px] cursor-pointer`}
+            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
+            onClick={() => handleEditState(id)}
             key={id}
           >
             <div
               className="cursor-pointer"
               onClick={e => handlerDeleteItem(e, id, 'character')}
-              style={{ visibility: `${visibleCancelBtn}`, transform: 'translateY(100%)' }}
+              style={{ visibility: `${isEditable ? 'visible' : 'hidden'}` }}
             >
               <img src="/creation/cancel.svg" alt="cancelButton" width={12} height={12} />
             </div>
-            <img src={path} alt={'character'} width={30} height={30} />
+            <div>
+              <img src={path} alt={'character'} width={isEditable ? 40 : 30} height={isEditable ? 40 : 30} />
+            </div>
           </div>
         ))}
-        {stickers.map(({ offsetX, offsetY, path, id }) => (
+        {stickers.map(({ offsetX, offsetY, path, id, isEditable }: ItemObjectType) => (
           <div
             data-item-id={id}
-            className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px]`}
-            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-100%,-100%)' }}
+            className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px] cursor-pointer`}
+            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
+            onClick={() => handleEditState(id)}
             key={id}
           >
             <div
               className="cursor-pointer"
               onClick={e => handlerDeleteItem(e, id, 'sticker')}
-              style={{ visibility: `${visibleCancelBtn}` }}
+              style={{ visibility: `${isEditable ? 'visible' : 'hidden'}` }}
             >
-              <img src="/creation/cancel.svg" alt="cancelButton" width={12} height={12} />
+              <img src="/creation/cancel.svg" alt="cancelButton" width={16} height={16} />
             </div>
-            <img src={path} alt={'sticker'} width={30} height={30} />
+            <div>
+              <img src={path} alt={'sticker'} width={isEditable ? 40 : 30} height={isEditable ? 40 : 30} />
+            </div>
           </div>
         ))}
         <div onClick={e => clearAllItems(e)}>
