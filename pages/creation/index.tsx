@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Custom from '@/src/components/Creation/Custom';
 import Display from '@/src/components/Creation/Display';
 import PageTitle from '@/src/components/Creation/PageTitle';
@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Head from 'next/head';
 import { flushSync } from 'react-dom';
 import { ItemObjectType } from '../../src/components/Creation/Display';
+import Modal from '@/src/components/Creation/Modal';
 
 /**
  * 초대장 생성 페이지
@@ -38,6 +39,7 @@ const Creation = () => {
   const [item, setItem] = useState<ItemObjectType | null>();
   const [characters, setCharacters] = useState<ItemObjectType[]>([]);
   const [stickers, setStickers] = useState<ItemObjectType[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleClickCreation = async () => {
     flushSync(() => {
@@ -121,6 +123,14 @@ const Creation = () => {
     setItem(null);
   };
 
+  useEffect(() => {
+    // 처음 방문했을 때만 사용법 모달 자동으로 보여주기
+    if (!localStorage.getItem('isFirstVisit')) {
+      setIsModalOpen(true);
+      localStorage.setItem('isFirstVisit', 'false');
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -132,6 +142,8 @@ const Creation = () => {
         onMouseUp={e => handleMouseUp(e)}
         onTouchEnd={e => handleMouseUp(e)}
       >
+        {isModalOpen && <Modal handleModal={data => setIsModalOpen(data)} />}
+
         <PageTitle />
         <Display
           selectedBackground={selectedBackground}
