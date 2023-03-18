@@ -1,34 +1,45 @@
 import Image from 'next/image';
+import Slider from 'react-slick';
 
-type ModalContentsProps = {
-  page: number;
-};
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const CONTENTS = [
-  { text: '원하는 배경을\n터치해주세요.', image: '/instruction/9.svg' },
   {
-    text: '캐릭터, 스티커\n터치 후 드래그\n해주세요',
-    image: '/instruction/9.svg',
+    image: '/instruction/background_instruction.png',
   },
   {
-    text: '나만의 초대장\n완성!',
-    image: '/instruction/9.svg',
+    image: '/instruction/character_instruction.png',
+  },
+
+  {
+    image: '/instruction/sticker_instruction.png',
+  },
+  {
+    image: '/instruction/completion_instruction.png',
   },
 ];
 
-export default function ModalContents({ page }: ModalContentsProps) {
+export default function ModalContents() {
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: '0px',
+  };
   return (
-    <div className="flex items-center whitespace-pre font-pretendard">
-      <Image
-        alt="instruction_1"
-        src={CONTENTS[page].image}
-        height={'200'}
-        width={'150'}
-        className={'rounded-[8px]'}
-      />
-      <div className="w-[100%] break-words text-center text-[16px] leading-5">
-        {CONTENTS[page].text}
-      </div>
-    </div>
+    <Slider dotsClass="my-slick-dots" {...settings}>
+      {CONTENTS.map(content => {
+        return (
+          <div className="flex items-center whitespace-pre font-pretendard">
+            <Image alt="instruction_1" src={content.image} height={'191'} width={'276'} />
+          </div>
+        );
+      })}
+    </Slider>
   );
 }
