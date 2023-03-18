@@ -3,20 +3,21 @@ import { app } from '@/src/lib/firebase';
 
 import html2canvas from 'html2canvas';
 
-export const saveImg = (id: string, filename: string) => {
+export const saveImg = async (id: string, filename: string) => {
   const capture: HTMLElement | null = document.querySelector(`#${id}`);
 
   if (capture !== null) {
-    html2canvas(capture)
+    return html2canvas(capture)
       .then(canvas => canvas.toDataURL(filename))
-      .then(data => sendImgToFirebase(data, filename));
+      .then(data => sendImgToFirebase(data, filename))
+      .catch(err => console.log(err));
   }
 };
 
 const sendImgToFirebase = async (data: string, filename: string) => {
   const storage = getStorage(app);
   const storageRef = ref(storage, filename);
-  await uploadString(storageRef, data, 'data_url');
+  return uploadString(storageRef, data, 'data_url');
 };
 
 // 사용자가 이미지를 저장하려고 할 때
