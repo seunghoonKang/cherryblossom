@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import ToastMessage from '@/src/components/ToastMessage';
 import Script from 'next/script';
+import { MESSAGE } from '../constants/message';
 
 type propsType = {
   type: 'complete' | 'receive';
@@ -46,6 +47,11 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
     });
   };
 
+  const handleQuestionClick = () => {
+    setPopToastMsg(true);
+    setToastType('save');
+  };
+
   return (
     <div className="h-full w-full">
       <div
@@ -62,11 +68,11 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           popToastMsg={popToastMsg}
           setPopToastMsg={setPopToastMsg}
           image={toastType === 'copy' ? '/mail_icon.svg' : '/photo_icon.svg'}
-          message={
-            toastType === 'copy' ? '초대장 링크가 복사되었습니다.' : '초대장이 앨범에 담겼습니다.'
-          }
+          message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
         />
-
+        <div onClick={handleQuestionClick} className="absolute top-[20px] right-[20px]">
+          <Image src={'/question_mark.svg'} alt="question_mark" width={24} height={24} />
+        </div>
         <section id="card" className="relative flex justify-center">
           <div className="absolute top-[44px] z-30 flex h-[40px] w-[240px] items-center justify-center rounded-[10px] border-[3px] border-solid border-[#FFC9D4] bg-[#FEEFF4] shadow-blossom-pink drop-shadow-pageTitle">
             벚꽃 초대장
