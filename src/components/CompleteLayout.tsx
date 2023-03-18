@@ -86,13 +86,13 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
                 onClick={handleClickShareBtn}
                 className={`${
                   !checkClickedBtn.copy ? 'bg-btn-yellow' : 'bg-[#AFE6AD]'
-                } h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white`}
+                } h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white text-[20px]`}
               >
-                <p>편지 보내기</p>
+                <p>링크 복사하기</p>
               </button>
               <button
                 onClick={handleClickRewriteBtn}
-                className={`ml-[15px] h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow`}
+                className={`ml-[15px] h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow text-[20px]`}
               >
                 <p>다시 작성하기</p>
               </button>
@@ -120,7 +120,7 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           id="kakaotalk-sharing-btn"
           className={`${
             innerHeight > 700 ? 'max-w-[320px]' : 'w-full'
-          } h-[48px] w-full cursor-pointer bg-[#FDE300] font-pretendard text-[19px] font-bold text-[#131210]`}
+          } h-[48px] w-full cursor-pointer bg-[#FDE300] font-pretendard text-[18px] font-semibold text-[#131210]`}
         >
           카카오톡 공유하기
         </button>
