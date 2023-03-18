@@ -53,6 +53,17 @@ const Creation = () => {
     });
   };
 
+  const handleEditState = (currId: number) => {
+    // 방금 클릭한 item이 이미 editable 하면 토글
+    // 방금 클릭한 item과 이미 editable한 item이 다르면 방금 클릭한 item만 editable 하게 상태 변경
+    setCharacters((prev: ItemObjectType[]) => (
+      prev.map(({id, isEditable, ...rest}) => ({...rest, id, isEditable: id === currId && !isEditable}))
+    ));
+    setStickers((prev: ItemObjectType[]) => (
+      prev.map(({id, isEditable, ...rest}) => ({...rest, id, isEditable: id === currId && !isEditable}))
+    ));
+  }
+
   const handleMouseMove = (e: MouseEvent | TouchEvent) => {
     const pageRect = document.querySelector('#creation-page')?.getBoundingClientRect();
     const pageLeft = pageRect?.left; // 전체 브라우저 화면에서 현재 page 컴포넌트 기준으로 좌표 계산
@@ -144,6 +155,7 @@ const Creation = () => {
           stickers={stickers}
           setCharacters={(characters: ItemObjectType[]) => setCharacters(characters)}
           setStickers={(stickers: ItemObjectType[]) => setStickers(stickers)}
+          handleEditState={handleEditState}
         />
         <Custom
           selectedBackground={selectedBackground}
@@ -156,6 +168,9 @@ const Creation = () => {
           setSelectedItem={(item: CustomTypes) => setSelectedItem(item)}
           setItem={(item: ItemObjectType) => setItem(item)}
           handleMouseMove={(e: MouseEvent | TouchEvent) => handleMouseMove(e)}
+          setCharacters={(item: ItemObjectType) => setCharacters(item)}
+          setStickers={(item: ItemObjectType) => setStickers(item)}
+          handleEditState={handleEditState}
         />
         {item && (
           <img
