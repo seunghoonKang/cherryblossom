@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { copyLink } from '@/pages/api/share';
 import { useRouter } from 'next/router';
+
+import { copyLink } from '@/pages/api/share';
+
 import Image from 'next/image';
+
 import ToastMessage from '@/src/components/ToastMessage';
 import Script from 'next/script';
+
 import { MESSAGE } from '../constants/message';
 
 type propsType = {
