@@ -74,7 +74,10 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           image={toastType === 'copy' ? '/mail_icon.svg' : '/photo_icon.svg'}
           message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
         />
-        <div onClick={handleQuestionClick} className="absolute top-[20px] right-[20px]">
+        <div
+          onClick={handleQuestionClick}
+          className="absolute top-[20px] right-[20px] cursor-pointer"
+        >
           <Image src={'/question_mark.svg'} alt="question_mark" width={24} height={24} />
         </div>
         <section id="card" className="relative flex justify-center">
