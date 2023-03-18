@@ -118,9 +118,7 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
         <button
           onClick={shareKakao}
           id="kakaotalk-sharing-btn"
-          className={`${
-            innerHeight > 700 ? 'max-w-[320px]' : 'w-full'
-          } h-[48px] w-full cursor-pointer bg-[#FDE300] font-pretendard text-[18px] font-semibold text-[#131210]`}
+          className={`fixed bottom-0 z-10 h-[48px]  w-full cursor-pointer bg-[#FDE300] font-pretendard text-[18px] font-semibold text-[#131210] web:w-[360px]`}
         >
           카카오톡 공유하기
         </button>
