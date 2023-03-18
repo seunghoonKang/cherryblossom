@@ -144,7 +144,9 @@ export default function Display(props: DisplayProps) {
         className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
       >
         <pre
-          className="h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none "
+          className={`${
+            !textValue && 'text-gray-400'
+          } h-[140px] w-[220px] resize-none  overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none `}
           onInput={handleTextChange}
           onBlur={handleTextBlur}
           onFocus={handleTextFocus}
