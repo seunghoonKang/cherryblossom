@@ -70,7 +70,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-jamjaFlower)', ...fontFamily.sans],
+        sans: ['var(--font-gamjaFlower)', ...fontFamily.sans],
         pretendard: ['var(--font-pretendard)'],
       },
     },
