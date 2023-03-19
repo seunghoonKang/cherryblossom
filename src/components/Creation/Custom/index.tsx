@@ -231,7 +231,7 @@ export default function Custom(props: CustomProps) {
         offsetX: e.nativeEvent.touches?.[0].clientX,
         offsetY: e.nativeEvent.touches?.[0].clientY,
         path: selectedItem + 's/' + src,
-        id
+        id,
       });
     } else {
       // 브라우저 클릭 환경
@@ -239,18 +239,19 @@ export default function Custom(props: CustomProps) {
         offsetX: e.clientX - pageLeft,
         offsetY: e.clientY - pageTop,
         path: selectedItem + 's/' + src,
-        id
+        id,
       });
     }
   };
 
-  const preventContextMenu = (e: TouchEvent) => {  // 현재 이벤트 감지 안됨. mouseDown할 때 setItem으로 리렌더링 돼서 그런듯.
+  const preventContextMenu = (e: TouchEvent) => {
+    // 현재 이벤트 감지 안됨. mouseDown할 때 setItem으로 리렌더링 돼서 그런듯.
     e.preventDefault();
-  }
+  };
 
   return (
     <div className="mt-[8px] flex w-full flex-col items-center justify-center space-y-[8px]  bg-blossom-lightBlue px-[20px]">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid w-[320px] grid-cols-3 gap-4">
         {CUSTOM_ITEMS.map(custom => {
           return (
             <button
@@ -264,9 +265,12 @@ export default function Custom(props: CustomProps) {
           );
         })}
       </div>
-      <div className="border-1 my-[8px] w-[96%] border-t border-solid border-blossom-darkGray"></div>
+      <div className="border-1 mx- my-[8px] w-[320px] border-t border-solid border-blossom-darkGray"></div>
 
-      <div className="scrollbar-hide grid max-h-[48vh] grid-cols-3 gap-4 overflow-auto pb-12" onContextMenu={(e: TouchEvent) => preventContextMenu(e)}>
+      <div
+        className="scrollbar-hide grid max-h-[48vh] w-[320px] grid-cols-3 gap-4 overflow-auto pb-12"
+        onContextMenu={(e: TouchEvent) => preventContextMenu(e)}
+      >
         {selectedItem === 'background' &&
           BACKGROUND_IMAGE.map(img => {
             return (
@@ -301,7 +305,13 @@ export default function Custom(props: CustomProps) {
                 onTouchStart={e => handleMouseDown(e, img.value, img.id)}
                 onTouchMove={e => handleMouseMove(e)}
               >
-                <Image src={`/characters/${img.preview}`} alt={img.value} width={96} height={56} className="previewImage" />
+                <Image
+                  src={`/characters/${img.preview}`}
+                  alt={img.value}
+                  width={96}
+                  height={56}
+                  className="previewImage"
+                />
               </div>
             );
           })}
