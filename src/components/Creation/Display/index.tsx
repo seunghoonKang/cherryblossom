@@ -9,8 +9,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import ToastMessage from '../../ToastMessage';
-import { MESSAGE } from '@/src/constants/message';
 
 type CustomTypes = 'background' | 'character' | 'sticker';
 export type ItemObjectType = {
@@ -51,9 +49,6 @@ export default function Display(props: DisplayProps) {
     setCharacters,
     setStickers,
   } = props;
-
-  const [popToastMsg, setPopToastMsg] = useState(false);
-  const [toastType, setToastType] = useState<'copy' | 'save'>('copy');
 
   const displayRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const textareaRef: MutableRefObject<HTMLTextAreaElement | null> = useRef(null);
@@ -127,10 +122,7 @@ export default function Display(props: DisplayProps) {
     }
   }, []);
 
-  const handleQuestionClick = () => {
-    setPopToastMsg(true);
-    setToastType('save');
-  };
+  const handleQuestionClick = () => {};
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -139,14 +131,10 @@ export default function Display(props: DisplayProps) {
         ref={displayRef}
         className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
       >
-        <ToastMessage
-          popToastMsg={popToastMsg}
-          setPopToastMsg={setPopToastMsg}
-          image={toastType === 'copy' ? '/mail_icon.svg' : '/photo_icon.svg'}
-          message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
-        />
-
-        <div onClick={handleQuestionClick} className="absolute top-[20px] right-[20px]">
+        <div
+          onClick={handleQuestionClick}
+          className="absolute top-[10px] right-[10px] cursor-pointer"
+        >
           <Image src={'/question_mark.svg'} alt="question_mark" width={24} height={24} />
         </div>
         <pre
