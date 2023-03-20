@@ -180,77 +180,80 @@ export default function Display(props: DisplayProps) {
   return (
     <div className="flex w-full flex-col items-center">
       <div
-        id="display"
+        id="outerDisplay"
         ref={displayRef}
         className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
-        onMouseMove={handleMouseMove}
-        onTouchMove={handleMouseMove}
       >
-        <pre
-          className={`${
-            !textValue && 'text-gray-400'
-          } h-[140px] w-[220px] resize-none  overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none `}
-          onInput={handleTextChange}
-          onBlur={handleTextBlur}
-          onFocus={handleTextFocus}
-          contentEditable={isTextEditable}
-          dangerouslySetInnerHTML={{ __html: !textValue === '' ? textValue : PLACEHODER_MESSAGE }}
-        ></pre>
-        {characters.map(({ offsetX, offsetY, path, id, category }: ItemObjectType, idx) => (
-          <div
-            className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px] cursor-pointer`}
-            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
-            key={idx}
-            onClick={() => makeItemEditable(id, category)}
-          >
-              <img src={path} alt={'character'} width={30} height={30} />
+        <div id="display" className='absolute w-screen web:w-[380px] h-full flex items-center justify-center overflow-hidden'
+          onMouseMove={handleMouseMove}
+          onTouchMove={handleMouseMove}
+        >
+          <pre
+            className={`${
+              !textValue && 'text-gray-400'
+            } h-[140px] w-[220px] resize-none  overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none `}
+            onInput={handleTextChange}
+            onBlur={handleTextBlur}
+            onFocus={handleTextFocus}
+            contentEditable={isTextEditable}
+            dangerouslySetInnerHTML={{ __html: !textValue === '' ? textValue : PLACEHODER_MESSAGE }}
+          ></pre>
+          {characters.map(({ offsetX, offsetY, path, id, category }: ItemObjectType, idx) => (
+            <div
+              className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px] cursor-pointer`}
+              style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
+              key={idx}
+              onClick={() => makeItemEditable(id, category)}
+            >
+                <img src={path} alt={'character'} width={30} height={30} />
+            </div>
+          ))}
+          {stickers.map(({ offsetX, offsetY, path, id, category }: ItemObjectType, idx) => (
+            <div
+              className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px] cursor-pointer`}
+              style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
+              key={idx}
+              onClick={() => makeItemEditable(id, category)}
+            >
+                <img src={path} alt={'sticker'} width={30} height={30} />
+            </div>
+          ))}
+          <div onClick={e => clearAllItems(e)}>
+            <img
+              className="absolute cursor-pointer ml-[10px]"
+              src={'/creation/eraser.svg'}
+              alt={'eraserButton'}
+              width={24}
+              height={24}
+              style={{ bottom: '10px', visibility: `${visibleCancelBtn}` }}
+            />
           </div>
-        ))}
-        {stickers.map(({ offsetX, offsetY, path, id, category }: ItemObjectType, idx) => (
-          <div
-            className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px] cursor-pointer`}
-            style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
-            key={idx}
-            onClick={() => makeItemEditable(id, category)}
-          >
-              <img src={path} alt={'sticker'} width={30} height={30} />
-          </div>
-        ))}
-        <div onClick={e => clearAllItems(e)}>
-          <img
-            className="absolute cursor-pointer"
-            src={'/creation/eraser.svg'}
-            alt={'eraserButton'}
-            width={24}
-            height={24}
-            style={{ right: '10px', bottom: '10px', visibility: `${visibleCancelBtn}` }}
-          />
+          {editableItem && (
+            <div
+              className={`absolute flex flex-col items-end cursor-pointer`}
+              style={{ left: `${editableItem.offsetX}px`, top: `${editableItem.offsetY}px`, transform: 'translate(-50%,-50%)' }}
+            >
+              <div
+                className="cursor-pointer"
+                onMouseDown={handlerDeleteItem}
+                onTouchStart={handlerDeleteItem}
+              >
+                <img src="/creation/cancel.svg" alt="cancelButton" width={16} height={16} />
+              </div>
+              <div
+                onMouseDown={handleMouseDown}
+                onTouchStart={handleMouseDown}
+              >
+                <img
+                  src={editableItem.path}
+                  alt={'editableItem'}
+                  width={40}
+                  height={40}
+                />
+              </div>
+            </div>
+          )}
         </div>
-        {editableItem && (
-          <div
-            className={`absolute flex flex-col items-end cursor-pointer`}
-            style={{ left: `${editableItem.offsetX}px`, top: `${editableItem.offsetY}px`, transform: 'translate(-50%,-50%)' }}
-          >
-            <div
-              className="cursor-pointer"
-              onMouseDown={handlerDeleteItem}
-              onTouchStart={handlerDeleteItem}
-            >
-              <img src="/creation/cancel.svg" alt="cancelButton" width={16} height={16} />
-            </div>
-            <div
-              onMouseDown={handleMouseDown}
-              onTouchStart={handleMouseDown}
-            >
-              <img
-                src={editableItem.path}
-                alt={'editableItem'}
-                width={40}
-                height={40}
-              />
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
