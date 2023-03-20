@@ -72,7 +72,7 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
         <ToastMessage
           popToastMsg={popToastMsg}
           setPopToastMsg={setPopToastMsg}
-          image={toastType === 'copy' ? '/mail_icon.svg' : '/photo_icon.svg'}
+          image={'/mail_icon.svg'}
           message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
         />
         <div
@@ -115,7 +115,7 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           <section id="middleBtn" className="mt-4 flex w-full justify-between">
             <button
               onClick={handleClickRewriteBtn}
-              className="h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow"
+              className="h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow text-[22px]"
             >
               <p>나도 초대장 만들어보기</p>
             </button>
