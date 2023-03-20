@@ -236,7 +236,7 @@ export default function Custom(props: CustomProps) {
 
   return (
     <div className="mt-[8px] flex w-full flex-col items-center justify-center space-y-[8px]  bg-blossom-lightBlue px-[20px]">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid w-[320px] grid-cols-3 gap-4">
         {CUSTOM_ITEMS.map(custom => {
           return (
             <button
@@ -250,9 +250,9 @@ export default function Custom(props: CustomProps) {
           );
         })}
       </div>
-      <div className="border-1 my-[8px] w-[96%] border-t border-solid border-blossom-darkGray"></div>
+      <div className="border-1 mx- my-[8px] w-[320px] border-t border-solid border-blossom-darkGray"></div>
 
-      <div className="scrollbar-hide grid max-h-[48vh] grid-cols-3 gap-4 overflow-auto pb-12">
+      <div className="scrollbar-hide grid max-h-[48vh] w-[320px] grid-cols-3 gap-4 overflow-auto pb-12">
         {selectedItem === 'background' &&
           BACKGROUND_IMAGE.map(img => {
             return (
