@@ -4,3 +4,6 @@ export const MESSAGE = {
 };
 
 export const PLACEHODER_MESSAGE = '초대장 문구를 입력해주세요!';
+export const ERROR_MESSAGE = {
+  message_length_limit: '최대 글자수를 넘었습니다.',
+};
