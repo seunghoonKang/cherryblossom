@@ -6,18 +6,15 @@ import PageTitle from '@/src/components/Creation/PageTitle';
 import { saveImg } from '@/src/utils';
 import { useRouter } from 'next/router';
 
+import Head from 'next/head';
+
 import { flushSync } from 'react-dom';
 
-import { saveImg } from '@/src/utils';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ItemObjectType } from '../../src/components/Creation/Display';
 import Modal from '@/src/components/Creation/Modal';
 import { PLACEHODER_MESSAGE } from '@/src/constants/message';
-
-import Custom from '@/src/components/Creation/Custom';
-import Display from '@/src/components/Creation/Display';
-import PageTitle from '@/src/components/Creation/PageTitle';
 
 /**
  * 초대장 생성 페이지
@@ -108,14 +105,6 @@ const Creation = () => {
     setEditableItem(null);
   };
 
-  useEffect(() => {
-    // 처음 방문했을 때만 사용법 모달 자동으로 보여주기
-    if (!localStorage.getItem('isFirstVisit')) {
-      setIsModalOpen(true);
-      localStorage.setItem('isFirstVisit', 'false');
-    }
-  }, []);
-
   return (
     <>
       <Head>
@@ -146,6 +135,7 @@ const Creation = () => {
           handleMouseMove={handleMouseMove}
           draggable={draggable}
           setDraggable={setDraggable}
+          setIsModalOpen={setIsModalOpen}
         />
         <Custom
           selectedBackground={selectedBackground}
