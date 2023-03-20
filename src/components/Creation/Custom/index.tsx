@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import Image from 'next/image';
-import { ItemObjectType } from '../Display';
+import { CategoryTypes, ItemObjectType } from '../Display';
 
 type CustomTypes = 'background' | 'character' | 'sticker';
 
@@ -14,11 +14,10 @@ type CustomProps = {
   setSelectedSticker: (item: number | null) => void;
   selectedItem: CustomTypes;
   setSelectedItem: (item: CustomTypes) => void;
-  setItem: (item: ItemObjectType) => void;
+  setEditableItem: (item: ItemObjectType) => void;
   handleMouseMove: (e: MouseEvent | TouchEvent) => void;
   setCharacters: (item: ItemObjectType) => void;
   setStickers: (item: ItemObjectType) => void;
-  handleEditState: (id: number) => void;
 };
 
 type CustomItem = {
@@ -201,11 +200,7 @@ export default function Custom(props: CustomProps) {
     setSelectedSticker,
     selectedItem,
     setSelectedItem,
-    setItem,
-    handleMouseMove,
-    setStickers,
-    setCharacters,
-    handleEditState
+    setEditableItem,
   } = props;
 
   const handleBackgroundClick = (id: number) => {
@@ -219,56 +214,24 @@ export default function Custom(props: CustomProps) {
     setSelectedSticker(null);
   };
 
-  const handleItemClick = (src: string, id: number) => {
+  const handleItemClick = (src: string, category: CategoryTypes) => {
     const canvasRect = document.querySelector('#display')?.getBoundingClientRect();
+    
     const offsetX = canvasRect?.width / 2;
     const offsetY = canvasRect?.height / 2;
-    
+
+    let id = sessionStorage.getItem('itemId') ? parseInt(sessionStorage.getItem('itemId')) + 1 : 0;
+    sessionStorage.setItem('itemId', id);
+
     const newItem: ItemObjectType = {
       offsetX,
       offsetY,
       path: selectedItem + 's/' + src,
       id,
-      isEditable: false
+      category
     }
-    
-    selectedItem === 'character' ? setCharacters(prev => [...prev, newItem]) : setStickers(prev => [...prev, newItem]);
-    handleEditState(id);
-  }
 
-  const handleMouseDown = (e: MouseEvent | TouchEvent, src: string, id: number) => {
-    document.querySelector('#creation-page')?.classList.add('overflow-hidden');
-    document.querySelector('#creation-page')?.classList.add('cursor-pointer');
-
-    const pageRect = document.querySelector('#creation-page')?.getBoundingClientRect();
-    const pageLeft = pageRect?.left; // 전체 브라우저 화면에서 현재 page 컴포넌트 기준으로 좌표 계산
-    const pageTop = pageRect?.top;
-
-    document.addEventListener('mousemove', ev => handleMouseMove(ev));
-
-    selectedItem === 'character' ? setSelectedCharacter(id) : setSelectedSticker(id);
-
-    if (e.nativeEvent?.touches) {
-      // 모바일 터치 환경
-      setItem({
-        offsetX: e.nativeEvent.touches?.[0].clientX,
-        offsetY: e.nativeEvent.touches?.[0].clientY,
-        path: selectedItem + 's/' + src,
-        id
-      });
-    } else {
-      // 브라우저 클릭 환경
-      setItem({
-        offsetX: e.clientX - pageLeft,
-        offsetY: e.clientY - pageTop,
-        path: selectedItem + 's/' + src,
-        id
-      });
-    }
-  };
-
-  const preventContextMenu = (e: TouchEvent) => {  // 현재 이벤트 감지 안됨. mouseDown할 때 setItem으로 리렌더링 돼서 그런듯.
-    e.preventDefault();
+    setEditableItem(newItem);
   }
 
   return (
@@ -279,7 +242,7 @@ export default function Custom(props: CustomProps) {
             <button
               key={custom.value}
               className={`h-[36px] w-[96px] rounded-[10px] border-2 border-blossom-white text-lg 
-  ${selectedItem === custom.value ? 'bg-blossom-green' : 'bg-blossom-yellow'}`}
+              ${selectedItem === custom.value ? 'bg-blossom-green' : 'bg-blossom-yellow'}`}
               onClick={() => handlerCustomTypeClick(custom.value)}
             >
               {custom.name}
@@ -289,7 +252,7 @@ export default function Custom(props: CustomProps) {
       </div>
       <div className="border-1 my-[8px] w-[96%] border-t border-solid border-blossom-darkGray"></div>
 
-      <div className="scrollbar-hide grid max-h-[48vh] grid-cols-3 gap-4 overflow-auto pb-12" onContextMenu={(e: TouchEvent) => preventContextMenu(e)}>
+      <div className="scrollbar-hide grid max-h-[48vh] grid-cols-3 gap-4 overflow-auto pb-12">
         {selectedItem === 'background' &&
           BACKGROUND_IMAGE.map(img => {
             return (
@@ -320,12 +283,9 @@ export default function Custom(props: CustomProps) {
                 className={`h-[56px] w-[96px] cursor-pointer border-2 border-solid bg-blossom-white ${
                   selectedCharacter === img.id ? ' border-blossom-green' : 'border-blossom-white'
                 }   overflow-hidden rounded-[14px]`}
-                onClick={() => handleItemClick(img.value, img.id)}
-                onMouseDown={e => handleMouseDown(e, img.value, img.id)}
-                onTouchStart={e => handleMouseDown(e, img.value, img.id)}
-                onTouchMove={e => handleMouseMove(e)}
+                onClick={() => handleItemClick(img.value, 'character')}
               >
-                <Image src={`/characters/${img.preview}`} alt={img.value} width={96} height={56} className="previewImage" />
+                <Image src={`/characters/${img.preview}`} alt={img.value} width={96} height={56} />
               </div>
             );
           })}
@@ -337,10 +297,7 @@ export default function Custom(props: CustomProps) {
                 className={`h-[56px] w-[96px] cursor-pointer border-2 border-solid bg-blossom-white ${
                   selectedSticker === img.id ? ' border-blossom-green' : 'border-blossom-white'
                 }   overflow-hidden rounded-[14px]`}
-                onClick={() => handleItemClick(img.value, img.id)}
-                onMouseDown={e => handleMouseDown(e, img.value, img.id)}
-                onTouchStart={e => handleMouseDown(e, img.value, img.id)}
-                onTouchMove={e => handleMouseMove(e)}
+                onClick={() => handleItemClick(img.value, 'sticker')}
               >
                 <Image src={`/stickers/${img.preview}`} alt={img.value} width={96} height={56} />
               </div>
