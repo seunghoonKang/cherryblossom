@@ -28,7 +28,7 @@ export default function Modal({ handleModal }: ModalProps) {
                     className="mt-[18px] h-[36px] w-full rounded-[10px] border-[2px]  border-solid border-white bg-btn-yellow p-2.5 text-blossom-black  drop-shadow-modal hover:bg-blossom-green"
                     onClick={() => handleModal(false)}
                   >
-                    넘기기
+                    닫기
                   </button>
                 </div>
               </div>
