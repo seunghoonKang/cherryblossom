@@ -26,9 +26,10 @@ const Creation = () => {
   const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
   const [textValue, setTextValue] = useState('');
   const [visibleCancelBtn, setVisibleCancelBtn] = useState('visible');
-  const [item, setItem] = useState<ItemObjectType | null>();
+  const [editableItem, setEditableItem] = useState<ItemObjectType | null>();
   const [characters, setCharacters] = useState<ItemObjectType[]>([]);
   const [stickers, setStickers] = useState<ItemObjectType[]>([]);
+  const [draggable, setDraggable] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const buttonActiveCondition = textValue === PLACEHODER_MESSAGE || !textValue.length;
@@ -48,71 +49,54 @@ const Creation = () => {
   };
 
   const handleMouseMove = (e: MouseEvent | TouchEvent) => {
-    const pageRect = document.querySelector('#creation-page')?.getBoundingClientRect();
-    const pageLeft = pageRect?.left; // 전체 브라우저 화면에서 현재 page 컴포넌트 기준으로 좌표 계산
-    const pageTop = pageRect?.top;
+    if (!draggable)
+      return;
+    
+    const displayRect = document.querySelector('#display')?.getBoundingClientRect();
+    const displayLeft = displayRect?.left; // 전체 브라우저 화면에서 현재 page 컴포넌트 기준으로 좌표 계산
+    const displayTop = displayRect?.top;
 
-    if (e.nativeEvent?.touches) {
+    if (e.type === 'touchmove') {
       // 모바일 터치 환경
-      setItem(prev => {
+      setEditableItem(prev => {
         if (prev === null) return prev;
         return {
           ...prev,
-          offsetX: e.nativeEvent.touches?.[0].clientX,
-          offsetY: e.nativeEvent.touches?.[0].clientY,
+          offsetX: e.nativeEvent.touches?.[0].clientX - displayLeft,
+          offsetY: e.nativeEvent.touches?.[0].clientY - displayTop,
         };
       });
     } else {
       // 브라우저 클릭 환경
-      setItem(prev => {
+      setEditableItem(prev => {
         if (prev === null) return prev;
         return {
           ...prev,
-          offsetX: e.clientX - pageLeft,
-          offsetY: e.clientY - pageTop,
+          offsetX: e.clientX - displayLeft,
+          offsetY: e.clientY - displayTop,
         };
       });
     }
   };
 
   const handleMouseUp = (e: MouseEvent | TouchEvent) => {
-    if (!item) return;
+    if (!editableItem)
+      return;
+    e.preventDefault();  // mouseUp 뒤에 따라오는 click event 막기
 
-    document.removeEventListener('mousemove', e => handleMouseMove(e));
     document.querySelector('#creation-page')?.classList.remove('overflow-hidden');
-    document.querySelector('#creation-page')?.classList.remove('cursor-pointer');
-
-    const displayRect = document.querySelector('#display')?.getBoundingClientRect();
-    const displayLeft = displayRect!.left; // display의 시작 left, top 좌표 값은 기기마다 달라짐
-    const displayTop = displayRect!.top;
-    const offsetX = (e.nativeEvent?.touches ? item.offsetX : e.clientX) - displayLeft;
-    const offsetY = (e.nativeEvent?.touches ? item.offsetY : e.clientY) - displayTop;
-
-    let id = sessionStorage.getItem('itemId') ? parseInt(sessionStorage.getItem('itemId')) + 1 : 0;
-    sessionStorage.setItem('itemId', id);
-
-    const itemObject: ItemObjectType = {
-      // session에 저장할 객체
-      offsetX,
-      offsetY,
-      path: item.path,
-      id,
-    };
-
-    selectedItem === 'character' ? setSelectedCharacter(null) : setSelectedSticker(null);
-
-    selectedItem === 'character'
-      ? setCharacters(prev => [...prev, itemObject])
-      : setStickers(prev => [...prev, itemObject]);
-
+    const category = editableItem.category;
+    
     sessionStorage.setItem(
-      selectedItem,
+      category,
       JSON.stringify(
-        selectedItem === 'character' ? [...characters, itemObject] : [...stickers, itemObject]
+        category === 'character' ? [...characters, editableItem] : [...stickers, editableItem]
       )
     );
-
-    setItem(null);
+        
+    category === 'character' ? setCharacters(prev => [...prev, editableItem]) : setStickers(prev => [...prev, editableItem]);
+    setDraggable(false);
+    setEditableItem(null);
   };
 
   useEffect(() => {
@@ -148,6 +132,11 @@ const Creation = () => {
           stickers={stickers}
           setCharacters={(characters: ItemObjectType[]) => setCharacters(characters)}
           setStickers={(stickers: ItemObjectType[]) => setStickers(stickers)}
+          editableItem={editableItem}
+          setEditableItem={(item: ItemObjectType) => setEditableItem(item)}
+          handleMouseMove={handleMouseMove}
+          draggable={draggable}
+          setDraggable={setDraggable}
         />
         <Custom
           selectedBackground={selectedBackground}
@@ -158,23 +147,11 @@ const Creation = () => {
           setSelectedSticker={(item: number | null) => setSelectedSticker(item)}
           selectedItem={selectedItem}
           setSelectedItem={(item: CustomTypes) => setSelectedItem(item)}
-          setItem={(item: ItemObjectType) => setItem(item)}
+          setEditableItem={(item: ItemObjectType) => setEditableItem(item)}
           handleMouseMove={(e: MouseEvent | TouchEvent) => handleMouseMove(e)}
+          setCharacters={(item: ItemObjectType) => setCharacters(item)}
+          setStickers={(item: ItemObjectType) => setStickers(item)}
         />
-        {item && (
-          <img
-            src={item.path}
-            alt={'dragedItem'}
-            width={30}
-            height={30}
-            className="absolute"
-            style={{
-              left: `${item.offsetX}px`,
-              top: `${item.offsetY}px`,
-              transform: 'translate(-100%,-100%)',
-            }}
-          />
-        )}
         <button
           disabled={buttonActiveCondition}
           onClick={handleClickCreation}
