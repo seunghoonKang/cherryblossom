@@ -15,7 +15,7 @@ export default function IntroComponent() {
   return (
     <div className="flex w-[89%] flex-col items-center justify-center">
       <div className="relative flex w-[100%] items-center justify-center">
-        <Image src={Bg} alt="Bg" priority />
+        <Image src={Bg} alt="Bg" priority className="w-full" />
         <Image
           src={Logo}
           alt="Logo"
