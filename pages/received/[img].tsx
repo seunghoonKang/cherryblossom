@@ -8,7 +8,6 @@ import { GetServerSidePropsContext } from 'next';
 
 export default function Received({ imgUrl, imageName }: { imgUrl: string; imageName: string }) {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
-  const [needOpenBtn, setNeedOpenBtn] = useState(true);
 
   return (
     <>
@@ -20,7 +19,7 @@ export default function Received({ imgUrl, imageName }: { imgUrl: string; imageN
           <CompleteLayout type="receive" imageUrl={imgUrl} imageName={imageName} />
         ) : (
           <InterActionCard
-            needOpenBtn={needOpenBtn}
+            needOpenBtn={true}
             imageUrl={imgUrl}
             setIsAnimationOver={setIsAnimationOver}
           />
