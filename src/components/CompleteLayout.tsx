@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import ToastMessage from '@/src/components/ToastMessage';
 import Script from 'next/script';
+import SelectionModal from './SelectionModal';
 
 type propsType = {
   type: 'complete' | 'receive';
@@ -15,8 +16,9 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
   const [popToastMsg, setPopToastMsg] = useState(false);
   const [toastType, setToastType] = useState<'copy' | 'save'>('copy');
   const [checkClickedBtn, setCheckClickedBtn] = useState({ copy: false, save: false });
+  const [isModal, setIsModal] = useState(false);
   const router = useRouter();
-  const innerHeight = window.innerHeight;
+
   const { img: completePageQuery } = router.query;
 
   const handleClickShareBtn = () => {
@@ -50,9 +52,7 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
   return (
     <div className="h-full w-full">
       <div
-        className={`${
-          innerHeight > 700 ? 'pt-[35%]' : 'pt-[44px]'
-        } flex flex-col justify-center px-5`}
+        className={`${innerHeight > 700 ? 'pt-[35%]' : 'pt-[44px]'} flex flex-col justify-center`}
       >
         <Script
           strategy="afterInteractive"
@@ -67,6 +67,9 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
             toastType === 'copy' ? '초대장 링크가 복사되었습니다.' : '초대장이 앨범에 담겼습니다.'
           }
         />
+        {isModal && (
+          <SelectionModal message="서비스에 대한 의견을 보내시겠습니까?" setIsModal={setIsModal} />
+        )}
 
         <section id="card" className="relative flex justify-center">
           <div className="absolute top-[44px] z-30 flex h-[40px] w-[240px] items-center justify-center rounded-[10px] border-[3px] border-solid border-[#FFC9D4] bg-[#FEEFF4] shadow-blossom-pink drop-shadow-pageTitle">
@@ -82,7 +85,7 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
         </section>
 
         {type === 'complete' ? (
-          <section id="middleBtn" className="mt-4 flex w-full justify-center">
+          <section id="middleBtn" className="mt-4 flex w-full flex-col items-center justify-center">
             <div className="flex w-full max-w-[320px] justify-between">
               <button
                 onClick={handleClickShareBtn}
@@ -98,6 +101,14 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
               >
                 <p>다시 작성하기</p>
               </button>
+            </div>
+            <div className="flex w-full max-w-[320px] justify-end pt-5">
+              <div
+                className="flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded-lg border border-solid border-[#D9D9D9] bg-[#F6F6F6]"
+                onClick={() => setIsModal(true)}
+              >
+                <Image src="/feedback_icon.svg" width={18} height={12} alt="feedback_btn" />
+              </div>
             </div>
           </section>
         ) : (
