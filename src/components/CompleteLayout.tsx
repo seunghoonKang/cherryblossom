@@ -90,7 +90,7 @@ export default function CompleteLayout({ type, imageName, image }: propsType) {
           )}
           <div
             onClick={handleQuestionClick}
-            className="absolute top-[34px] right-[20px] cursor-pointer"
+            className="absolute top-[34px] flex w-full max-w-[320px] cursor-pointer justify-end"
           >
             <Image src={'/question_mark.svg'} alt="question_mark" width={28} height={28} />
           </div>
