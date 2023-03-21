@@ -73,12 +73,6 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js "
           onLoad={kakaoInit}
         />
-        <ToastMessage
-          popToastMsg={popToastMsg}
-          setPopToastMsg={setPopToastMsg}
-          image={'/mail_icon.svg'}
-          message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
-        />
         <div
           onClick={handleQuestionClick}
           className="absolute top-[20px] right-[20px] cursor-pointer"
@@ -94,6 +88,12 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
         )}
 
         <section id="card" className="relative flex justify-center">
+          <ToastMessage
+            popToastMsg={popToastMsg}
+            setPopToastMsg={setPopToastMsg}
+            image={'/mail_icon.svg'}
+            message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
+          />
           <div className="absolute top-[44px] z-30 flex h-[40px] w-[240px] items-center justify-center rounded-[10px] border-[3px] border-solid border-[#FFC9D4] bg-[#FEEFF4] shadow-blossom-pink drop-shadow-pageTitle">
             벚꽃 초대장
           </div>
