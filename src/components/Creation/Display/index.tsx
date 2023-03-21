@@ -4,7 +4,6 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import { MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { MESSAGE } from '@/src/constants/message';
-import { MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 export type CategoryTypes = 'character' | 'sticker';
 export type ItemObjectType = {
