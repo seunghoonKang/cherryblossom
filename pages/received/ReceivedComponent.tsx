@@ -1,5 +1,6 @@
 import Spinner from '@/src/components/Loading/Spinner';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 const CompleteLayout = dynamic(() => import('@/src/components/CompleteLayout'), {
@@ -20,12 +21,16 @@ export default function ReceivedComponent({
   return (
     <div className="relative flex h-full w-full items-center justify-center">
       {isAnimationOver ? (
-        <CompleteLayout type="receive" imageUrl={imgUrl} imageName={imageName} />
+        <CompleteLayout
+          type="receive"
+          imageName={imageName}
+          image={<Image src={imgUrl} alt="invitation-img" fill priority loading="eager" />}
+        />
       ) : (
         <InterActionCard
           needOpenBtn={true}
-          imageUrl={imgUrl}
           setIsAnimationOver={setIsAnimationOver}
+          image={<Image src={imgUrl} alt="invitation-img" fill priority loading="eager" />}
         />
       )}
     </div>
