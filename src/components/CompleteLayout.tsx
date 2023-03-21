@@ -79,12 +79,7 @@ export default function CompleteLayout({ type, imageName, image }: propsType) {
           image={'/mail_icon.svg'}
           message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
         />
-        <div
-          onClick={handleQuestionClick}
-          className="absolute top-[20px] right-[20px] cursor-pointer"
-        >
-          <Image src={'/question_mark.svg'} alt="question_mark" width={24} height={24} />
-        </div>
+
         {isModal && (
           <SelectionModal
             message="서비스에 대한 의견을 보내시겠습니까?"
@@ -94,6 +89,12 @@ export default function CompleteLayout({ type, imageName, image }: propsType) {
         )}
 
         <section id="card" className="relative flex justify-center">
+          <div
+            onClick={handleQuestionClick}
+            className="absolute top-[34px] right-[20px] cursor-pointer"
+          >
+            <Image src={'/question_mark.svg'} alt="question_mark" width={28} height={28} />
+          </div>
           <div className="absolute top-[44px] z-30 flex h-[40px] w-[240px] items-center justify-center rounded-[10px] border-[3px] border-solid border-[#FFC9D4] bg-[#FEEFF4] shadow-blossom-pink drop-shadow-pageTitle">
             벚꽃 초대장
           </div>
