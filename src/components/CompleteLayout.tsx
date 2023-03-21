@@ -134,11 +134,10 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
             </div>
           </section>
         ) : (
-          <section id="middleBtn" className="mt-4 flex w-full justify-between">
+          <section id="middleBtn" className="mt-4 flex w-full justify-center">
             <button
               onClick={handleClickRewriteBtn}
-              className="h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow text-[22px]"
-              // className="h-[50px] w-full max-w-[320px] grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow"
+              className="h-[50px] w-full max-w-[320px] grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow"
             >
               <p>나도 초대장 만들어보기</p>
             </button>
