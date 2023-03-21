@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { copyLink } from '@/pages/api/share';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
