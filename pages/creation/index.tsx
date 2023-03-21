@@ -41,7 +41,7 @@ const Creation = () => {
 
     const filename = uuidv4();
 
-    await saveImg('display', filename);
+    await saveImg('outerDisplay', filename);
     router.push({
       pathname: '/complete/[img]',
       query: { img: filename },
@@ -82,7 +82,8 @@ const Creation = () => {
     if (!editableItem) return;
     e.preventDefault(); // mouseUp 뒤에 따라오는 click event 막기
 
-    document.querySelector('#creation-page')?.classList.remove('overflow-hidden');
+    document.querySelector('body').classList.remove('overflow-hidden');
+    document.querySelector('body').classList.remove('h-full');
     const category = editableItem.category;
 
     sessionStorage.setItem(

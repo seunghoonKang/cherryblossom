@@ -87,7 +87,8 @@ export default function Display(props: DisplayProps) {
     if (!editableItem) {
       return;
     }
-    document.querySelector('#creation-page')?.classList.add('overflow-hidden');
+    document.querySelector('body').classList.add('overflow-hidden');
+    document.querySelector('body').classList.add('h-full');
     setDraggable(true);
   };
 
