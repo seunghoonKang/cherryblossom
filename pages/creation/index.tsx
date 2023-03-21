@@ -5,9 +5,13 @@ import Display from '@/src/components/Creation/Display';
 import PageTitle from '@/src/components/Creation/PageTitle';
 import { saveImg } from '@/src/utils';
 import { useRouter } from 'next/router';
-import { v4 as uuidv4 } from 'uuid';
+
 import Head from 'next/head';
+
 import { flushSync } from 'react-dom';
+
+import { v4 as uuidv4 } from 'uuid';
+
 import { ItemObjectType } from '../../src/components/Creation/Display';
 import Modal from '@/src/components/Creation/Modal';
 import { MESSAGE } from '@/src/constants/message';
@@ -24,8 +28,10 @@ const Creation = () => {
   const [selectedBackground, setSelectedBackground] = useState<number | null>(null);
   const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
   const [selectedSticker, setSelectedSticker] = useState<number | null>(null);
+
   const [textValue, setTextValue] = useState('');
   const [visibleCancelBtn, setVisibleCancelBtn] = useState('visible');
+
   const [editableItem, setEditableItem] = useState<ItemObjectType | null>();
   const [characters, setCharacters] = useState<ItemObjectType[]>([]);
   const [stickers, setStickers] = useState<ItemObjectType[]>([]);
@@ -100,14 +106,6 @@ const Creation = () => {
     setEditableItem(null);
   };
 
-  useEffect(() => {
-    // 처음 방문했을 때만 사용법 모달 자동으로 보여주기
-    if (!localStorage.getItem('isFirstVisit')) {
-      setIsModalOpen(true);
-      localStorage.setItem('isFirstVisit', 'false');
-    }
-  }, []);
-
   return (
     <>
       <Head>
@@ -138,6 +136,7 @@ const Creation = () => {
           handleMouseMove={handleMouseMove}
           draggable={draggable}
           setDraggable={setDraggable}
+          setIsModalOpen={setIsModalOpen}
         />
         <Custom
           selectedBackground={selectedBackground}

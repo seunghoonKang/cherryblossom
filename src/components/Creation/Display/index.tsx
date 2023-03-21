@@ -1,4 +1,7 @@
 // @ts-nocheck
+
+import type { Dispatch, SetStateAction } from 'react';
+
 import { ERROR_MESSAGE, MESSAGE } from '@/src/constants/message';
 import { MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 
@@ -25,6 +28,7 @@ type DisplayProps = {
   setEditableItem: (item: ItemObjectType) => void;
   handleMouseMove: (e: MouseEvent | TouchEvent) => void;
   setDraggable: (flag: boolean) => void;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const customTypeArr = ['character', 'sticker'];
@@ -49,6 +53,7 @@ export default function Display(props: DisplayProps) {
     setEditableItem,
     handleMouseMove,
     setDraggable = { setDraggable },
+    setIsModalOpen,
   } = props;
   const [isTextEditable, setIsTextEditable] = useState(true);
 
@@ -136,6 +141,9 @@ export default function Display(props: DisplayProps) {
     }
   };
 
+  const handleQuestionClick = () => {
+    setIsModalOpen(true);
+  };
   const handleKeyDown = event => {
     const lines = event.target.innerHTML.split('<div>');
     // h-140px일 떄 최대 height는 8
@@ -198,6 +206,18 @@ export default function Display(props: DisplayProps) {
         ref={displayRef}
         className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
       >
+        <div
+          onClick={handleQuestionClick}
+          className="absolute top-[10px] right-[10px] z-10 cursor-pointer"
+        >
+          <img
+            src={'/question_mark.svg'}
+            alt="question_mark"
+            width={24}
+            height={24}
+            style={{ visibility: `${visibleCancelBtn}` }}
+          />
+        </div>
         <div
           id="display"
           className="absolute flex h-full w-screen items-center justify-center overflow-hidden web:w-[380px]"

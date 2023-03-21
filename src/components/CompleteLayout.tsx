@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { copyLink } from '@/pages/api/share';
 import { useRouter } from 'next/router';
+
+import { copyLink } from '@/pages/api/share';
+
 import Image from 'next/image';
+
 import ToastMessage from '@/src/components/ToastMessage';
 import Script from 'next/script';
 import SelectionModal from './SelectionModal';
+
+import { MESSAGE } from '../constants/message';
 
 type propsType = {
   type: 'complete' | 'receive';
@@ -49,6 +54,10 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
     });
   };
 
+  const handleQuestionClick = () => {
+    setPopToastMsg(true);
+    setToastType('save');
+  };
   const handleClickAgreeButton = () => {
     window.open('http://bit.ly/3JnAOza');
     setIsModal(false);
@@ -67,11 +76,15 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
         <ToastMessage
           popToastMsg={popToastMsg}
           setPopToastMsg={setPopToastMsg}
-          image={toastType === 'copy' ? '/mail_icon.svg' : '/photo_icon.svg'}
-          message={
-            toastType === 'copy' ? '초대장 링크가 복사되었습니다.' : '초대장이 앨범에 담겼습니다.'
-          }
+          image={'/mail_icon.svg'}
+          message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
         />
+        <div
+          onClick={handleQuestionClick}
+          className="absolute top-[20px] right-[20px] cursor-pointer"
+        >
+          <Image src={'/question_mark.svg'} alt="question_mark" width={24} height={24} />
+        </div>
         {isModal && (
           <SelectionModal
             message="서비스에 대한 의견을 보내시겠습니까?"
@@ -124,7 +137,8 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           <section id="middleBtn" className="mt-4 flex w-full justify-between">
             <button
               onClick={handleClickRewriteBtn}
-              className="h-[50px] w-full max-w-[320px] grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow"
+              className="h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow text-[22px]"
+              // className="h-[50px] w-full max-w-[320px] grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow"
             >
               <p>나도 초대장 만들어보기</p>
             </button>
