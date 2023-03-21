@@ -49,6 +49,11 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
     });
   };
 
+  const handleClickAgreeButton = () => {
+    window.open('http://bit.ly/3JnAOza');
+    setIsModal(false);
+  };
+
   return (
     <div className="h-full w-full">
       <div
@@ -68,7 +73,11 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           }
         />
         {isModal && (
-          <SelectionModal message="서비스에 대한 의견을 보내시겠습니까?" setIsModal={setIsModal} />
+          <SelectionModal
+            message="서비스에 대한 의견을 보내시겠습니까?"
+            setIsModal={setIsModal}
+            handleClickAgreeButton={handleClickAgreeButton}
+          />
         )}
 
         <section id="card" className="relative flex justify-center">
