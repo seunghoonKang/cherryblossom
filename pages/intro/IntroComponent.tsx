@@ -61,11 +61,6 @@ export default function IntroComponent() {
           alt="flower"
           className="absolute right-2/3 top-0 z-10 animate-fall-flower"
         />
-        <Image
-          src={SmallFlower}
-          alt="flower"
-          className="absolute right-0 top-1/3 z-10 animate-fall-flower"
-        />
         {/* second */}
         <Image
           src={SmallFlower}
