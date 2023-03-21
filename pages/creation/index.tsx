@@ -82,7 +82,8 @@ const Creation = () => {
     if (!editableItem) return;
     e.preventDefault(); // mouseUp 뒤에 따라오는 click event 막기
 
-    document.querySelector('#creation-page')?.classList.remove('overflow-hidden');
+    document.querySelector('body').classList.remove('overflow-hidden');
+    document.querySelector('body').classList.remove('h-full');
     const category = editableItem.category;
 
     sessionStorage.setItem(
