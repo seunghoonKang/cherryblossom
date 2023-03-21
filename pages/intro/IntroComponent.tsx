@@ -21,9 +21,6 @@ export default function IntroComponent() {
           alt="Logo"
           className="absolute left-1/2 top-1/2 z-20 w-[71%] translate-y-[-50%] translate-x-[-50%] animate-fade-in"
         />
-        <p className="absolute bottom-[6px] leading-[21px] text-[13px] font-normal z-21 w-[90%] py-[6px] font-pretendard" >
-          저희 서비스는 봄을 맞이해서 지인들과 함께 <span className='font-black'>벚꽃</span>을 보러가자는 취지로 만든 서비스입니다. <span className='font-black'>나만의 초대장</span>을 만들어서 연인, 친구, 가족에게 마음을 전달해보세요. 
-        </p>
       </div>
       <button
         style={{ borderBottomWidth: '6px', borderRightWidth: '2px', borderLeftWidth: '2px' }}
