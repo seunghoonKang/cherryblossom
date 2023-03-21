@@ -1,8 +1,9 @@
 // @ts-nocheck
-import { PLACEHODER_MESSAGE } from '@/src/constants/message';
 
 import type { Dispatch, SetStateAction } from 'react';
 
+import { MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { MESSAGE } from '@/src/constants/message';
 import { MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 export type CategoryTypes = 'character' | 'sticker';
@@ -84,7 +85,8 @@ export default function Display(props: DisplayProps) {
     if (!editableItem) {
       return;
     }
-    document.querySelector('#creation-page')?.classList.add('overflow-hidden');
+    document.querySelector('body').classList.add('overflow-hidden');
+    document.querySelector('body').classList.add('h-full');
     setDraggable(true);
   };
 
@@ -128,14 +130,14 @@ export default function Display(props: DisplayProps) {
 
   const handleTextBlur = event => {
     if (event.target.innerText === '') {
-      event.target.innerText = PLACEHODER_MESSAGE;
+      event.target.innerText = MESSAGE.placeholder;
     }
   };
   const handleTextChange = event => {
     setTextValue(event.target.innerText);
   };
   const handleTextFocus = event => {
-    if (event.target.innerText === PLACEHODER_MESSAGE) {
+    if (event.target.innerText === MESSAGE.placeholder) {
       event.target.innerText = '';
     }
   };
@@ -208,7 +210,9 @@ export default function Display(props: DisplayProps) {
             onBlur={handleTextBlur}
             onFocus={handleTextFocus}
             contentEditable={isTextEditable}
-            dangerouslySetInnerHTML={{ __html: !textValue === '' ? textValue : PLACEHODER_MESSAGE }}
+            dangerouslySetInnerHTML={{
+              __html: !textValue === '' ? textValue : MESSAGE.placeholder,
+            }}
           ></pre>
           {characters.map(({ offsetX, offsetY, path, id, category }: ItemObjectType, idx) => (
             <div

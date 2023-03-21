@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ItemObjectType } from '../../src/components/Creation/Display';
 import Modal from '@/src/components/Creation/Modal';
-import { PLACEHODER_MESSAGE } from '@/src/constants/message';
+import { MESSAGE } from '@/src/constants/message';
 
 /**
  * 초대장 생성 페이지
@@ -38,7 +38,7 @@ const Creation = () => {
   const [draggable, setDraggable] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const buttonActiveCondition = textValue === PLACEHODER_MESSAGE || !textValue.length;
+  const buttonActiveCondition = textValue === MESSAGE.placeholder || !textValue.length;
 
   const handleClickCreation = async () => {
     flushSync(() => {
@@ -47,7 +47,7 @@ const Creation = () => {
 
     const filename = uuidv4();
 
-    await saveImg('display', filename);
+    await saveImg('outerDisplay', filename);
     router.push({
       pathname: '/complete/[img]',
       query: { img: filename },
@@ -88,7 +88,8 @@ const Creation = () => {
     if (!editableItem) return;
     e.preventDefault(); // mouseUp 뒤에 따라오는 click event 막기
 
-    document.querySelector('#creation-page')?.classList.remove('overflow-hidden');
+    document.querySelector('body').classList.remove('overflow-hidden');
+    document.querySelector('body').classList.remove('h-full');
     const category = editableItem.category;
 
     sessionStorage.setItem(

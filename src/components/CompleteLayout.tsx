@@ -116,26 +116,29 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
             <button
               onClick={handleClickRewriteBtn}
               className="h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow text-[22px]"
+              // className="h-[50px] w-full max-w-[320px] grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow"
             >
               <p>나도 초대장 만들어보기</p>
             </button>
           </section>
         )}
       </div>
-      <section
-        id="footerBtn"
-        className={`${
-          innerHeight > 700 ? 'relative mt-10 block' : 'absolute bottom-0'
-        } flex w-full justify-center `}
-      >
-        <button
-          onClick={shareKakao}
-          id="kakaotalk-sharing-btn"
-          className={`fixed bottom-0 z-10 h-[48px]  w-full cursor-pointer bg-[#FDE300] font-pretendard text-[18px] font-semibold text-[#131210] web:w-[360px]`}
+      {type === 'complete' && (
+        <section
+          id="footerBtn"
+          className={`${
+            innerHeight > 700 ? 'relative mt-10 block' : 'absolute bottom-0'
+          } flex w-full justify-center `}
         >
-          카카오톡 공유하기
-        </button>
-      </section>
+          <button
+            onClick={shareKakao}
+            id="kakaotalk-sharing-btn"
+            className={`fixed bottom-0 z-10 h-[48px]  w-full cursor-pointer bg-[#FDE300] font-pretendard text-[18px] font-semibold text-[#131210] web:w-[360px]`}
+          >
+            카카오톡 공유하기
+          </button>
+        </section>
+      )}
     </div>
   );
 }
