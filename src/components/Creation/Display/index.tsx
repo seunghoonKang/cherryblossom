@@ -1,14 +1,6 @@
 // @ts-nocheck
-import { MESSAGE } from '@/src/constants/message';
-import {
-  ChangeEvent,
-  MouseEvent,
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ERROR_MESSAGE, MESSAGE } from '@/src/constants/message';
+import { MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 export type CategoryTypes = 'character' | 'sticker';
 export type ItemObjectType = {
@@ -144,6 +136,29 @@ export default function Display(props: DisplayProps) {
     }
   };
 
+  const handleKeyDown = event => {
+    const lines = event.target.innerHTML.split('<div>');
+    // h-140px일 떄 최대 height는 8
+    // 8줄일 때 enter 입력 금지
+    console.log(event.target.innerText.length);
+    if (event.key === 'Enter' && lines.length === 8) {
+      event.preventDefault();
+      return alert(ERROR_MESSAGE.message_length_limit);
+    }
+
+    // 8줄 이상이면 입력 금지
+    if (lines.length > 8 && event.key !== 'Backspace') {
+      event.preventDefault();
+      return alert(ERROR_MESSAGE.message_length_limit);
+    }
+
+    // 엔터를 입력하지 않고 그냥 쓸 때 100자 이상 입력 금지
+    if (event.target.innerText.length >= 120 && event.key !== 'Backspace') {
+      event.preventDefault();
+      return alert(ERROR_MESSAGE.message_length_limit);
+    }
+  };
+
   useEffect(() => {
     // textarea readOnly 설정
     if (selectedCharacter === null && selectedSticker === null) {
@@ -192,11 +207,12 @@ export default function Display(props: DisplayProps) {
           <pre
             className={`${
               !textValue && 'text-gray-400'
-            } h-[140px] w-[220px] resize-none  overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none `}
+            } h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none `}
             onInput={handleTextChange}
             onBlur={handleTextBlur}
             onFocus={handleTextFocus}
             contentEditable={isTextEditable}
+            onKeyDown={handleKeyDown}
             dangerouslySetInnerHTML={{
               __html: !textValue === '' ? textValue : MESSAGE.placeholder,
             }}
