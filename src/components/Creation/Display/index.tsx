@@ -1,15 +1,6 @@
 // @ts-nocheck
-import { PLACEHODER_MESSAGE } from '@/src/constants/message';
-import Image from 'next/image';
-import {
-  ChangeEvent,
-  MouseEvent,
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ERROR_MESSAGE, MESSAGE } from '@/src/constants/message';
+import { MouseEvent, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 export type CategoryTypes = 'character' | 'sticker';
 export type ItemObjectType = {
@@ -57,7 +48,7 @@ export default function Display(props: DisplayProps) {
     editableItem,
     setEditableItem,
     handleMouseMove,
-    setDraggable={setDraggable}
+    setDraggable = { setDraggable },
   } = props;
   const [isTextEditable, setIsTextEditable] = useState(true);
 
@@ -65,44 +56,44 @@ export default function Display(props: DisplayProps) {
 
   const makeItemEditable = (currId: number, category: CategoryTypes) => {
     // 이미 editableItem이 존재하면 함수 종료
-    if (editableItem)
-      return;
+    if (editableItem) return;
 
     // 클릭한 아이템을 기존 아이템 배열에서 제거
     deleteItemFromArray(currId, category);
 
     // 클릭한 아이템을 editableItem으로 설정
-    category === 'character' ?
-      characters.forEach((item) => {
-        if (item.id === currId) {
-          setEditableItem(item);
-        }
-      }) :
-      stickers.forEach((item) => {
-        if (item.id === currId) {
-          setEditableItem(item);
-        }
-      });
-  }
+    category === 'character'
+      ? characters.forEach(item => {
+          if (item.id === currId) {
+            setEditableItem(item);
+          }
+        })
+      : stickers.forEach(item => {
+          if (item.id === currId) {
+            setEditableItem(item);
+          }
+        });
+  };
 
   const handleMouseDown = () => {
     if (!editableItem) {
       return;
     }
-    document.querySelector('#creation-page')?.classList.add('overflow-hidden');
+    document.querySelector('body').classList.add('overflow-hidden');
+    document.querySelector('body').classList.add('h-full');
     setDraggable(true);
-  }
+  };
 
   const deleteItemFromArray = (currId: number, category: CategoryTypes) => {
     const filteredArr =
       category === 'character'
-        ? characters.filter(({id}) => id !== currId)
-        : stickers.filter(({id}) => id !== currId);
+        ? characters.filter(({ id }) => id !== currId)
+        : stickers.filter(({ id }) => id !== currId);
 
     category === 'character' ? setCharacters(filteredArr) : setStickers(filteredArr);
 
     sessionStorage.setItem(category, JSON.stringify(filteredArr));
-  }
+  };
 
   const handlerDeleteItem = () => {
     setEditableItem(null);
@@ -133,15 +124,38 @@ export default function Display(props: DisplayProps) {
 
   const handleTextBlur = event => {
     if (event.target.innerText === '') {
-      event.target.innerText = PLACEHODER_MESSAGE;
+      event.target.innerText = MESSAGE.placeholder;
     }
   };
   const handleTextChange = event => {
     setTextValue(event.target.innerText);
   };
   const handleTextFocus = event => {
-    if (event.target.innerText === PLACEHODER_MESSAGE) {
+    if (event.target.innerText === MESSAGE.placeholder) {
       event.target.innerText = '';
+    }
+  };
+
+  const handleKeyDown = event => {
+    const lines = event.target.innerHTML.split('<div>');
+    // h-140px일 떄 최대 height는 8
+    // 8줄일 때 enter 입력 금지
+    console.log(event.target.innerText.length);
+    if (event.key === 'Enter' && lines.length === 8) {
+      event.preventDefault();
+      return alert(ERROR_MESSAGE.message_length_limit);
+    }
+
+    // 8줄 이상이면 입력 금지
+    if (lines.length > 8 && event.key !== 'Backspace') {
+      event.preventDefault();
+      return alert(ERROR_MESSAGE.message_length_limit);
+    }
+
+    // 엔터를 입력하지 않고 그냥 쓸 때 100자 이상 입력 금지
+    if (event.target.innerText.length >= 120 && event.key !== 'Backspace') {
+      event.preventDefault();
+      return alert(ERROR_MESSAGE.message_length_limit);
     }
   };
 
@@ -184,43 +198,56 @@ export default function Display(props: DisplayProps) {
         ref={displayRef}
         className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
       >
-        <div id="display" className='absolute w-screen web:w-[380px] h-full flex items-center justify-center overflow-hidden'
+        <div
+          id="display"
+          className="absolute flex h-full w-screen items-center justify-center overflow-hidden web:w-[380px]"
           onMouseMove={handleMouseMove}
           onTouchMove={handleMouseMove}
         >
           <pre
             className={`${
               !textValue && 'text-gray-400'
-            } h-[140px] w-[220px] resize-none  overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none `}
+            } h-[140px] w-[220px] resize-none overflow-hidden whitespace-pre-wrap break-words rounded-[10px] border border-solid border-[#FDC7D4] bg-white p-2.5 focus:outline-none `}
             onInput={handleTextChange}
             onBlur={handleTextBlur}
             onFocus={handleTextFocus}
             contentEditable={isTextEditable}
-            dangerouslySetInnerHTML={{ __html: !textValue === '' ? textValue : PLACEHODER_MESSAGE }}
+            onKeyDown={handleKeyDown}
+            dangerouslySetInnerHTML={{
+              __html: !textValue === '' ? textValue : MESSAGE.placeholder,
+            }}
           ></pre>
           {characters.map(({ offsetX, offsetY, path, id, category }: ItemObjectType, idx) => (
             <div
               className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px] cursor-pointer`}
-              style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
+              style={{
+                left: `${offsetX}px`,
+                top: `${offsetY}px`,
+                transform: 'translate(-50%,-50%)',
+              }}
               key={idx}
               onClick={() => makeItemEditable(id, category)}
             >
-                <img src={path} alt={'character'} width={30} height={30} />
+              <img src={path} alt={'character'} width={30} height={30} />
             </div>
           ))}
           {stickers.map(({ offsetX, offsetY, path, id, category }: ItemObjectType, idx) => (
             <div
               className={`absolute flex flex-col items-end left-[${offsetX}px] top-[${offsetY}px] cursor-pointer`}
-              style={{ left: `${offsetX}px`, top: `${offsetY}px`, transform: 'translate(-50%,-50%)' }}
+              style={{
+                left: `${offsetX}px`,
+                top: `${offsetY}px`,
+                transform: 'translate(-50%,-50%)',
+              }}
               key={idx}
               onClick={() => makeItemEditable(id, category)}
             >
-                <img src={path} alt={'sticker'} width={30} height={30} />
+              <img src={path} alt={'sticker'} width={30} height={30} />
             </div>
           ))}
           <div onClick={e => clearAllItems(e)}>
             <img
-              className="absolute cursor-pointer ml-[10px]"
+              className="absolute ml-[10px] cursor-pointer"
               src={'/creation/eraser.svg'}
               alt={'eraserButton'}
               width={24}
@@ -230,8 +257,12 @@ export default function Display(props: DisplayProps) {
           </div>
           {editableItem && (
             <div
-              className={`absolute flex flex-col items-end cursor-pointer`}
-              style={{ left: `${editableItem.offsetX}px`, top: `${editableItem.offsetY}px`, transform: 'translate(-50%,-50%)' }}
+              className={`absolute flex cursor-pointer flex-col items-end`}
+              style={{
+                left: `${editableItem.offsetX}px`,
+                top: `${editableItem.offsetY}px`,
+                transform: 'translate(-50%,-50%)',
+              }}
             >
               <div
                 className="cursor-pointer"
@@ -240,16 +271,8 @@ export default function Display(props: DisplayProps) {
               >
                 <img src="/creation/cancel.svg" alt="cancelButton" width={16} height={16} />
               </div>
-              <div
-                onMouseDown={handleMouseDown}
-                onTouchStart={handleMouseDown}
-              >
-                <img
-                  src={editableItem.path}
-                  alt={'editableItem'}
-                  width={40}
-                  height={40}
-                />
+              <div onMouseDown={handleMouseDown} onTouchStart={handleMouseDown}>
+                <img src={editableItem.path} alt={'editableItem'} width={40} height={40} />
               </div>
             </div>
           )}
