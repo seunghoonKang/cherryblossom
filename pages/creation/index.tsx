@@ -41,7 +41,7 @@ const Creation = () => {
 
     const filename = uuidv4();
 
-    await saveImg('display', filename);
+    await saveImg('outerDisplay', filename);
     router.push({
       pathname: '/complete/[img]',
       query: { img: filename },
@@ -49,9 +49,8 @@ const Creation = () => {
   };
 
   const handleMouseMove = (e: MouseEvent | TouchEvent) => {
-    if (!draggable)
-      return;
-    
+    if (!draggable) return;
+
     const displayRect = document.querySelector('#display')?.getBoundingClientRect();
     const displayLeft = displayRect?.left; // 전체 브라우저 화면에서 현재 page 컴포넌트 기준으로 좌표 계산
     const displayTop = displayRect?.top;
@@ -80,21 +79,22 @@ const Creation = () => {
   };
 
   const handleMouseUp = (e: MouseEvent | TouchEvent) => {
-    if (!editableItem)
-      return;
-    e.preventDefault();  // mouseUp 뒤에 따라오는 click event 막기
+    if (!editableItem) return;
+    e.preventDefault(); // mouseUp 뒤에 따라오는 click event 막기
 
     document.querySelector('#creation-page')?.classList.remove('overflow-hidden');
     const category = editableItem.category;
-    
+
     sessionStorage.setItem(
       category,
       JSON.stringify(
         category === 'character' ? [...characters, editableItem] : [...stickers, editableItem]
       )
     );
-        
-    category === 'character' ? setCharacters(prev => [...prev, editableItem]) : setStickers(prev => [...prev, editableItem]);
+
+    category === 'character'
+      ? setCharacters(prev => [...prev, editableItem])
+      : setStickers(prev => [...prev, editableItem]);
     setDraggable(false);
     setEditableItem(null);
   };
