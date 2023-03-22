@@ -73,12 +73,6 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js "
           onLoad={kakaoInit}
         />
-        <div
-          onClick={handleQuestionClick}
-          className="absolute top-[20px] right-[20px] cursor-pointer"
-        >
-          <Image src={'/question_mark.svg'} alt="question_mark" width={24} height={24} />
-        </div>
 
         <section id="card" className="relative flex justify-center">
           <ToastMessage
@@ -94,6 +88,13 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
               handleClickAgreeButton={handleClickAgreeButton}
             />
           )}
+          <div
+            onClick={handleQuestionClick}
+            className="absolute top-[34px] flex w-full max-w-[320px] cursor-pointer justify-end"
+          >
+            <Image src={'/question_mark.svg'} alt="question_mark" width={28} height={28} />
+          </div>
+
           <div className="absolute top-[44px] z-30 flex h-[40px] w-[240px] items-center justify-center rounded-[10px] border-[3px] border-solid border-[#FFC9D4] bg-[#FEEFF4] shadow-blossom-pink drop-shadow-pageTitle">
             벚꽃 초대장
           </div>
@@ -138,7 +139,6 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
             <button
               onClick={handleClickRewriteBtn}
               className="h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow text-[22px]"
-              // className="h-[50px] w-full max-w-[320px] grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow"
             >
               <p>나도 초대장 만들어보기</p>
             </button>
