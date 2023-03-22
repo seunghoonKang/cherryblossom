@@ -73,14 +73,14 @@ export default function CompleteLayout({ type, imageName, image }: propsType) {
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js "
           onLoad={kakaoInit}
         />
-        <ToastMessage
-          popToastMsg={popToastMsg}
-          setPopToastMsg={setPopToastMsg}
-          image={'/mail_icon.svg'}
-          message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
-        />
 
         <section id="card" className="relative flex justify-center">
+          <ToastMessage
+            popToastMsg={popToastMsg}
+            setPopToastMsg={setPopToastMsg}
+            image={'/mail_icon.svg'}
+            message={toastType === 'copy' ? MESSAGE.copy : MESSAGE.save}
+          />
           {isModal && (
             <SelectionModal
               message="서비스에 대한 의견을 보내시겠습니까?"
@@ -90,7 +90,7 @@ export default function CompleteLayout({ type, imageName, image }: propsType) {
           )}
           <div
             onClick={handleQuestionClick}
-            className="absolute top-[34px] flex w-full max-w-[320px] cursor-pointer justify-end"
+            className="absolute top-[30px] flex w-full max-w-[320px] cursor-pointer justify-end"
           >
             <Image src={'/question_mark.svg'} alt="question_mark" width={28} height={28} />
           </div>
