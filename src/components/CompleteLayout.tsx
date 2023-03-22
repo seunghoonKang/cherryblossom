@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { copyLink } from '@/pages/api/share';
@@ -13,11 +13,11 @@ import { MESSAGE } from '../constants/message';
 
 type propsType = {
   type: 'complete' | 'receive';
-  imageUrl: string | undefined;
   imageName: string;
+  image: ReactElement;
 };
 
-export default function CompleteLayout({ type, imageUrl, imageName }: propsType) {
+export default function CompleteLayout({ type, imageName, image }: propsType) {
   const [popToastMsg, setPopToastMsg] = useState(false);
   const [toastType, setToastType] = useState<'copy' | 'save'>('copy');
   const [checkClickedBtn, setCheckClickedBtn] = useState({ copy: false, save: false });
@@ -99,11 +99,7 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
             벚꽃 초대장
           </div>
           <div className="relative z-20 mt-[66px] flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-[8px] bg-white shadow-md">
-            <div className="relative h-full w-full">
-              {imageUrl !== undefined && (
-                <Image src={imageUrl} alt="invitation-img" fill priority loading="eager" />
-              )}
-            </div>
+            <div className="relative h-full w-full">{image}</div>
           </div>
         </section>
 
@@ -135,10 +131,10 @@ export default function CompleteLayout({ type, imageUrl, imageName }: propsType)
             </div>
           </section>
         ) : (
-          <section id="middleBtn" className="mt-4 flex w-full justify-between">
+          <section id="middleBtn" className="mt-4 flex w-full justify-center">
             <button
               onClick={handleClickRewriteBtn}
-              className="h-[50px] w-full grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow text-[22px]"
+              className="h-[50px] w-full max-w-[320px] grow-0 cursor-pointer rounded-[10px] border border-solid border-white bg-btn-yellow"
             >
               <p>나도 초대장 만들어보기</p>
             </button>
