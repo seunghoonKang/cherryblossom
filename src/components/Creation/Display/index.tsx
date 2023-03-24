@@ -208,7 +208,7 @@ export default function Display(props: DisplayProps) {
       <div
         id="outerDisplay"
         ref={displayRef}
-        className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4] bg-[#FDC7D4]"
+        className="relative flex h-[300px] w-[320px] items-center justify-center overflow-hidden rounded-lg border border-solid border-[#FDC7D4]"
       >
         <div
           onClick={handleQuestionClick}
