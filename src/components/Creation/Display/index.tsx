@@ -252,7 +252,7 @@ export default function Display(props: DisplayProps) {
               key={idx}
               onClick={() => makeItemEditable(id, category)}
             >
-              <img src={path} alt={'character'} width={30} height={30} />
+              <img src={path} alt={'character'} width={50} height={50} />
             </div>
           ))}
           {stickers.map(({ offsetX, offsetY, path, id, category }: ItemObjectType, idx) => (
@@ -266,7 +266,7 @@ export default function Display(props: DisplayProps) {
               key={idx}
               onClick={() => makeItemEditable(id, category)}
             >
-              <img src={path} alt={'sticker'} width={30} height={30} />
+              <img src={path} alt={'sticker'} width={50} height={50} />
             </div>
           ))}
           <div onClick={e => handleClickClearModal(e)}>
@@ -303,7 +303,7 @@ export default function Display(props: DisplayProps) {
                 <img src="/creation/cancel.svg" alt="cancelButton" width={16} height={16} />
               </div>
               <div onMouseDown={handleMouseDown} onTouchStart={handleMouseDown}>
-                <img src={editableItem.path} alt={'editableItem'} width={40} height={40} />
+                <img src={editableItem.path} alt={'editableItem'} width={68} height={68} />
               </div>
             </div>
           )}
